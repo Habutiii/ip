@@ -19,6 +19,7 @@ public class HaBot {
         System.out.println(SEPARATOR);
     }
 
+
     private static void greet() {
         String logo = """
                  _     _           ____ \s
@@ -40,18 +41,17 @@ public class HaBot {
 
     private static void listTasks() {
         // List all stored tasks
-        if (taskLen == 0) {
-            send("No task stored yet.");
-        } else {
-            String out = "Here are the tasks in your list (๑•̀ㅂ•́)ง✧\n";
-            for (int i = 0; i < taskLen; i++) {
-                out += (i + 1) + "." + storedTasks[i] ;
-                if (i < taskLen - 1) {
-                    out += "\n";
-                }
-            }
-            send(out);
+        if (taskLen <= 0) {
+            throw new HaBotException("No task stored yet.");
         }
+        String out = "Here are the tasks in your list (๑•̀ㅂ•́)ง✧\n";
+        for (int i = 0; i < taskLen; i++) {
+            out += (i + 1) + "." + storedTasks[i] ;
+            if (i < taskLen - 1) {
+                out += "\n";
+            }
+        }
+        send(out);
     }
 
     private static void markTask(String indexStr, Boolean isDone) {
@@ -59,7 +59,7 @@ public class HaBot {
             int taskIndex = Integer.parseInt(indexStr) - 1;
 
             if (taskIndex < 0 || taskIndex >= taskLen) {
-                send("Invalid task number. List all tasks with 'list' to see available tasks.");
+                throw new HaBotException("Invalid task number. List all tasks with 'list' to see available tasks.");
             } else {
                 if (isDone) {
                     storedTasks[taskIndex].markAsDone();
@@ -70,97 +70,72 @@ public class HaBot {
                 }
             }
         } catch (NumberFormatException e) {
-            send("Invalid input format. Please use '" + ( isDone ? "mark" : "unmark" ) + " <task number>'.");
+            throw new HaBotException("Invalid input format. Please use '" + ( isDone ? "mark" : "unmark" ) + " <task number>'.");
         }
     }
 
     private static void addTask(Task task) {
         if (taskLen < storeSize) {
             storedTasks[taskLen++] = task;
-            send("Sure! New task \\( ﾟヮﾟ)/\n  " + task + "\nNow you have " + taskLen + " tasks in the list ノ(゜-゜ノ)");
+            send("Sure! New task \\( ﾟヮﾟ)/\n  " + task + "\nThe number of tasks you have to do: ★ " + taskLen + " ★ ノ(゜-゜ノ)");
         } else {
-            send("Sorry, I can't store more tasks right now.");
+            throw new HaBotException("Sorry, I can't store more tasks right now.");
         }
     }
 
     public static void main(String[] args) {
-        // Print the greeting message
-        greet();
+        greet(); // Print the greeting message
 
-        // read user input
         while (true) {
-            String input = readInput();
+            try {
+                String input = readInput(); // read user input
 
+                if (input.equalsIgnoreCase("bye")) {
+                    break;
+                } else if (input.equalsIgnoreCase("list")) {
+                    listTasks();
+                } else if (input.startsWith("mark ")) {     // if input is "mark \d", mark the task as done
+                    markTask(input.substring(5), true);
+                } else if (input.startsWith("unmark ")) {   // if input is "unmark \d", unmark the task as done
+                    markTask(input.substring(7), false);
+                } else if (input.startsWith("todo ")) {     // Different task types
+                    String description = input.substring(5).trim();
+                    addTask(new ToDo(description));
+                } else if (input.startsWith("deadline ")) {
+                    String[] parts = input.substring(9).split("/by", 2);
+                    if (parts.length < 2) {
+                        throw new HaBotException("Please provide a description and a deadline in the format: 'deadline <description> /by <date>'.");
+                    }
+                    String description = parts[0].trim();
+                    String by = parts[1].trim();
+                    addTask(new Deadline(description, by));
+                } else if (input.startsWith("event ")) {
+                    String[] firstSplit = input.substring(6).split("/from", 2);
+                    String eventHintMsg = "Please provide a valid description, start time, and end time in the format: 'event <description> /from <start> /to <end>'.";
+                    if (firstSplit.length < 2) {
+                        throw new HaBotException(eventHintMsg);
+                    }
+                    String description = firstSplit[0].trim();
+                    String[] secondSplit = firstSplit[1].split("/to", 2);
+                    if (secondSplit.length < 2) {
+                        throw new HaBotException(eventHintMsg);
+                    }
+                    String from = secondSplit[0].trim();
+                    String to = secondSplit[1].trim();
 
-            if (input.equalsIgnoreCase("bye")) {
-                break;
-            }
+                    if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+                        throw new HaBotException(eventHintMsg);
+                    }
 
-            if (input.equalsIgnoreCase("list")) {
-                listTasks();
-                continue;
-            }
-
-            // if input is "mark \d", mark the task as done
-            if (input.startsWith("mark ")) {
-                markTask(input.substring(5), true);
-                continue;
-            }
-
-            // if input is "unmark \d", unmark the task as done
-            if (input.startsWith("unmark ")) {
-                markTask(input.substring(7), false);
-                continue;
-            }
-
-            // Different task types
-            if (input.startsWith("todo ")) {
-                String description = input.substring(5).trim();
-                addTask(new ToDo(description));
-                continue;
-            }
-
-            if (input.startsWith("deadline ")) {
-                String[] parts = input.substring(9).split("/by", 2);
-                if (parts.length < 2) {
-                    send("Please provide a description and a deadline in the format: 'deadline <description> /by <date>'.");
-                    continue;
+                    addTask(new Event(description, from, to));
+                } else {
+                    throw new HaBotException("Sorry, What are you trying to say? (｡•́︿•̀｡)???\nI don't understand that command.");
                 }
-                String description = parts[0].trim();
-                String by = parts[1].trim();
-                addTask(new Deadline(description, by));
-                continue;
+            } catch (HaBotException e) {
+                send("Error (ノ•`_´•)ノ︵┻━┻ " + e.getMessage());
             }
-
-            if (input.startsWith("event ")) {
-                String[] firstSplit = input.substring(6).split("/from", 2);
-                if (firstSplit.length < 2) {
-                    send("Please provide a valid description, start time, and end time in the format: 'event <description> /from <start> /to <end>'.");
-                    continue;
-                }
-                String description = firstSplit[0].trim();
-                String[] secondSplit = firstSplit[1].split("/to", 2);
-                if (secondSplit.length < 2) {
-                    send("Please provide a valid description, start time, and end time in the format: 'event <description> /from <start> /to <end>'.");
-                    continue;
-                }
-                String from = secondSplit[0].trim();
-                String to = secondSplit[1].trim();
-
-                if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-                    send("Please provide a valid description, start time, and end time in the format: 'event <description> /from <start> /to <end>'.");
-                    continue;
-                }
-
-                addTask(new Event(description, from, to));
-                continue;
-            }
-
-            send("Sorry, What are you trying to say? (｡•́︿•̀｡)???\nI don't understand that command.");
-
         }
 
-        // Print the goodbye message
-        bye();
+        bye();  // Print the goodbye message
     }
 }

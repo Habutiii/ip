@@ -9,30 +9,25 @@ What can I do for you?
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
-No task stored yet.
---------------------------------------------------
-> --------------------------------------------------
-<|°_°|>
-Sorry, What are you trying to say? (｡•́︿•̀｡)???
-I don't understand that command.
+Error (ノ•`_´•)ノ︵┻━┻ No task stored yet.
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
 Sure! New task \( ﾟヮﾟ)/
   [T][ ] borrow book
-Now you have 1 tasks in the list ノ(゜-゜ノ)
+The number of tasks you have to do: ★ 1 ★ ノ(゜-゜ノ)
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
 Sure! New task \( ﾟヮﾟ)/
   [D][ ] return book (by: Sunday)
-Now you have 2 tasks in the list ノ(゜-゜ノ)
+The number of tasks you have to do: ★ 2 ★ ノ(゜-゜ノ)
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
 Sure! New task \( ﾟヮﾟ)/
   [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in the list ノ(゜-゜ノ)
+The number of tasks you have to do: ★ 3 ★ ノ(゜-゜ノ)
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
@@ -74,6 +69,39 @@ Here are the tasks in your list (๑•̀ㅂ•́)ง✧
 1.[T][ ] borrow book
 2.[D][X] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+--------------------------------------------------
+> --------------------------------------------------
+<|°_°|>
+Error (ノ•`_´•)ノ︵┻━┻ Sorry, What are you trying to say? (｡•́︿•̀｡)???
+I don't understand that command.
+--------------------------------------------------
+> --------------------------------------------------
+<|°_°|>
+Error (ノ•`_´•)ノ︵┻━┻ Invalid task number. List all tasks with 'list' to see available tasks.
+--------------------------------------------------
+> --------------------------------------------------
+<|°_°|>
+Error (ノ•`_´•)ノ︵┻━┻ Invalid task number. List all tasks with 'list' to see available tasks.
+--------------------------------------------------
+> --------------------------------------------------
+<|°_°|>
+Error (ノ•`_´•)ノ︵┻━┻ Invalid input format. Please use 'mark <task number>'.
+--------------------------------------------------
+> --------------------------------------------------
+<|°_°|>
+Error (ノ•`_´•)ノ︵┻━┻ Please provide a description and a deadline in the format: 'deadline <description> /by <date>'.
+--------------------------------------------------
+> --------------------------------------------------
+<|°_°|>
+Error (ノ•`_´•)ノ︵┻━┻ Please provide a valid description, start time, and end time in the format: 'event <description> /from <start> /to <end>'.
+--------------------------------------------------
+> --------------------------------------------------
+<|°_°|>
+Error (ノ•`_´•)ノ︵┻━┻ Please provide a valid description, start time, and end time in the format: 'event <description> /from <start> /to <end>'.
+--------------------------------------------------
+> --------------------------------------------------
+<|°_°|>
+Error (ノ•`_´•)ノ︵┻━┻ Please provide a valid description, start time, and end time in the format: 'event <description> /from <start> /to <end>'.
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
