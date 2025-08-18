@@ -95,61 +95,60 @@ public class HaBot {
         send("Sure! New task \\( ﾟヮﾟ)/\n  " + task + "\nThe number of tasks you have to do: ★ " + storedTasks.size() + " ★ ノ(゜-゜ノ)");
     }
 
+    // Helper to extract argument after command keyword
+    private static String getArg(String input, String command) {
+        return input.substring(command.length()).trim();
+    }
+
+    private static void handleCommand(String input) {
+        CommandType command = CommandType.fromInput(input);
+        switch (command) {
+            case LIST:
+                listTasks();
+                break;
+            case MARK:
+                markTask(getArg(input, "mark"), true);
+                break;
+            case UNMARK:
+                markTask(getArg(input, "unmark"), false);
+                break;
+            case DELETE:
+                deleteTask(getArg(input, "delete"));
+                break;
+            case TODO:
+                addTask(new ToDo(getArg(input, "todo")));
+                break;
+            case DEADLINE:
+                String[] parts = getArg(input, "deadline").split("/by", 2);
+                // the /by argument is mandatory
+                if (parts.length < 2) throw new HaBotException("Please provide a description and a deadline in the format: 'deadline <description> /by <date>'.");
+                addTask(new Deadline(parts[0].trim(), parts[1].trim()));
+                break;
+            case EVENT:
+                String[] firstSplit = getArg(input, "event").split("/from", 2);
+                // the /from and /to arguments are mandatory
+                if (firstSplit.length < 2) throw new HaBotException("Please provide a valid description, start time, and end time in the format: 'event <description> /from <start> /to <end>'.");
+                String[] secondSplit = firstSplit[1].split("/to", 2);
+                if (secondSplit.length < 2) throw new HaBotException("Please provide a valid description, start time, and end time in the format: 'event <description> /from <start> /to <end>'.");
+                addTask(new Event(firstSplit[0].trim(), secondSplit[0].trim(), secondSplit[1].trim()));
+                break;
+            default:
+                // If the command is not recognized, throw an exception
+                throw new HaBotException("Sorry, What are you trying to say? (｡•́︿•̀｡)???\nI don't understand that command.");
+        }
+    }
+
     public static void main(String[] args) {
         greet(); // Print the greeting message
-
         while (true) {
             try {
-                String input = readInput(); // read user input
-
-                if (input.equalsIgnoreCase("bye")) {
-                    break;
-                } else if (input.equalsIgnoreCase("list")) {
-                    listTasks();
-                } else if (input.startsWith("mark ")) {     // if input is "mark \d", mark the task as done
-                    markTask(input.substring(5), true);
-                } else if (input.startsWith("unmark ")) {   // if input is "unmark \d", unmark the task as done
-                    markTask(input.substring(7), false);
-                } else if (input.startsWith("delete ")) {   // if input is "delete \d", unmark the task as done
-                    deleteTask(input.substring(7));
-                } else if (input.startsWith("todo ")) {     // Different task types
-                    String description = input.substring(5).trim();
-                    addTask(new ToDo(description));
-                } else if (input.startsWith("deadline ")) {
-                    String[] parts = input.substring(9).split("/by", 2);
-                    if (parts.length < 2) {
-                        throw new HaBotException("Please provide a description and a deadline in the format: 'deadline <description> /by <date>'.");
-                    }
-                    String description = parts[0].trim();
-                    String by = parts[1].trim();
-                    addTask(new Deadline(description, by));
-                } else if (input.startsWith("event ")) {
-                    String[] firstSplit = input.substring(6).split("/from", 2);
-                    String eventHintMsg = "Please provide a valid description, start time, and end time in the format: 'event <description> /from <start> /to <end>'.";
-                    if (firstSplit.length < 2) {
-                        throw new HaBotException(eventHintMsg);
-                    }
-                    String description = firstSplit[0].trim();
-                    String[] secondSplit = firstSplit[1].split("/to", 2);
-                    if (secondSplit.length < 2) {
-                        throw new HaBotException(eventHintMsg);
-                    }
-                    String from = secondSplit[0].trim();
-                    String to = secondSplit[1].trim();
-
-                    if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-                        throw new HaBotException(eventHintMsg);
-                    }
-
-                    addTask(new Event(description, from, to));
-                } else {
-                    throw new HaBotException("Sorry, What are you trying to say? (｡•́︿•̀｡)???\nI don't understand that command.");
-                }
+                String input = readInput();
+                if (CommandType.fromInput(input) == CommandType.BYE) break;
+                handleCommand(input);
             } catch (HaBotException e) {
                 send("Error (ノ•`_´•)ノ︵┻━┻ " + e.getMessage());
             }
         }
-
         bye();  // Print the goodbye message
     }
 }
