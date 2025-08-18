@@ -9,10 +9,16 @@ list
 unmark 1
 unmark 3
 list
+delete 1
+list
 test error
 mark 10
 unmark 11
 mark 1 2
+unmark 1 2
+delete 1 2
+delete 10
+delete -1
 deadline should have by
 event should have from to
 event should have from \to 1

@@ -1,11 +1,11 @@
+import java.util.ArrayList;
+
 public class HaBot {
     // Define the name of the bot
     private static final String NAME = "HaBot";
 
-    private static final int storeSize = 100;
-    private static int taskLen = 0;
 
-    private static final Task[] storedTasks = new Task[storeSize];
+    private static final ArrayList<Task> storedTasks = new ArrayList<>();
 
     // Scanner for reading user input
     private static final java.util.Scanner SCANNER = new java.util.Scanner(System.in);
@@ -41,13 +41,13 @@ public class HaBot {
 
     private static void listTasks() {
         // List all stored tasks
-        if (taskLen <= 0) {
+        if (storedTasks.isEmpty()) {
             throw new HaBotException("No task stored yet.");
         }
         String out = "Here are the tasks in your list (๑•̀ㅂ•́)ง✧\n";
-        for (int i = 0; i < taskLen; i++) {
-            out += (i + 1) + "." + storedTasks[i] ;
-            if (i < taskLen - 1) {
+        for (int i = 0; i < storedTasks.size(); i++) {
+            out += (i + 1) + "." + storedTasks.get(i) ;
+            if (i < storedTasks.size() - 1) {
                 out += "\n";
             }
         }
@@ -58,15 +58,15 @@ public class HaBot {
         try {
             int taskIndex = Integer.parseInt(indexStr) - 1;
 
-            if (taskIndex < 0 || taskIndex >= taskLen) {
+            if (taskIndex < 0 || taskIndex >= storedTasks.size()) {
                 throw new HaBotException("Invalid task number. List all tasks with 'list' to see available tasks.");
             } else {
                 if (isDone) {
-                    storedTasks[taskIndex].markAsDone();
-                    send("OK! Done done done! ᕙ(`▽´)ᕗ \n  " + storedTasks[taskIndex]);
+                    storedTasks.get(taskIndex).markAsDone();
+                    send("OK! Done done done! ᕙ(`▽´)ᕗ \n  " + storedTasks.get(taskIndex));
                 } else {
-                    storedTasks[taskIndex].markAsNotDone();
-                    send("Awww, still need do (º﹃º)ᕗ\n  " + storedTasks[taskIndex]);
+                    storedTasks.get(taskIndex).markAsNotDone();
+                    send("Awww, still need do (º﹃º)ᕗ\n  " + storedTasks.get(taskIndex));
                 }
             }
         } catch (NumberFormatException e) {
@@ -74,13 +74,25 @@ public class HaBot {
         }
     }
 
-    private static void addTask(Task task) {
-        if (taskLen < storeSize) {
-            storedTasks[taskLen++] = task;
-            send("Sure! New task \\( ﾟヮﾟ)/\n  " + task + "\nThe number of tasks you have to do: ★ " + taskLen + " ★ ノ(゜-゜ノ)");
-        } else {
-            throw new HaBotException("Sorry, I can't store more tasks right now.");
+    private static void deleteTask(String indexStr) {
+        try {
+            int taskIndex = Integer.parseInt(indexStr) - 1;
+
+            if (taskIndex < 0 || taskIndex >= storedTasks.size()) {
+                throw new HaBotException("Invalid task number. List all tasks with 'list' to see available tasks.");
+            } else {
+                Task removedTask = storedTasks.get(taskIndex);
+                storedTasks.remove(taskIndex);
+                send("OK! Removed task! (`▽´)/ o()xxxx[{::::::::::::::::::> \n  " + removedTask + "\nThe number of tasks you have to do: ★ " + storedTasks.size() + " ★ ノ(゜-゜ノ)");
+            }
+        } catch (NumberFormatException e) {
+            throw new HaBotException("Invalid input format. Please use '" + "delete" + " <task number>'.");
         }
+    }
+
+    private static void addTask(Task task) {
+        storedTasks.add(task);
+        send("Sure! New task \\( ﾟヮﾟ)/\n  " + task + "\nThe number of tasks you have to do: ★ " + storedTasks.size() + " ★ ノ(゜-゜ノ)");
     }
 
     public static void main(String[] args) {
@@ -98,6 +110,8 @@ public class HaBot {
                     markTask(input.substring(5), true);
                 } else if (input.startsWith("unmark ")) {   // if input is "unmark \d", unmark the task as done
                     markTask(input.substring(7), false);
+                } else if (input.startsWith("delete ")) {   // if input is "delete \d", unmark the task as done
+                    deleteTask(input.substring(7));
                 } else if (input.startsWith("todo ")) {     // Different task types
                     String description = input.substring(5).trim();
                     addTask(new ToDo(description));
