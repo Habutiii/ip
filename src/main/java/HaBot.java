@@ -1,20 +1,22 @@
 public class HaBot {
-    // Define the name and logo of the bot
+    // Define the name of the bot
     private static final String NAME = "HaBot";
+
+    private static final int storeSize = 100;
+    private static int storePtr = 0;
+
+    private static String[] storedMessages = new String[storeSize];
 
     // Scanner for reading user input
     private static final java.util.Scanner SCANNER = new java.util.Scanner(System.in);
 
     private static final String SEPARATOR = "-".repeat(50);
-    private static void printSeparator() {
-        System.out.println(SEPARATOR);
-    }
 
     private static void send(String message) {
-        printSeparator();
+        System.out.println(SEPARATOR);
         System.out.println("<|°_°|>");
         System.out.println(message);
-        printSeparator();
+        System.out.println(SEPARATOR);
     }
 
     private static void greet() {
@@ -36,6 +38,22 @@ public class HaBot {
         return SCANNER.nextLine();
     }
 
+    private static void listMessages() {
+        // List all stored messages
+        if (storePtr == 0) {
+            send("No messages stored yet.");
+        } else {
+            String out = "";
+            for (int i = 0; i < storePtr; i++) {
+                out += (i + 1) + ": " + storedMessages[i] ;
+                if (i < storePtr - 1) {
+                    out += "\n";
+                }
+            }
+            send(out);
+        }
+
+    }
 
     public static void main(String[] args) {
 
@@ -44,16 +62,29 @@ public class HaBot {
         greet();
 
         // read user input
+        while (true) {
+            String input = readInput();
 
-        String input = readInput();
-        while (!input.equalsIgnoreCase(endpoint)) {
-            // echo it back
-            send(input);
-            input = readInput();
+
+            if (input.equalsIgnoreCase(endpoint)) {
+                break;
+            }
+
+            if (input.equalsIgnoreCase("list")) {
+                listMessages();
+                continue;
+            }
+
+            // append the input to the stored messages
+            if (storePtr < storeSize) {
+                storedMessages[storePtr++] = input;
+                send("added: " + input);
+            } else {
+                send("Store is full, cannot save more messages.");
+            }
         }
 
         // Print the goodbye message
         bye();
-
     }
 }
