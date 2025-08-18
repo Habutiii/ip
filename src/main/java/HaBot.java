@@ -31,11 +31,26 @@ public class HaBot {
         send("Bye. Hope to see you again soon!");
     }
 
+    private static String readInput() {
+        System.out.print("> ");
+        return SCANNER.nextLine();
+    }
+
+
     public static void main(String[] args) {
 
         String endpoint = "bye";
         // Print the greeting message
         greet();
+
+        // read user input
+
+        String input = readInput();
+        while (!input.equalsIgnoreCase(endpoint)) {
+            // echo it back
+            send(input);
+            input = readInput();
+        }
 
         // Print the goodbye message
         bye();
