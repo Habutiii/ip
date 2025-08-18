@@ -5,7 +5,7 @@ public class HaBot {
     private static final int storeSize = 100;
     private static int storePtr = 0;
 
-    private static String[] storedMessages = new String[storeSize];
+    private static Task[] storedTasks = new Task[storeSize];
 
     // Scanner for reading user input
     private static final java.util.Scanner SCANNER = new java.util.Scanner(System.in);
@@ -26,11 +26,11 @@ public class HaBot {
                  |     | |____|__ |_____] |____|   |__  \s
                 """;
         System.out.println(logo);
-        send("Hello! I'm " + NAME + "!\nWhat can I do for you?");
+        send("Hello! I'm " + NAME + "! (*v*)ノシ\nWhat can I do for you?");
     }
 
     private static void bye() {
-        send("Bye. Hope to see you again soon!");
+        send("Bye. Hope to see you again soon! (•̀ᴗ•́)و ✧");
     }
 
     private static String readInput() {
@@ -38,26 +38,43 @@ public class HaBot {
         return SCANNER.nextLine();
     }
 
-    private static void listMessages() {
+    private static void listTasks() {
         // List all stored messages
         if (storePtr == 0) {
             send("No messages stored yet.");
         } else {
-            String out = "";
+            String out = "Here are the tasks in your list (๑•̀ㅂ•́)ง✧\n";
             for (int i = 0; i < storePtr; i++) {
-                out += (i + 1) + ": " + storedMessages[i] ;
+                out += (i + 1) + "." + storedTasks[i] ;
                 if (i < storePtr - 1) {
                     out += "\n";
                 }
             }
             send(out);
         }
+    }
 
+    private static void markTask(String indexStr, Boolean isDone) {
+        try {
+            int taskIndex = Integer.parseInt(indexStr) - 1;
+
+            if (taskIndex < 0 || taskIndex >= storePtr) {
+                send("Invalid task number. List all tasks with 'list' to see available tasks.");
+            } else {
+                if (isDone) {
+                    storedTasks[taskIndex].markAsDone();
+                    send("OK! Done done done! ᕙ(`▽´)ᕗ \n  " + storedTasks[taskIndex]);
+                } else {
+                    storedTasks[taskIndex].markAsNotDone();
+                    send("Awww, still need do (º﹃º)ᕗ\n  " + storedTasks[taskIndex]);
+                }
+            }
+        } catch (NumberFormatException e) {
+            send("Invalid input format. Please use '" + ( isDone ? "mark" : "unmark" ) + " <task number>'.");
+        }
     }
 
     public static void main(String[] args) {
-
-        String endpoint = "bye";
         // Print the greeting message
         greet();
 
@@ -66,22 +83,36 @@ public class HaBot {
             String input = readInput();
 
 
-            if (input.equalsIgnoreCase(endpoint)) {
+            if (input.equalsIgnoreCase("bye")) {
                 break;
             }
 
             if (input.equalsIgnoreCase("list")) {
-                listMessages();
+                listTasks();
+                continue;
+            }
+
+            // if input is "mark \d", mark the task as done
+            if (input.startsWith("mark ")) {
+                markTask(input.substring(5), true);
+                continue;
+            }
+
+            // if input is "unmark \d", unmark the task as done
+            if (input.startsWith("unmark ")) {
+                markTask(input.substring(7), false);
                 continue;
             }
 
             // append the input to the stored messages
             if (storePtr < storeSize) {
-                storedMessages[storePtr++] = input;
-                send("added: " + input);
+                Task task = new Task(input);
+                storedTasks[storePtr++] = task ;
+                send("added: " + task.getDescription());
             } else {
-                send("Store is full, cannot save more messages.");
+                send("Store is full, I can't take it anymore!");
             }
+
         }
 
         // Print the goodbye message
