@@ -1,7 +1,19 @@
 public class Ui {
     // Define the name of the bot
-    private static final String NAME = "HaBot";
-    private static final String SEPARATOR = "-".repeat(50);
+    private final String NAME = "HaBot";
+    private final String SEPARATOR = "-".repeat(50);
+
+    // Scanner for reading user input
+    private final java.util.Scanner SCANNER = new java.util.Scanner(System.in);
+
+    /**
+     * Reads a line of input from the user.
+     * @return The user's input as a String.
+     */
+    public String readInput() {
+        System.out.print("> ");
+        return SCANNER.nextLine();
+    }
 
     /**
      * Prints a formatted message in standardised format.

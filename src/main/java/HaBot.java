@@ -5,24 +5,15 @@
 public class HaBot {
     private final Ui ui;
     private final TaskList taskList;
+    private final Storage storage;
 
     public HaBot(String filePath) {
         this.ui = new Ui();
-        this.taskList = new TaskList(filePath);
+        this.taskList = new TaskList();
+        this.storage = new Storage(filePath);
 
     }
 
-    // Scanner for reading user input
-    private static final java.util.Scanner SCANNER = new java.util.Scanner(System.in);
-
-    /**
-     * Reads a line of input from the user.
-     * @return The user's input as a String.
-     */
-    private static String readInput() {
-        System.out.print("> ");
-        return SCANNER.nextLine();
-    }
 
     /**
      * Converts a string input to an integer, or throws a HaBotException with a hint if invalid.
@@ -180,7 +171,7 @@ public class HaBot {
         ui.greet(); // Print the greeting message
         while (true) {
             try {
-                String input = readInput();
+                String input = ui.readInput();
                 if (CommandType.fromInput(input) == CommandType.BYE) {
                     break;
                 }
