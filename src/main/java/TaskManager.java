@@ -12,9 +12,9 @@ public class TaskManager {
     /**
      * Constructs a new TaskManager with an empty list of tasks.
      */
-    public TaskManager() throws HaBotException {
+    public TaskManager(String filePath) throws HaBotException {
         this.tasks = new ArrayList<>();
-        load(); // Load tasks from file on initialization
+        load(filePath); // Load tasks from file on initialization
     }
 
     /**
@@ -47,9 +47,8 @@ public class TaskManager {
         }
     }
 
-    private void load() throws HaBotException {
-        String path = "tasks.txt";
-        java.io.File file = new java.io.File(path);
+    private void load(String filePath) throws HaBotException {
+        java.io.File file = new java.io.File(filePath);
 
         // Check if the file exists before attempting to load
         if (!file.exists()) {
