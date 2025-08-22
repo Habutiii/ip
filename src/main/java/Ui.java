@@ -40,13 +40,6 @@ public class Ui {
     }
 
     /**
-     * Prints the goodbye message.
-     */
-    public void bye() {
-        send("Bye. Hope to see you again soon! (•̀ᴗ•́)و ✧");
-    }
-
-    /**
      * Returns a hint string showing the number of tasks left to do.
      * @return A formatted string with the number of tasks remaining.
      */

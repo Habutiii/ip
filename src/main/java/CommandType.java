@@ -11,9 +11,9 @@ public enum CommandType {
      * @return The matching CommandType, or UNKNOWN if no match is found.
      */
     public static CommandType fromInput(String input) {
-        if (input.equalsIgnoreCase("bye")){
+        if (input.equals("bye")){
             return BYE;
-        } else if (input.equalsIgnoreCase("list")) {
+        } else if (input.equals("list")) {
             return LIST;
         } else if (input.startsWith("mark ")) {
             return MARK;

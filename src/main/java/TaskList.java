@@ -10,43 +10,39 @@ public class TaskList {
      */
     private final ArrayList<Task> tasks;
 
-    private final Storage storage;
-
     /**
      * Constructs a new TaskManager with an empty list of tasks.
      */
-    public TaskList(String filePath) throws HaBotException {
-        this.storage = new Storage(filePath);
-        this.tasks = this.load(); // Load tasks from file on initialization
+    public TaskList() throws HaBotException {
+        this.tasks = new ArrayList<>(); // Load tasks from file on initialization
     }
 
-    private ArrayList<Task> load() throws HaBotException {
-        // Initialize an empty list to hold the tasks
-        ArrayList<Task> tasks = new ArrayList<>();
-        // Load the tasks from plain text format
-        ArrayList<String> lines = storage.load();
-        // Parse each line into a Task object and add it to the list
+    public TaskList(List<String> lines) throws HaBotException {
+        this();
         for (String line : lines) {
             if (line.trim().isEmpty()) {
                 continue; // skip empty line
             }
             try {
                 Task task = Task.fromStoreFormat(line);
-                tasks.add(task);
+                this.tasks.add(task);
             } catch (HaBotException e) {
                 throw new HaBotException("Error loading task from file: " + e.getMessage());
             }
         }
-        return tasks;
     }
 
-    private void save() throws HaBotException {
+    /**
+     * Saves the current task list to persistent storage.
+     * @throws HaBotException If there is an error during saving.
+     */
+
+    public List<String> toStoreFormat() throws HaBotException {
         // Save the tasks to plain text format
-        List<String> lines = tasks.stream()
+
+        return tasks.stream()
                 .map(Task::toStoreFormat)
                 .toList();
-        // Save the lines to storage
-        storage.save(lines);
     }
 
     /**
@@ -75,7 +71,6 @@ public class TaskList {
      */
     public void add(Task task) throws HaBotException {
         tasks.add(task);
-        save();
     }
 
     /**
@@ -88,7 +83,6 @@ public class TaskList {
         validateIndex(index);
         Task removedTask = tasks.get(index);
         tasks.remove(index);
-        save();
         return removedTask;
     }
 
@@ -136,7 +130,6 @@ public class TaskList {
         } else {
             task.markAsNotDone();
         }
-        save();
         return task;
     }
 }
