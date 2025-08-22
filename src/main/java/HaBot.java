@@ -140,14 +140,22 @@ public class HaBot {
      * @throws HaBotException If the input format is invalid.
      */
     private static void addDeadLine(String input) throws HaBotException {
-        String[] parts = getArg(input, "deadline").split("/by", 2);
-        // the /by argument is mandatory
-        if (parts.length < 2)
-            throw new HaBotException(
-                    "Please provide a description and a deadline in the format: "
-                    + "'deadline <description> /by <date>'.");
+        String hint = "Please provide a valid description and deadline in the format: "
+                + "'deadline <description> /by <datetime>' (e.g., '2/12/2019 1800').";
 
-        addTask(new Deadline(parts[0].trim(), parts[1].trim()));
+        String[] parts = getArg(input, "deadline").split("/by", 2);
+
+        // the /by argument is mandatory
+        if (parts.length < 2) {
+            throw new HaBotException(hint);
+        }
+
+        try {
+            // Create a new Deadline task with the description and deadline
+            addTask(new Deadline(parts[0].trim(), parts[1].trim()));
+        } catch (Exception e) {
+            throw new HaBotException(e.getMessage() + "\n" + hint);
+        }
     }
 
     /**
@@ -157,21 +165,26 @@ public class HaBot {
      * @throws HaBotException If the input format is invalid.
      */
     private static void addEvent(String input) throws HaBotException {
+        String hint = "Please provide a valid description, start time, and end time in the format: "
+                + "'event <description> /from <datetime> /to <datetime>' (e.g., '2/12/2019 1800').";
+
         // the /from and /to arguments are mandatory
         String[] firstSplit = getArg(input, "event").split("/from", 2);
-        if (firstSplit.length < 2)
-            throw new HaBotException(
-                    "Please provide a valid description, start time, and end time in the format: "
-                    + "'event <description> /from <start> /to <end>'.");
+        if (firstSplit.length < 2) {
+            throw new HaBotException(hint);
+        }
 
         // the /to argument is mandatory
         String[] secondSplit = firstSplit[1].split("/to", 2);
-        if (secondSplit.length < 2)
-            throw new HaBotException(
-                    "Please provide a valid description, start time, and end time in the format: "
-                            + "'event <description> /from <start> /to <end>'.");
+        if (secondSplit.length < 2) {
+            throw new HaBotException(hint);
+        }
 
-        addTask(new Event(firstSplit[0].trim(), secondSplit[0].trim(), secondSplit[1].trim()));
+        try {
+            addTask(new Event(firstSplit[0].trim(), secondSplit[0].trim(), secondSplit[1].trim()));
+        } catch (Exception e) {
+            throw new HaBotException(e.getMessage() + "\n" + hint);
+        }
     }
 
     /**

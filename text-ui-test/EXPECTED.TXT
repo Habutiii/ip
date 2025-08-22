@@ -20,21 +20,21 @@ The number of tasks you have to do: ★ 1 ★ ノ(゜-゜ノ)
 > --------------------------------------------------
 <|°_°|>
 Sure! New task \( ﾟヮﾟ)/
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (By: Sep 22 2025 13:00)
 The number of tasks you have to do: ★ 2 ★ ノ(゜-゜ノ)
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
 Sure! New task \( ﾟヮﾟ)/
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+  [E][ ] project meeting (From: Aug 22 2025 08:00 To: Sep 22 2025 13:00)
 The number of tasks you have to do: ★ 3 ★ ノ(゜-゜ノ)
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
 Here are the tasks in your list (๑•̀ㅂ•́)ง✧
 1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][ ] return book (By: Sep 22 2025 13:00)
+3.[E][ ] project meeting (From: Aug 22 2025 08:00 To: Sep 22 2025 13:00)
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
@@ -44,14 +44,14 @@ OK! Done done done! ᕙ(`▽´)ᕗ
 > --------------------------------------------------
 <|°_°|>
 OK! Done done done! ᕙ(`▽´)ᕗ
-  [D][X] return book (by: Sunday)
+  [D][X] return book (By: Sep 22 2025 13:00)
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
 Here are the tasks in your list (๑•̀ㅂ•́)ง✧
 1.[T][X] borrow book
-2.[D][X] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][X] return book (By: Sep 22 2025 13:00)
+3.[E][ ] project meeting (From: Aug 22 2025 08:00 To: Sep 22 2025 13:00)
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
@@ -61,14 +61,14 @@ Awww, still need do (º﹃º)ᕗ
 > --------------------------------------------------
 <|°_°|>
 Awww, still need do (º﹃º)ᕗ
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+  [E][ ] project meeting (From: Aug 22 2025 08:00 To: Sep 22 2025 13:00)
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
 Here are the tasks in your list (๑•̀ㅂ•́)ง✧
 1.[T][ ] borrow book
-2.[D][X] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][X] return book (By: Sep 22 2025 13:00)
+3.[E][ ] project meeting (From: Aug 22 2025 08:00 To: Sep 22 2025 13:00)
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
@@ -79,8 +79,8 @@ The number of tasks you have to do: ★ 2 ★ ノ(゜-゜ノ)
 > --------------------------------------------------
 <|°_°|>
 Here are the tasks in your list (๑•̀ㅂ•́)ง✧
-1.[D][X] return book (by: Sunday)
-2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+1.[D][X] return book (By: Sep 22 2025 13:00)
+2.[E][ ] project meeting (From: Aug 22 2025 08:00 To: Sep 22 2025 13:00)
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
@@ -117,19 +117,24 @@ Error (ノ•`_´•)ノ︵┻━┻ Invalid task index.
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
-Error (ノ•`_´•)ノ︵┻━┻ Please provide a description and a deadline in the format: 'deadline <description> /by <date>'.
+Error (ノ•`_´•)ノ︵┻━┻ Please provide a valid description and deadline in the format: 'deadline <description> /by <datetime>' (e.g., '2/12/2019 1800').
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
-Error (ノ•`_´•)ノ︵┻━┻ Please provide a valid description, start time, and end time in the format: 'event <description> /from <start> /to <end>'.
+Error (ノ•`_´•)ノ︵┻━┻ Text '29131902841904' could not be parsed at index 14
+Please provide a valid description and deadline in the format: 'deadline <description> /by <datetime>' (e.g., '2/12/2019 1800').
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
-Error (ノ•`_´•)ノ︵┻━┻ Please provide a valid description, start time, and end time in the format: 'event <description> /from <start> /to <end>'.
+Error (ノ•`_´•)ノ︵┻━┻ Please provide a valid description, start time, and end time in the format: 'event <description> /from <datetime> /to <datetime>' (e.g., '2/12/2019 1800').
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
-Error (ノ•`_´•)ノ︵┻━┻ Please provide a valid description, start time, and end time in the format: 'event <description> /from <start> /to <end>'.
+Error (ノ•`_´•)ノ︵┻━┻ Please provide a valid description, start time, and end time in the format: 'event <description> /from <datetime> /to <datetime>' (e.g., '2/12/2019 1800').
+--------------------------------------------------
+> --------------------------------------------------
+<|°_°|>
+Error (ノ•`_´•)ノ︵┻━┻ Please provide a valid description, start time, and end time in the format: 'event <description> /from <datetime> /to <datetime>' (e.g., '2/12/2019 1800').
 --------------------------------------------------
 > --------------------------------------------------
 <|°_°|>
