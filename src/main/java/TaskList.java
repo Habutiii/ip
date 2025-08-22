@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * Manages a list of Task objects, providing methods to add, remove, retrieve, list, and mark tasks.
  */
-public class TaskManager {
+public class TaskList {
     /**
      * The list of tasks managed by this TaskManager.
      */
@@ -12,7 +12,7 @@ public class TaskManager {
     /**
      * Constructs a new TaskManager with an empty list of tasks.
      */
-    public TaskManager(String filePath) throws HaBotException {
+    public TaskList(String filePath) throws HaBotException {
         this.tasks = new ArrayList<>();
         load(filePath); // Load tasks from file on initialization
     }

@@ -4,11 +4,11 @@
  */
 public class HaBot {
     private final Ui ui;
-    private final TaskManager taskManager;
+    private final TaskList taskList;
 
     public HaBot(String filePath) {
         this.ui = new Ui();
-        this.taskManager = new TaskManager(filePath);
+        this.taskList = new TaskList(filePath);
 
     }
 
@@ -53,7 +53,7 @@ public class HaBot {
                         + (isDone ? "mark" : "unmark") + " <task number>'.")
                 - 1; // Convert to 0-based index
 
-        Task markedTask = taskManager.mark(taskIndex, isDone);
+        Task markedTask = taskList.mark(taskIndex, isDone);
 
         ui.send(
                 (isDone ? "OK! Done done done! ᕙ(`▽´)ᕗ" : "Awww, still need do (º﹃º)ᕗ")
@@ -71,10 +71,10 @@ public class HaBot {
                 "Invalid input format. Please use 'delete <task number>'.")
                 - 1; // Convert to 0-based index
 
-        Task removedTask = taskManager.remove(taskIndex);
+        Task removedTask = taskList.remove(taskIndex);
         ui.send("OK! Removed task! (`▽´)/ o()xxxx[{::::::::::::::::::> \n  "
                 + removedTask + "\n"
-                + ui.taskLeftHint(taskManager.size()));
+                + ui.taskLeftHint(taskList.size()));
     }
 
     /**
@@ -82,9 +82,9 @@ public class HaBot {
      * @param task The task to add.
      */
     private void addTask(Task task) {
-        taskManager.add(task);
+        taskList.add(task);
         ui.send("Sure! New task \\( ﾟヮﾟ)/\n  " + task + "\n"
-                + ui.taskLeftHint(taskManager.size()));
+                + ui.taskLeftHint(taskList.size()));
     }
 
     /**
@@ -159,7 +159,7 @@ public class HaBot {
     private void handleCommand(String input) throws HaBotException {
         CommandType command = CommandType.fromInput(input);
         switch (command) {
-            case LIST -> this.ui.listTasks(taskManager.list());
+            case LIST -> this.ui.listTasks(taskList.list());
             case MARK -> markTask(getArg(input, "mark"), true);
             case UNMARK -> markTask(getArg(input, "unmark"), false);
             case DELETE -> deleteTask(getArg(input, "delete"));
