@@ -1,8 +1,19 @@
+/**
+ * Represents an event task with a start and end time.
+ * Extends the Task class and adds 'from' and 'to' fields.
+ */
 public class Event extends Task {
 
     protected String from;
     protected String to;
 
+    /**
+     * Constructs an Event task with a description, start time, and end time.
+     *
+     * @param description The description of the event.
+     * @param from The start time of the event.
+     * @param to The end time of the event.
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
