@@ -19,6 +19,12 @@ then
     exit 1
 fi
 
+# remove tasks.txt if it exists
+if [ -e "../src/main/java/tasks.txt" ]
+then
+    rm ../src/main/java/tasks.txt
+fi
+
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ../bin HaBot < input.txt > ACTUAL.TXT
 
