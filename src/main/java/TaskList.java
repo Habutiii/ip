@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Manages a list of Task objects, providing methods to add, remove, retrieve, list, and mark tasks.
@@ -9,12 +10,43 @@ public class TaskList {
      */
     private final ArrayList<Task> tasks;
 
+    private final Storage storage;
+
     /**
      * Constructs a new TaskManager with an empty list of tasks.
      */
     public TaskList(String filePath) throws HaBotException {
-        this.tasks = new ArrayList<>();
-        load(filePath); // Load tasks from file on initialization
+        this.storage = new Storage(filePath);
+        this.tasks = this.load(); // Load tasks from file on initialization
+    }
+
+    private ArrayList<Task> load() throws HaBotException {
+        // Initialize an empty list to hold the tasks
+        ArrayList<Task> tasks = new ArrayList<>();
+        // Load the tasks from plain text format
+        ArrayList<String> lines = storage.load();
+        // Parse each line into a Task object and add it to the list
+        for (String line : lines) {
+            if (line.trim().isEmpty()) {
+                continue; // skip empty line
+            }
+            try {
+                Task task = Task.fromStoreFormat(line);
+                tasks.add(task);
+            } catch (HaBotException e) {
+                throw new HaBotException("Error loading task from file: " + e.getMessage());
+            }
+        }
+        return tasks;
+    }
+
+    private void save() throws HaBotException {
+        // Save the tasks to plain text format
+        List<String> lines = tasks.stream()
+                .map(Task::toStoreFormat)
+                .toList();
+        // Save the lines to storage
+        storage.save(lines);
     }
 
     /**
@@ -36,37 +68,6 @@ public class TaskList {
         }
     }
 
-    private void save() throws HaBotException {
-        String path = "tasks.txt";
-        try (java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.FileWriter(path))) {
-            for (Task task : tasks) {
-                writer.println(task.toStoreFormat());
-            }
-        } catch (java.io.IOException e) {
-            throw new HaBotException("Error saving tasks: " + e.getMessage());
-        }
-    }
-
-    private void load(String filePath) throws HaBotException {
-        java.io.File file = new java.io.File(filePath);
-
-        // Check if the file exists before attempting to load
-        if (!file.exists()) {
-            // No saved tasks found. Starting with an empty task list.
-            return;
-        }
-
-        // Load the tasks from plain text format
-        try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(file))) {
-            tasks.clear();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                tasks.add(Task.fromStoreFormat(line));
-            }
-        } catch (java.io.IOException e) {
-            throw new HaBotException("Error loading tasks: " + e.getMessage());
-        }
-    }
 
     /**
      * Adds a task to the list.
