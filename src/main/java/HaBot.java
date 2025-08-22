@@ -1,11 +1,12 @@
-import java.util.ArrayList;
-
+/**
+ * Main class for the HaBot task manager application.
+ * Handles user interaction, command parsing, and delegates task management to TaskManager.
+ */
 public class HaBot {
     // Define the name of the bot
     private static final String NAME = "HaBot";
 
-
-    private static final ArrayList<Task> storedTasks = new ArrayList<>();
+    private static final TaskManager taskManager = new TaskManager();
 
     // Scanner for reading user input
     private static final java.util.Scanner SCANNER = new java.util.Scanner(System.in);
@@ -53,74 +54,73 @@ public class HaBot {
     }
 
     /**
+     * Converts a string input to an integer, or throws a HaBotException with a hint if invalid.
+     * @param input The string to convert.
+     * @param hint The error message to use if conversion fails.
+     * @return The parsed integer value.
+     * @throws HaBotException If the input is not a valid integer.
+     */
+    private static Integer deriveInteger(String input, String hint) throws HaBotException {
+        try {
+            return Integer.parseInt(input.trim());
+        } catch (NumberFormatException e) {
+            throw new HaBotException(hint);
+        }
+    }
+
+    /**
+     * Returns a hint string showing the number of tasks left to do.
+     * @return A formatted string with the number of tasks remaining.
+     */
+    private static String taskLeftHint() {
+        return "The number of tasks you have to do: ★ " + taskManager.size() + " ★ ノ(゜-゜ノ)";
+    }
+
+    /**
      * Lists all stored tasks.
-     * Throws HaBotException if no tasks are stored.
+     * @throws HaBotException If no tasks are stored.
      */
     private static void listTasks() throws HaBotException {
-        // Check if there are any tasks stored
-        if (storedTasks.isEmpty()) {
-            throw new HaBotException("No task stored yet.");
-        }
         // Print the list of tasks
-        String out = "Here are the tasks in your list (๑•̀ㅂ•́)ง✧\n";
-        for (int i = 0; i < storedTasks.size(); i++) {
-            out += (i + 1) + "." + storedTasks.get(i);
-            if (i < storedTasks.size() - 1) {
-                out += "\n";
-            }
-        }
-        send(out);
+        String hint = "Here are the tasks in your list (๑•̀ㅂ•́)ง✧\n";
+        send(hint + taskManager.list());
     }
 
     /**
      * Marks or unmarks a task as done or not done.
      * @param indexStr The index of the task as a String (1-based).
      * @param isDone True to mark as done, false to unmark.
-     * Throws HaBotException for invalid input or index.
+     * @throws HaBotException For invalid input or index.
      */
     private static void markTask(String indexStr, Boolean isDone) throws HaBotException {
-        try {
-            int taskIndex = Integer.parseInt(indexStr) - 1;
+        int taskIndex = deriveInteger(
+                indexStr,
+                "Invalid input format. Please use '"
+                        + (isDone ? "mark" : "unmark") + " <task number>'.")
+                - 1; // Convert to 0-based index
 
-            if (taskIndex < 0 || taskIndex >= storedTasks.size()) {
-                throw new HaBotException("Invalid task number. List all tasks with 'list' to see available tasks.");
-            } else {
-                if (isDone) {
-                    storedTasks.get(taskIndex).markAsDone();
-                    send("OK! Done done done! ᕙ(`▽´)ᕗ \n  " + storedTasks.get(taskIndex));
-                } else {
-                    storedTasks.get(taskIndex).markAsNotDone();
-                    send("Awww, still need do (º﹃º)ᕗ\n  " + storedTasks.get(taskIndex));
-                }
-            }
-        } catch (NumberFormatException e) {
-            throw new HaBotException("Invalid input format. Please use '"
-                    + (isDone ? "mark" : "unmark") + " <task number>'.");
-        }
+        taskManager.mark(taskIndex, isDone);
+
+        send(
+                (isDone ? "OK! Done done done! ᕙ(`▽´)ᕗ" : "Awww, still need do (º﹃º)ᕗ")
+                + "\n  " + taskManager.get(taskIndex));
     }
 
     /**
      * Deletes a task from the list.
      * @param indexStr The index of the task as a String (1-based).
-     * Throws HaBotException for invalid input or index.
+     * @throws HaBotException For invalid input or index.
      */
-    private static void deleteTask(String indexStr) {
-        try {
-            int taskIndex = Integer.parseInt(indexStr) - 1;
+    private static void deleteTask(String indexStr) throws HaBotException {
+        int taskIndex = deriveInteger(
+                indexStr,
+                "Invalid input format. Please use 'delete <task number>'.")
+                - 1; // Convert to 0-based index
 
-            if (taskIndex < 0 || taskIndex >= storedTasks.size()) {
-                throw new HaBotException("Invalid task number. List all tasks with 'list' to see available tasks.");
-            } else {
-                Task removedTask = storedTasks.get(taskIndex);
-                storedTasks.remove(taskIndex);
-                send("OK! Removed task! (`▽´)/ o()xxxx[{::::::::::::::::::> \n  "
-                        + removedTask
-                        + "\nThe number of tasks you have to do: ★ "
-                        + storedTasks.size() + " ★ ノ(゜-゜ノ)");
-            }
-        } catch (NumberFormatException e) {
-            throw new HaBotException("Invalid input format. Please use '" + "delete" + " <task number>'.");
-        }
+        Task removedTask = taskManager.remove(taskIndex);
+        send("OK! Removed task! (`▽´)/ o()xxxx[{::::::::::::::::::> \n  "
+                + removedTask + "\n"
+                + taskLeftHint());
     }
 
     /**
@@ -128,9 +128,9 @@ public class HaBot {
      * @param task The task to add.
      */
     private static void addTask(Task task) {
-        storedTasks.add(task);
-        send("Sure! New task \\( ﾟヮﾟ)/\n  " + task
-                + "\nThe number of tasks you have to do: ★ " + storedTasks.size() + " ★ ノ(゜-゜ノ)");
+        taskManager.add(task);
+        send("Sure! New task \\( ﾟヮﾟ)/\n  " + task + "\n"
+                + taskLeftHint());
     }
 
     /**
