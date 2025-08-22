@@ -187,9 +187,9 @@ public class HaBot {
                 handleCommand(input);
                 // Catch any intended HaBotExceptions thrown by handleCommand
             } catch (HaBotException e) {
-                ui.send("Error (ノ•`_´•)ノ︵┻━┻ " + e.getMessage());
+                ui.error( e.getMessage());
             } catch (Exception e) {
-                ui.send("Unexpected Error (ノ•`o´•)ノ︵┻━┻ " + e.getMessage());
+                ui.unexpectedError(e.getMessage());
             }
         }
         ui.bye();  // Print the goodbye message

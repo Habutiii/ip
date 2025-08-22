@@ -31,7 +31,6 @@ public class Ui {
      * Prints the goodbye message.
      */
     public void bye() {
-
         send("Bye. Hope to see you again soon! (•̀ᴗ•́)و ✧");
     }
 
@@ -51,5 +50,13 @@ public class Ui {
         // Print the list of tasks
         String hint = "Here are the tasks in your list (๑•̀ㅂ•́)ง✧\n";
         send(hint + taskListStr);
+    }
+
+    public void error(String message) {
+        send("Error (ノ•`_´•)ノ︵┻━┻ " + message);
+    }
+
+    public void unexpectedError(String message) {
+        send("Unexpected Error (ノ•`o´•)ノ︵┻━┻ " + message);
     }
 }
