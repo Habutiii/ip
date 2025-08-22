@@ -92,7 +92,7 @@ public class TaskManager {
      * @param isDone True to mark as done, false to unmark.
      * @throws HaBotException If the index is out of bounds.
      */
-    public void mark(int index, boolean isDone) throws HaBotException {
+    public Task mark(int index, boolean isDone) throws HaBotException {
         validateIndex(index);
         Task task = tasks.get(index);
         if (isDone) {
@@ -100,5 +100,6 @@ public class TaskManager {
         } else {
             task.markAsNotDone();
         }
+        return task;
     }
 }

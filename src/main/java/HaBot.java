@@ -99,11 +99,11 @@ public class HaBot {
                         + (isDone ? "mark" : "unmark") + " <task number>'.")
                 - 1; // Convert to 0-based index
 
-        taskManager.mark(taskIndex, isDone);
+        Task markedTask = taskManager.mark(taskIndex, isDone);
 
         send(
                 (isDone ? "OK! Done done done! ᕙ(`▽´)ᕗ" : "Awww, still need do (º﹃º)ᕗ")
-                + "\n  " + taskManager.get(taskIndex));
+                + "\n  " + markedTask);
     }
 
     /**
