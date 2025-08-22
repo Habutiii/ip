@@ -12,8 +12,9 @@ public class TaskManager {
     /**
      * Constructs a new TaskManager with an empty list of tasks.
      */
-    public TaskManager() {
+    public TaskManager() throws HaBotException {
         this.tasks = new ArrayList<>();
+        load(); // Load tasks from file on initialization
     }
 
     /**
@@ -35,12 +36,46 @@ public class TaskManager {
         }
     }
 
+    private void save() throws HaBotException {
+        String path = "tasks.txt";
+        try (java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.FileWriter(path))) {
+            for (Task task : tasks) {
+                writer.println(task.toStoreFormat());
+            }
+        } catch (java.io.IOException e) {
+            throw new HaBotException("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+    private void load() throws HaBotException {
+        String path = "tasks.txt";
+        java.io.File file = new java.io.File(path);
+
+        // Check if the file exists before attempting to load
+        if (!file.exists()) {
+            // No saved tasks found. Starting with an empty task list.
+            return;
+        }
+
+        // Load the tasks from plain text format
+        try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(file))) {
+            tasks.clear();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                tasks.add(Task.fromStoreFormat(line));
+            }
+        } catch (java.io.IOException e) {
+            throw new HaBotException("Error loading tasks: " + e.getMessage());
+        }
+    }
+
     /**
      * Adds a task to the list.
      * @param task The task to add.
      */
-    public void add(Task task) {
+    public void add(Task task) throws HaBotException {
         tasks.add(task);
+        save();
     }
 
     /**
@@ -53,6 +88,7 @@ public class TaskManager {
         validateIndex(index);
         Task removedTask = tasks.get(index);
         tasks.remove(index);
+        save();
         return removedTask;
     }
 
@@ -100,6 +136,7 @@ public class TaskManager {
         } else {
             task.markAsNotDone();
         }
+        save();
         return task;
     }
 }

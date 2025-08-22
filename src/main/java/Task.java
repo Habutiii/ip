@@ -24,7 +24,7 @@ public class Task {
      *
      * @return "X" if done, otherwise a space.
      */
-    public String getStatusIcon() {
+    public String getMarkStatusIcon() {
 
         return (isDone ? "X" : " "); // mark done task with X
     }
@@ -36,7 +36,7 @@ public class Task {
      */
     public String toString() {
 
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getMarkStatusIcon() + "] " + this.description;
     }
 
     /**
@@ -53,5 +53,34 @@ public class Task {
     public void markAsNotDone() {
 
         this.isDone = false;
+    }
+
+    /**
+     * Converts the task to a plain text format for saving.
+     * Escapes the '|' character in the description to avoid conflicts.
+     * @return A string representation of the task.
+     */
+    public String toStoreFormat() {
+        throw new HaBotException("toStoreFormat() not implemented for Task class. Use subclasses instead.");
+    }
+
+    /**
+     * Creates a Task object from a plain text format.
+     * Unescapes the '|' character in the description.
+     * @param text The plain text representation of the task.
+     * @return A Task object.
+     */
+    public static Task fromStoreFormat(String text) throws HaBotException {
+        String[] parts = text.split("\\|", -1); // Split into all parts
+        if (parts.length < 2) {
+            throw new HaBotException("Invalid task format: " + text);
+        }
+        String type = parts[0];
+        return switch (type) {
+        case "T" -> ToDo.fromStoreFormat(text);
+        case "D" -> Deadline.fromStoreFormat(text);
+        case "E" -> Event.fromStoreFormat(text);
+        default -> throw new HaBotException("Unknown task type: " + type);
+        };
     }
 }
