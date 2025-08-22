@@ -14,6 +14,9 @@ IF ERRORLEVEL 1 (
 )
 REM no error here, errorlevel == 0
 
+REM remove tasks.txt if it exists
+if exist tasks.txt del tasks.txt
+
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ..\bin HaBot < input.txt > ACTUAL.TXT
 

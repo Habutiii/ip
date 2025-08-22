@@ -24,4 +24,26 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
+
+    @Override
+    public String toStoreFormat() {
+        String escapedDescription = description.replace("|", "\\|");
+        return "E|" + getMarkStatusIcon() + "|" + escapedDescription + "|" + from + "|" + to;
+    }
+
+    public static Event fromStoreFormat(String text) {
+        String[] parts = text.split("\\|", -1);
+        if (parts.length < 5) {
+            throw new IllegalArgumentException("Invalid Event format: " + text);
+        }
+        boolean isDone = parts[1].equals("X");
+        String description = parts[2].replace("\\|", "|");
+        String from = parts[3];
+        String to = parts[4];
+        Event event = new Event(description, from, to);
+        if (isDone) {
+            event.markAsDone();
+        }
+        return event;
+    }
 }

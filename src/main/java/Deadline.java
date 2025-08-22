@@ -21,4 +21,25 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    @Override
+    public String toStoreFormat() {
+        String escapedDescription = description.replace("|", "\\|");
+        return "D|" + getMarkStatusIcon() + "|" + escapedDescription + "|" + by;
+    }
+
+    public static Deadline fromStoreFormat(String text) {
+        String[] parts = text.split("\\|", -1);
+        if (parts.length < 4) {
+            throw new IllegalArgumentException("Invalid Deadline format: " + text);
+        }
+        boolean isDone = parts[1].equals("X");
+        String description = parts[2].replace("\\|", "|");
+        String by = parts[3];
+        Deadline deadline = new Deadline(description, by);
+        if (isDone) {
+            deadline.markAsDone();
+        }
+        return deadline;
+    }
 }
