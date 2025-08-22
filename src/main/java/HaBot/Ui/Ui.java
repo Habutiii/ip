@@ -1,3 +1,7 @@
+package HaBot.Ui;
+
+import HaBot.Exception.HaBotException;
+
 public class Ui {
     // Define the name of the bot
     private final String NAME = "HaBot";

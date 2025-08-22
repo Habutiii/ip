@@ -1,3 +1,11 @@
+package HaBot.Command;
+
+import HaBot.Exception.HaBotException;
+import HaBot.Storage;
+import HaBot.Task.Task;
+import HaBot.TaskList;
+import HaBot.Ui.Ui;
+
 public class MarkCommand extends Command {
 
     private final int index;

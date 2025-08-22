@@ -1,9 +1,11 @@
+package HaBot.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Represents an event task with a start and end time.
- * Extends the Task class and adds 'from' and 'to' fields.
+ * Extends the HaBot.Task.Task class and adds 'from' and 'to' fields.
  */
 public class Event extends Task {
 
@@ -14,7 +16,7 @@ public class Event extends Task {
     protected static final DateTimeFormatter printFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
     /**
-     * Constructs an Event task with a description, start time, and end time.
+     * Constructs an HaBot.Task.Event task with a description, start time, and end time.
      *
      * @param description The description of the event.
      * @param from The start time of the event in LocalDateTime format.
@@ -27,7 +29,7 @@ public class Event extends Task {
     }
 
     /**
-     * Constructs an Event task with a description, start time, and end time.
+     * Constructs an HaBot.Task.Event task with a description, start time, and end time.
      *
      * @param description The description of the event.
      * @param from The start time of the event in String format.
@@ -58,7 +60,7 @@ public class Event extends Task {
     public static Event fromStoreFormat(String text) {
         String[] parts = text.split("\\|", -1);
         if (parts.length < 5) {
-            throw new IllegalArgumentException("Invalid Event format: " + text);
+            throw new IllegalArgumentException("Invalid HaBot.Task.Event format: " + text);
         }
         boolean isDone = parts[1].equals("X");
         String description = parts[2].replace("\\|", "|");

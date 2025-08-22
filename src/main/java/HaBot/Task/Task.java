@@ -1,3 +1,7 @@
+package HaBot.Task;
+
+import HaBot.Exception.HaBotException;
+
 /**
  * Represents a generic task with a description and completion status.
  */
@@ -8,7 +12,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructs a new Task with the specified description.
+     * Constructs a new HaBot.Task.Task with the specified description.
      * The task is initially not done.
      *
      * @param description The description of the task.
@@ -61,14 +65,14 @@ public class Task {
      * @return A string representation of the task.
      */
     public String toStoreFormat() {
-        throw new HaBotException("toStoreFormat() not implemented for Task class. Use subclasses instead.");
+        throw new HaBotException("toStoreFormat() not implemented for HaBot.Task.Task class. Use subclasses instead.");
     }
 
     /**
-     * Creates a Task object from a plain text format.
+     * Creates a HaBot.Task.Task object from a plain text format.
      * Unescapes the '|' character in the description.
      * @param text The plain text representation of the task.
-     * @return A Task object.
+     * @return A HaBot.Task.Task object.
      */
     public static Task fromStoreFormat(String text) throws HaBotException {
         String[] parts = text.split("\\|", -1); // Split into all parts

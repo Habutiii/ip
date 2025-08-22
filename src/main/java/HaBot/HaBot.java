@@ -1,6 +1,11 @@
+package HaBot;
+
+import HaBot.Command.Command;
+import HaBot.Exception.HaBotException;
+import HaBot.Ui.Ui;
+
 /**
- * Main class for the HaBot task manager application.
- * Handles user interaction, command parsing, and delegates task management to TaskManager.
+ * Main class for the HaBot chatbot application.
  */
 public class HaBot {
     private final Ui ui;
@@ -15,7 +20,7 @@ public class HaBot {
 
 
     /**
-     * Runs the main loop of the HaBot application.
+     * Runs the main loop of the HaBot.HaBot application.
      */
     public void run() {
         ui.greet(); // Print the greeting message

@@ -1,8 +1,16 @@
+package HaBot.Command;
+
+import HaBot.Exception.HaBotException;
+import HaBot.Storage;
+import HaBot.Task.Task;
+import HaBot.TaskList;
+import HaBot.Ui.Ui;
+
 public class DeleteCommand extends Command {
     private final Integer index;
 
     /**
-     * Constructs a DeleteCommand with the specified index string.
+     * Constructs a HaBot.Command.DeleteCommand with the specified index string.
      *
      * @param indexStr The index of the task to delete, as a string.
      */
@@ -19,7 +27,7 @@ public class DeleteCommand extends Command {
     /**
      * Executes the delete command on the given task list and UI.
      *
-     * @param taskList The TaskList to operate on.
+     * @param taskList The HaBot.TaskList to operate on.
      * @param ui The UI to interact with the user.
      * @throws HaBotException If an error occurs during execution.
      */

@@ -1,3 +1,7 @@
+package HaBot;
+
+import HaBot.Exception.HaBotException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -5,7 +9,7 @@ public class Storage {
     private final java.io.File file;
 
     /**
-     * Constructs a Storage object with the specified file path.
+     * Constructs a HaBot.Storage object with the specified file path.
      *
      * @param filePath The path to the file where tasks will be stored.
      */

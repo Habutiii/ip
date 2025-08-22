@@ -1,4 +1,7 @@
-import java.util.ArrayList;
+package HaBot;
+
+import HaBot.Command.*;
+import HaBot.Exception.HaBotException;
 
 public class Parser {
 
@@ -23,7 +26,7 @@ public class Parser {
      * Parses a command string and returns the corresponding command type.
      *
      * @param command The command string to parse.
-     * @return The CommandType corresponding to the command.
+     * @return The HaBot.Command.CommandType corresponding to the command.
      * @throws IllegalArgumentException If the command is invalid.
      */
     public static Command parse(String command) {

@@ -1,8 +1,13 @@
+package HaBot;
+
+import HaBot.Exception.HaBotException;
+import HaBot.Task.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Manages a list of Task objects, providing methods to add, remove, retrieve, list, and mark tasks.
+ * Manages a list of HaBot.Task.Task objects, providing methods to add, remove, retrieve, list, and mark tasks.
  */
 public class TaskList {
     /**
@@ -76,7 +81,7 @@ public class TaskList {
     /**
      * Removes and returns the task at the specified index.
      * @param index The index of the task to remove (0-based).
-     * @return The removed Task.
+     * @return The removed HaBot.Task.Task.
      * @throws HaBotException If the index is out of bounds.
      */
     public Task remove(int index) throws HaBotException {
@@ -89,7 +94,7 @@ public class TaskList {
     /**
      * Retrieves the task at the specified index.
      * @param index The index of the task to retrieve (0-based).
-     * @return The Task at the given index.
+     * @return The HaBot.Task.Task at the given index.
      * @throws HaBotException If the index is out of bounds.
      */
     public Task get(int index) throws HaBotException {

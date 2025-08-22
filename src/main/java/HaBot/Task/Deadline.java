@@ -1,9 +1,11 @@
+package HaBot.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task with a deadline.
- * Extends the Task class and adds a deadline date/time.
+ * Extends the HaBot.Task.Task class and adds a deadline date/time.
  */
 public class Deadline extends Task {
 
@@ -13,7 +15,7 @@ public class Deadline extends Task {
     protected static final DateTimeFormatter printFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
     /**
-     * Constructs a Deadline task with a description and deadline date/time.
+     * Constructs a HaBot.Task.Deadline task with a description and deadline date/time.
      * @param description The description of the task.
      * @param by The deadline date/time for the task in LocalDateTime format.
      */
@@ -23,7 +25,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Constructs a Deadline task with a description and deadline.
+     * Constructs a HaBot.Task.Deadline task with a description and deadline.
      *
      * @param description The description of the task.
      * @param by The deadline date/time for the task in String format.
@@ -49,7 +51,7 @@ public class Deadline extends Task {
     public static Deadline fromStoreFormat(String text) {
         String[] parts = text.split("\\|", -1);
         if (parts.length < 4) {
-            throw new IllegalArgumentException("Invalid Deadline format: " + text);
+            throw new IllegalArgumentException("Invalid HaBot.Task.Deadline format: " + text);
         }
         boolean isDone = parts[1].equals("X");
         String description = parts[2].replace("\\|", "|");

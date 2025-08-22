@@ -1,9 +1,15 @@
+package HaBot.Command;
+
+import HaBot.Storage;
+import HaBot.TaskList;
+import HaBot.Ui.Ui;
+
 public class ByeCommand extends Command{
 
     /**
      * Executes the command to exit the application.
      *
-     * @param taskList The TaskList to operate on.
+     * @param taskList The HaBot.TaskList to operate on.
      * @param ui The UI to interact with the user.
      */
     @Override
