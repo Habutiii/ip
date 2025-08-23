@@ -51,21 +51,21 @@ public class Event extends Task {
     @Override
     public String toStoreFormat() {
         String escapedDescription = description.replace("|", "\\|");
-        return "E|" + getMarkStatusIcon()
-                + "|" + escapedDescription
-                + "|" + from.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-                + "|" + to.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        return "E | " + getMarkStatusIcon()
+                + " | " + escapedDescription
+                + " | " + from.format(parseFormatter)
+                + " | " + to.format(parseFormatter);
     }
 
     public static Event fromStoreFormat(String text) {
-        String[] parts = text.split("\\|", -1);
+        String[] parts = text.split(" \\| ", -1);
         if (parts.length < 5) {
-            throw new IllegalArgumentException("Invalid HaBot.Task.Event format: " + text);
+            throw new IllegalArgumentException("Invalid Event format: " + text);
         }
         boolean isDone = parts[1].equals("X");
         String description = parts[2].replace("\\|", "|");
-        LocalDateTime from = LocalDateTime.parse(parts[3]);
-        LocalDateTime to = LocalDateTime.parse(parts[4]);
+        LocalDateTime from = LocalDateTime.parse(parts[3], parseFormatter);
+        LocalDateTime to = LocalDateTime.parse(parts[4], parseFormatter);
         Event event = new Event(description, from, to);
         if (isDone) {
             event.markAsDone();

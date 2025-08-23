@@ -75,11 +75,12 @@ public class Task {
      * @return A HaBot.Task.Task object.
      */
     public static Task fromStoreFormat(String text) throws HaBotException {
-        String[] parts = text.split("\\|", -1); // Split into all parts
+        String[] parts = text.split(" \\| ", 2); // Split into all parts
         if (parts.length < 2) {
             throw new HaBotException("Invalid task format: " + text);
         }
         String type = parts[0];
+        String[] restParts = new String[parts.length - 1];
         return switch (type) {
         case "T" -> ToDo.fromStoreFormat(text);
         case "D" -> Deadline.fromStoreFormat(text);

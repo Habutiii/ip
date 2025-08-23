@@ -43,19 +43,19 @@ public class Deadline extends Task {
     @Override
     public String toStoreFormat() {
         String escapedDescription = description.replace("|", "\\|");
-        return "D|" + getMarkStatusIcon()
-                + "|" + escapedDescription
-                + "|" + by.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        return "D | " + getMarkStatusIcon()
+                + " | " + escapedDescription
+                + " | " + by.format(parseFormatter);
     }
 
     public static Deadline fromStoreFormat(String text) {
-        String[] parts = text.split("\\|", -1);
+        String[] parts = text.split(" \\| ", -1);
         if (parts.length < 4) {
-            throw new IllegalArgumentException("Invalid HaBot.Task.Deadline format: " + text);
+            throw new IllegalArgumentException("Invalid Deadline format: " + text);
         }
         boolean isDone = parts[1].equals("X");
         String description = parts[2].replace("\\|", "|");
-        LocalDateTime by = LocalDateTime.parse(parts[3]);
+        LocalDateTime by = LocalDateTime.parse(parts[3], parseFormatter);
         Deadline deadline = new Deadline(description, by);
         if (isDone) {
             deadline.markAsDone();

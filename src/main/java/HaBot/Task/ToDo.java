@@ -23,13 +23,13 @@ public class ToDo extends Task {
     @Override
     public String toStoreFormat() {
         String escapedDescription = description.replace("|", "\\|");
-        return "T|" + getMarkStatusIcon() + "|" + escapedDescription;
+        return "T | " + getMarkStatusIcon() + " | " + escapedDescription;
     }
 
     public static ToDo fromStoreFormat(String text) {
-        String[] parts = text.split("\\|", -1);
+        String[] parts = text.split(" \\| ", -1);
         if (parts.length < 3) {
-            throw new IllegalArgumentException("Invalid HaBot.Task.ToDo format: " + text);
+            throw new IllegalArgumentException("Invalid ToDo format: " + text);
         }
         boolean isDone = parts[1].equals("X");
         String description = parts[2].replace("\\|", "|");
