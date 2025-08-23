@@ -17,7 +17,7 @@ public class ToDoCommand extends Command {
     public ToDoCommand(String description) {
         this.description = description.trim();
         if (this.description.isEmpty()) {
-            throw new HaBotException("The description of a HaBot.Task.ToDo cannot be empty.");
+            throw new HaBotException("The description of a ToDo cannot be empty.");
         }
     }
 
