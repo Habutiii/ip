@@ -69,6 +69,14 @@ public class Task {
     }
 
     /**
+     * Gets the description of the task.
+     * @return The task description.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Creates a Task object from a plain text format.
      * Unescapes the '|' character in the description.
      * @param text The plain text representation of the task.
