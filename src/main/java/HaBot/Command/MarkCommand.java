@@ -30,6 +30,4 @@ public class MarkCommand extends Command {
         String unmarkMessage = "Awww, still need do (º﹃º)ᕗ";
         ui.send((isDone ? markMessage : unmarkMessage) + "\n  " + markedTask);
     }
-
-
 }

@@ -44,7 +44,6 @@ public class TaskList {
 
     public List<String> toStoreFormat() throws HaBotException {
         // Save the tasks to plain text format
-
         return tasks.stream()
                 .map(Task::toStoreFormat)
                 .toList();
@@ -68,7 +67,6 @@ public class TaskList {
             throw new HaBotException("Invalid task index.");
         }
     }
-
 
     /**
      * Adds a task to the list.
