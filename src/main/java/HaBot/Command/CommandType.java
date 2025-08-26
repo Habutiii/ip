@@ -4,7 +4,7 @@ package HaBot.Command;
  * Represents the types of commands supported by HaBot.HaBot.
  */
 public enum CommandType {
-    BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN;
+    BYE, LIST, MARK, UNMARK, FIND, DELETE, TODO, DEADLINE, EVENT, UNKNOWN;
 
     /**
      * Parses the user input and returns the corresponding HaBot.Command.CommandType.
@@ -13,6 +13,8 @@ public enum CommandType {
      * @return The matching HaBot.Command.CommandType, or UNKNOWN if no match is found.
      */
     public static CommandType fromInput(String input) {
+//        input = "find test"; // For testing purpose
+//        input = input.trim();
         if (input.equals("bye")){
             return BYE;
         } else if (input.equals("list")) {
@@ -21,6 +23,8 @@ public enum CommandType {
             return MARK;
         } else if (input.startsWith("unmark ")) {
             return UNMARK;
+        } else if (input.startsWith("find ")) {
+            return FIND;
         } else if (input.startsWith("delete ")) {
             return DELETE;
         } else if (input.startsWith("todo ")) {

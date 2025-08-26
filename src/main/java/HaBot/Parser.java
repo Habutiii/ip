@@ -36,6 +36,7 @@ public class Parser {
             case LIST -> new ListCommand();
             case MARK -> new MarkCommand(parseArguments(command), true);
             case UNMARK -> new MarkCommand(parseArguments(command),  false);
+            case FIND -> new FindCommand(parseArguments(command));
             case DELETE -> new DeleteCommand(parseArguments(command));
             case TODO -> new ToDoCommand(parseArguments(command));
             case DEADLINE -> new DeadlineCommand(parseArguments(command));

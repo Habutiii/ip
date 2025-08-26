@@ -21,6 +21,7 @@ class ParserTest {
         assertInstanceOf(MarkCommand.class, Parser.parse("mark 1"));
         assertInstanceOf(MarkCommand.class, Parser.parse("unmark 1"));
         assertInstanceOf(DeleteCommand.class, Parser.parse("delete 1"));
+        assertInstanceOf(FindCommand.class, Parser.parse("find keyword"));
     }
 
     @Test
