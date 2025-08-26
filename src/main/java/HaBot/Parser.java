@@ -18,7 +18,6 @@ public class Parser {
     private static String parseArguments(String input) {
         // remove the command + " " from the input
         String[] parts = input.trim().split(" ", 2);
-
         return parts[1].trim();
     }
 
@@ -33,17 +32,17 @@ public class Parser {
         CommandType commandType = CommandType.fromInput(command);
 
         return switch (commandType) {
-            case LIST -> new ListCommand();
-            case MARK -> new MarkCommand(parseArguments(command), true);
-            case UNMARK -> new MarkCommand(parseArguments(command),  false);
-            case FIND -> new FindCommand(parseArguments(command));
-            case DELETE -> new DeleteCommand(parseArguments(command));
-            case TODO -> new ToDoCommand(parseArguments(command));
-            case DEADLINE -> new DeadlineCommand(parseArguments(command));
-            case EVENT -> new EventCommand(parseArguments(command));
-            case BYE -> new ByeCommand();
-            // If the command is not recognized, throw an exception
-            default -> throw new HaBotException(unknownCommandMessage);
+        case LIST -> new ListCommand();
+        case MARK -> new MarkCommand(parseArguments(command), true);
+        case UNMARK -> new MarkCommand(parseArguments(command),  false);
+        case FIND -> new FindCommand(parseArguments(command));
+        case DELETE -> new DeleteCommand(parseArguments(command));
+        case TODO -> new ToDoCommand(parseArguments(command));
+        case DEADLINE -> new DeadlineCommand(parseArguments(command));
+        case EVENT -> new EventCommand(parseArguments(command));
+        case BYE -> new ByeCommand();
+        // If the command is not recognized, throw an exception
+        default -> throw new HaBotException(unknownCommandMessage);
         };
     }
 }

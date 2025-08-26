@@ -18,7 +18,6 @@ public class HaBot {
         this.taskList = new TaskList(storage.load());
     }
 
-
     /**
      * Runs the main loop of the HaBot.HaBot application.
      */

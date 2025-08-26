@@ -17,6 +17,11 @@ public class ByeCommand extends Command{
         ui.send("Bye. Hope to see you again soon! (•̀ᴗ•́)و ✧");
     }
 
+    /**
+     * Indicates that this command should terminate the application.
+     *
+     * @return true, indicating that the application should exit.
+     */
     @Override
     public boolean toExit() {
         return true; // This command indicates that the application should exit
