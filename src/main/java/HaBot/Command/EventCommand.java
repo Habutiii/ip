@@ -14,7 +14,7 @@ public class EventCommand extends Command {
     }
 
     /**
-     * Executes the command to add an event task to the task list.
+     * Executes the command to add an Event task to the task list.
      *
      * @param taskList The HaBot.TaskList to operate on.
      * @param ui The UI to interact with the user.

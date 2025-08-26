@@ -10,7 +10,7 @@ public class ToDoCommand extends Command {
     private final String description;
 
     /**
-     * Constructs an AddToDoCommand with the specified description.
+     * Constructs an ToDoCommand with the specified description.
      *
      * @param description The description of the HaBot.Task.ToDo task.
      */
