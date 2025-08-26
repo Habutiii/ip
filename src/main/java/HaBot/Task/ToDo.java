@@ -15,6 +15,11 @@ public class ToDo extends Task {
         super(description);
     }
 
+    /**
+     * Returns a string representation of the to-do task, prefixed with "[T]".
+     *
+     * @return A string representation of the to-do task.
+     */
     @Override
     public String toString() {
         return "[T]" + super.toString();
@@ -26,6 +31,13 @@ public class ToDo extends Task {
         return "T | " + getMarkStatusIcon() + " | " + escapedDescription;
     }
 
+    /**
+     * Creates a ToDo task from its stored string format.
+     *
+     * @param text The stored string representation of the ToDo task.
+     * @return A ToDo object represented by the given string.
+     * @throws IllegalArgumentException If the input format is invalid.
+     */
     public static ToDo fromStoreFormat(String text) {
         String[] parts = text.split(" \\| ", -1);
         if (parts.length < 3) {

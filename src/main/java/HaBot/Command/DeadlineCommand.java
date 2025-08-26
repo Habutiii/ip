@@ -15,7 +15,7 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Executes the command to add a deadline task to the task list.
+     * Executes the command to add a Deadline task to the task list.
      *
      * @param taskList The HaBot.TaskList to operate on.
      * @param ui The UI to interact with the user.

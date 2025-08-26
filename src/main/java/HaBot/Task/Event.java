@@ -41,6 +41,11 @@ public class Event extends Task {
                 LocalDateTime.parse(to, parseFormatter));
     }
 
+    /**
+     * Returns a string representation of the event, including its type, description, and time range.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString()
@@ -57,6 +62,13 @@ public class Event extends Task {
                 + " | " + to.format(parseFormatter);
     }
 
+    /**
+     * Creates an Event from its stored string representation.
+     *
+     * @param text The stored string representation of the event.
+     * @return The reconstructed Event object.
+     * @throws IllegalArgumentException If the input format is invalid.
+     */
     public static Event fromStoreFormat(String text) {
         String[] parts = text.split(" \\| ", -1);
         if (parts.length < 5) {

@@ -10,7 +10,7 @@ public class DeleteCommand extends Command {
     private final Integer index;
 
     /**
-     * Constructs a HaBot.Command.DeleteCommand with the specified index string.
+     * Constructs a DeleteCommand with the specified index string.
      *
      * @param indexStr The index of the task to delete, as a string.
      */

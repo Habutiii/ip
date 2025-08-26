@@ -65,14 +65,14 @@ public class Task {
      * @return A string representation of the task.
      */
     public String toStoreFormat() {
-        throw new HaBotException("toStoreFormat() not implemented for HaBot.Task.Task class. Use subclasses instead.");
+        throw new HaBotException("toStoreFormat() not implemented for Task class. Use subclasses instead.");
     }
 
     /**
-     * Creates a HaBot.Task.Task object from a plain text format.
+     * Creates a Task object from a plain text format.
      * Unescapes the '|' character in the description.
      * @param text The plain text representation of the task.
-     * @return A HaBot.Task.Task object.
+     * @return A Task object.
      */
     public static Task fromStoreFormat(String text) throws HaBotException {
         String[] parts = text.split(" \\| ", 2); // Split into all parts

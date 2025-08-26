@@ -22,6 +22,12 @@ public class TaskList {
         this.tasks = new ArrayList<>(); // Load tasks from file on initialization
     }
 
+    /**
+     * Constructs a TaskList and loads tasks from the given list of strings.
+     * Each string represents a task in a specific storage format.
+     * @param lines The list of strings representing stored tasks.
+     * @throws HaBotException If there is an error during loading.
+     */
     public TaskList(List<String> lines) throws HaBotException {
         this();
         for (String line : lines) {
@@ -38,13 +44,13 @@ public class TaskList {
     }
 
     /**
-     * Saves the current task list to persistent storage.
-     * @throws HaBotException If there is an error during saving.
+     * Converts the current list of tasks to a list of strings in storage format.
+     *
+     * @return A list of strings representing the tasks in storage format.
+     * @throws HaBotException If there is an error during conversion.
      */
-
     public List<String> toStoreFormat() throws HaBotException {
         // Save the tasks to plain text format
-
         return tasks.stream()
                 .map(Task::toStoreFormat)
                 .toList();
