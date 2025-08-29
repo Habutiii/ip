@@ -101,8 +101,8 @@ public class Main extends Application {
         String userText = userInput.getText();
         String dukeText = haBot.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, userImage),
-                new DialogBox(dukeText, botImage)
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getBotDialog(dukeText, botImage)
         );
         userInput.clear();
     }
