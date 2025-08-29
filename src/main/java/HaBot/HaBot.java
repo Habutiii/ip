@@ -51,4 +51,11 @@ public class HaBot {
     public static void main(String[] args) {
         new HaBot("tasks.txt").run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "HaBot heard: " + input;
+    }
 }

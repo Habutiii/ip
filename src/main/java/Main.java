@@ -1,3 +1,4 @@
+import habot.HaBot;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,6 +18,7 @@ public class Main extends Application {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image botImage = new Image(this.getClass().getResourceAsStream("/images/Bot.png"));
+    private HaBot haBot = new HaBot("tasks.txt");
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -96,7 +98,12 @@ public class Main extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), userImage));
+        String userText = userInput.getText();
+        String dukeText = haBot.getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                new DialogBox(userText, userImage),
+                new DialogBox(dukeText, botImage)
+        );
         userInput.clear();
     }
 }
