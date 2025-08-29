@@ -1,16 +1,17 @@
-package HaBot.Task;
+package habot.task;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("ToDo: toString format and store round-trip")
 class ToDoTest {
 
     @Test
     @DisplayName("toString shows type, status, and description")
-    void toString_format() {
+    void toStringFormat() {
         ToDo t = new ToDo("read book");
         assertEquals("[T][ ] read book", t.toString());
         t.markAsDone();
@@ -18,8 +19,7 @@ class ToDoTest {
     }
 
     @Test
-    @DisplayName("store format and round-trip")
-    void store_roundtrip_with_escape() {
+    void storeRoundtripWithEscape() {
         ToDo t = new ToDo("read | book");
         String stored = t.toStoreFormat();
         assertEquals("T |   | read \\| book", stored);
@@ -36,4 +36,3 @@ class ToDoTest {
         assertEquals("[T][X] read | book", parsed.toString());
     }
 }
-

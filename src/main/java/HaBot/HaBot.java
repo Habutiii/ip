@@ -1,8 +1,8 @@
-package HaBot;
+package habot;
 
-import HaBot.Command.Command;
-import HaBot.Exception.HaBotException;
-import HaBot.Ui.Ui;
+import habot.command.Command;
+import habot.exception.HaBotException;
+import habot.ui.Ui;
 
 /**
  * Main class for the HaBot chatbot application.
@@ -12,6 +12,10 @@ public class HaBot {
     private final TaskList taskList;
     private final Storage storage;
 
+    /**
+     * HaBot Constructor
+     * @param filePath file path to store the task
+     */
     public HaBot(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -33,7 +37,7 @@ public class HaBot {
 
             // Catch any intended HaBotExceptions thrown by handleCommand
             } catch (HaBotException e) {
-                ui.error( e.getMessage());
+                ui.error(e.getMessage());
             // Catch any unexpected exceptions and display an error message
             } catch (Exception e) {
                 ui.unexpectedError(e.getMessage());

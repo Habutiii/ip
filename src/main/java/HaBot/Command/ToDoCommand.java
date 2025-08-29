@@ -1,11 +1,14 @@
-package HaBot.Command;
+package habot.command;
 
-import HaBot.Exception.HaBotException;
-import HaBot.Storage;
-import HaBot.TaskList;
-import HaBot.Task.ToDo;
-import HaBot.Ui.Ui;
+import habot.Storage;
+import habot.TaskList;
+import habot.exception.HaBotException;
+import habot.task.ToDo;
+import habot.ui.Ui;
 
+/**
+ * Command to add a ToDo Task
+ */
 public class ToDoCommand extends Command {
     private final String description;
 

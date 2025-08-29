@@ -1,4 +1,4 @@
-package HaBot.Task;
+package habot.task;
 
 /**
  * Represents a to-do task that has no functional difference from the HaBot.Task.Task Class.

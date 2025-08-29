@@ -1,10 +1,13 @@
-package HaBot.Command;
+package habot.command;
 
-import HaBot.Storage;
-import HaBot.TaskList;
-import HaBot.Ui.Ui;
+import habot.Storage;
+import habot.TaskList;
+import habot.ui.Ui;
 
-public class ByeCommand extends Command{
+/**
+ * Bye command to terminate the program
+ */
+public class ByeCommand extends Command {
 
     /**
      * Executes the command to exit the application.
@@ -13,7 +16,7 @@ public class ByeCommand extends Command{
      * @param ui The UI to interact with the user.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage)  {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         ui.send("Bye. Hope to see you again soon! (•̀ᴗ•́)و ✧");
     }
 

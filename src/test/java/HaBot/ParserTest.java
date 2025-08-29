@@ -1,18 +1,28 @@
-package HaBot;
+package habot;
 
-import HaBot.Command.*;
-import HaBot.Exception.HaBotException;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import habot.command.ByeCommand;
+import habot.command.DeadlineCommand;
+import habot.command.DeleteCommand;
+import habot.command.EventCommand;
+import habot.command.FindCommand;
+import habot.command.ListCommand;
+import habot.command.MarkCommand;
+import habot.command.ToDoCommand;
+import habot.exception.HaBotException;
 
 @DisplayName("Parser: command recognition and error handling")
 class ParserTest {
 
     @Test
     @DisplayName("Recognizes each supported command type")
-    void recognizes_supported_commands() {
+    void recognizesSupportedCommands() {
         assertInstanceOf(ListCommand.class, Parser.parse("list"));
         assertInstanceOf(ByeCommand.class, Parser.parse("bye"));
         assertInstanceOf(ToDoCommand.class, Parser.parse("todo buy milk"));
@@ -26,7 +36,7 @@ class ParserTest {
 
     @Test
     @DisplayName("Unknown command produces user-friendly error")
-    void unknown_command_error() {
+    void unknownCommandError() {
         HaBotException ex = assertThrows(HaBotException.class, () -> Parser.parse("foobar"));
         assertTrue(ex.getMessage().contains("I don't understand that command."));
     }

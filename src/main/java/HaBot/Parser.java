@@ -1,8 +1,20 @@
-package HaBot;
+package habot;
 
-import HaBot.Command.*;
-import HaBot.Exception.HaBotException;
+import habot.command.ByeCommand;
+import habot.command.Command;
+import habot.command.CommandType;
+import habot.command.DeadlineCommand;
+import habot.command.DeleteCommand;
+import habot.command.EventCommand;
+import habot.command.FindCommand;
+import habot.command.ListCommand;
+import habot.command.MarkCommand;
+import habot.command.ToDoCommand;
+import habot.exception.HaBotException;
 
+/**
+ * Parse command input from the user and call the respective function.
+ */
 public class Parser {
 
     /**
@@ -30,7 +42,7 @@ public class Parser {
         return switch (commandType) {
         case LIST -> new ListCommand();
         case MARK -> new MarkCommand(parseArguments(command), true);
-        case UNMARK -> new MarkCommand(parseArguments(command),  false);
+        case UNMARK -> new MarkCommand(parseArguments(command), false);
         case FIND -> new FindCommand(parseArguments(command));
         case DELETE -> new DeleteCommand(parseArguments(command));
         case TODO -> new ToDoCommand(parseArguments(command));

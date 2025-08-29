@@ -1,11 +1,14 @@
-package HaBot.Command;
+package habot.command;
 
-import HaBot.Exception.HaBotException;
-import HaBot.Storage;
-import HaBot.Task.Task;
-import HaBot.TaskList;
-import HaBot.Ui.Ui;
+import habot.Storage;
+import habot.TaskList;
+import habot.exception.HaBotException;
+import habot.task.Task;
+import habot.ui.Ui;
 
+/**
+ * Command to delete task
+ */
 public class DeleteCommand extends Command {
     private final Integer index;
 

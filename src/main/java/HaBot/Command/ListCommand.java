@@ -1,10 +1,13 @@
-package HaBot.Command;
+package habot.command;
 
-import HaBot.Exception.HaBotException;
-import HaBot.Storage;
-import HaBot.TaskList;
-import HaBot.Ui.Ui;
+import habot.Storage;
+import habot.TaskList;
+import habot.exception.HaBotException;
+import habot.ui.Ui;
 
+/**
+ * Command to list all tasks
+ */
 public class ListCommand extends Command {
 
     /**

@@ -1,24 +1,28 @@
-package HaBot.Command;
+package habot.command;
 
-import HaBot.Exception.HaBotException;
-import HaBot.Storage;
-import HaBot.Task.ToDo;
-import HaBot.TaskList;
-import HaBot.Ui.FakeUi;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.nio.file.Path;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import java.nio.file.Path;
+import habot.Storage;
+import habot.TaskList;
+import habot.exception.HaBotException;
+import habot.task.ToDo;
+import habot.ui.FakeUi;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("DeleteCommand")
 class DeleteCommandTest {
 
     @Test
     @DisplayName("validates index and removes the task")
-    void delete_command_validates_and_removes(@TempDir Path tmp) {
+    void deleteCommandValidatesAndRemoves(@TempDir Path tmp) {
         TaskList tl = new TaskList();
         tl.add(new ToDo("first"));
         tl.add(new ToDo("second"));

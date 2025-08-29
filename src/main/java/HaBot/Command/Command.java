@@ -1,11 +1,15 @@
-package HaBot.Command;
+package habot.command;
 
-import HaBot.Exception.HaBotException;
-import HaBot.Storage;
-import HaBot.TaskList;
-import HaBot.Ui.Ui;
+import habot.Storage;
+import habot.TaskList;
+import habot.exception.HaBotException;
+import habot.ui.Ui;
 
-public class Command {
+/**
+ * Represents a command that can be executed by the HaBot application.
+ * This is an abstract class that serves as a base for specific command implementations.
+ */
+public abstract class Command {
 
     /**
      * Executes the command with the given TaskList, Ui, and Storage.

@@ -1,4 +1,4 @@
-package HaBot.Command;
+package habot.command;
 
 /**
  * Represents the types of commands supported by HaBot.HaBot.
@@ -13,9 +13,7 @@ public enum CommandType {
      * @return The matching HaBot.Command.CommandType, or UNKNOWN if no match is found.
      */
     public static CommandType fromInput(String input) {
-//        input = "find test"; // For testing purpose
-//        input = input.trim();
-        if (input.equals("bye")){
+        if (input.equals("bye")) {
             return BYE;
         } else if (input.equals("list")) {
             return LIST;

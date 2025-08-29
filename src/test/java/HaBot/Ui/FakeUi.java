@@ -1,8 +1,9 @@
-package HaBot.Ui;
+package habot.ui;
 
-import HaBot.Exception.HaBotException;
 import java.util.ArrayList;
 import java.util.List;
+
+import habot.exception.HaBotException;
 
 /**
  * Simple UI test double capturing messages without printing.
@@ -29,4 +30,3 @@ public class FakeUi extends Ui {
         return messages.isEmpty() ? null : messages.get(messages.size() - 1);
     }
 }
-

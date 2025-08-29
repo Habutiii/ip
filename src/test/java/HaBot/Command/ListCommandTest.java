@@ -1,24 +1,26 @@
-package HaBot.Command;
+package habot.command;
 
-import HaBot.Exception.HaBotException;
-import HaBot.Storage;
-import HaBot.Task.ToDo;
-import HaBot.TaskList;
-import HaBot.Ui.FakeUi;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.nio.file.Path;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import java.nio.file.Path;
-
-import static org.junit.jupiter.api.Assertions.*;
+import habot.Storage;
+import habot.TaskList;
+import habot.exception.HaBotException;
+import habot.task.ToDo;
+import habot.ui.FakeUi;
 
 @DisplayName("ListCommand")
 class ListCommandTest {
 
     @Test
     @DisplayName("emits header and listing; throws when empty")
-    void list_command_behaviour(@TempDir Path tmp) {
+    void listCommandBehaviour(@TempDir Path tmp) {
         TaskList tl = new TaskList();
         FakeUi ui = new FakeUi();
         Storage storage = new Storage(tmp.resolve("tasks.txt").toString());
@@ -34,4 +36,3 @@ class ListCommandTest {
         assertTrue(msg.contains("1.[T][ ] first\n2.[T][ ] second"));
     }
 }
-

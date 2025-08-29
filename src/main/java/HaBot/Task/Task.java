@@ -1,21 +1,23 @@
-package HaBot.Task;
-
-import HaBot.Exception.HaBotException;
+package habot.task;
 
 import java.time.format.DateTimeFormatter;
+
+import habot.exception.HaBotException;
+
 
 /**
  * Represents a generic task with a description and completion status.
  */
 public class Task {
+    // Date formatters for parsing and printing dates.
+    protected static final DateTimeFormatter DATE_FORMATTER_PARSE = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    protected static final DateTimeFormatter DATE_FORMATTER_PRINT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+
     //The description of the task.
     protected String description;
     // Indicates whether the task is completed.
     protected boolean isDone;
 
-    // Date formatters for parsing and printing dates.
-    protected static final DateTimeFormatter DATE_FORMATTER_PARSE = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    protected static final DateTimeFormatter DATE_FORMATTER_PRINT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
     /**
      * Constructs a new HaBot.Task.Task with the specified description.

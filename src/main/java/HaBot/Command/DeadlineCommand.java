@@ -1,11 +1,14 @@
-package HaBot.Command;
+package habot.command;
 
-import HaBot.Task.Deadline;
-import HaBot.Exception.HaBotException;
-import HaBot.Storage;
-import HaBot.TaskList;
-import HaBot.Ui.Ui;
+import habot.Storage;
+import habot.TaskList;
+import habot.exception.HaBotException;
+import habot.task.Deadline;
+import habot.ui.Ui;
 
+/**
+ * Command to add Deadline task
+ */
 public class DeadlineCommand extends Command {
     private final String content;
 

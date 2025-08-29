@@ -1,24 +1,26 @@
-package HaBot.Command;
+package habot.command;
 
-import HaBot.Exception.HaBotException;
-import HaBot.Storage;
-import HaBot.Task.ToDo;
-import HaBot.TaskList;
-import HaBot.Ui.FakeUi;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.nio.file.Path;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import java.nio.file.Path;
-
-import static org.junit.jupiter.api.Assertions.*;
+import habot.Storage;
+import habot.TaskList;
+import habot.exception.HaBotException;
+import habot.task.ToDo;
+import habot.ui.FakeUi;
 
 @DisplayName("MarkCommand")
 class MarkCommandTest {
 
     @Test
     @DisplayName("toggles task and validates input")
-    void mark_command_toggles_and_validates(@TempDir Path tmp) {
+    void markCommandTogglesAndValidates(@TempDir Path tmp) {
         TaskList tl = new TaskList();
         tl.add(new ToDo("x"));
         FakeUi ui = new FakeUi();
@@ -33,7 +35,8 @@ class MarkCommandTest {
         assertTrue(e1.getMessage().contains("Invalid input format. Please use 'unmark <task number>'"));
 
         // Out of range
-        HaBotException e2 = assertThrows(HaBotException.class, () -> new MarkCommand("2", true).execute(tl, ui, storage));
+        HaBotException e2 = assertThrows(HaBotException.class, () -> new MarkCommand(
+                "2", true).execute(tl, ui, storage));
         assertTrue(e2.getMessage().contains("Invalid task index."));
 
         // Mark success

@@ -1,19 +1,23 @@
-package HaBot;
+package habot;
 
-import HaBot.Exception.HaBotException;
-import HaBot.Task.Task;
-import HaBot.Task.ToDo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import habot.exception.HaBotException;
+import habot.task.Task;
+import habot.task.ToDo;
 
 @DisplayName("TaskList: add, get, remove, list, mark, bounds")
 class TaskListTest {
 
     @Test
     @DisplayName("Add and size reflect correct count")
-    void add_and_size() {
+    void addAndSize() {
         TaskList tl = new TaskList();
         assertEquals(0, tl.size());
         tl.add(new ToDo("a"));
@@ -22,7 +26,7 @@ class TaskListTest {
 
     @Test
     @DisplayName("Get and remove by valid index")
-    void get_and_remove() {
+    void getAndRemove() {
         TaskList tl = new TaskList();
         ToDo t = new ToDo("a");
         tl.add(t);
@@ -35,7 +39,7 @@ class TaskListTest {
 
     @Test
     @DisplayName("List throws when empty and returns formatted listing when populated")
-    void list_behaviour() {
+    void listBehaviour() {
         TaskList tl = new TaskList();
         HaBotException ex = assertThrows(HaBotException.class, tl::list);
         assertTrue(ex.getMessage().contains("No task stored yet."));
@@ -48,7 +52,7 @@ class TaskListTest {
 
     @Test
     @DisplayName("Mark/unmark toggles state and returns the updated task")
-    void mark_and_unmark() {
+    void markAndUnmark() {
         TaskList tl = new TaskList();
         ToDo t = new ToDo("x");
         tl.add(t);
@@ -60,7 +64,7 @@ class TaskListTest {
 
     @Test
     @DisplayName("Index validation throws for negative and out-of-range")
-    void index_validation() {
+    void indexValidation() {
         TaskList tl = new TaskList();
         tl.add(new ToDo("a"));
         for (int idx : new int[]{-1, 1}) {
