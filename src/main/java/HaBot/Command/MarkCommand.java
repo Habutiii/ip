@@ -1,11 +1,14 @@
-package HaBot.Command;
+package habot.command;
 
-import HaBot.Exception.HaBotException;
-import HaBot.Storage;
-import HaBot.Task.Task;
-import HaBot.TaskList;
-import HaBot.Ui.Ui;
+import habot.Storage;
+import habot.TaskList;
+import habot.exception.HaBotException;
+import habot.task.Task;
+import habot.ui.Ui;
 
+/**
+ * Command to make a task as done or not done
+ */
 public class MarkCommand extends Command {
 
     private final int index;

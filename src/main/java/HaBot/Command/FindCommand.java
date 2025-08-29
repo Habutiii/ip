@@ -1,10 +1,12 @@
-package HaBot.Command;
+package habot.command;
 
-import HaBot.Exception.HaBotException;
-import HaBot.Storage;
-import HaBot.TaskList;
-import HaBot.Ui.Ui;
+import habot.Storage;
+import habot.TaskList;
+import habot.ui.Ui;
 
+/**
+ * Command to find tasks with matching string in description
+ */
 public class FindCommand extends Command {
     private final String keyword;
 
@@ -46,7 +48,9 @@ public class FindCommand extends Command {
         if (count == 0) {
             ui.send("No tasks found matching the keyword ( ╥ ‸ ╥ ) : " + keyword);
         } else {
-            ui.send(String.format("Here are the matching tasks in your list ( ˶ˆᗜˆ˵ ) :\n%s", foundTasks.toString().trim()));
+            ui.send(
+                String.format("Here are the matching tasks in your list ( ˶ˆᗜˆ˵ ) :\n%s",
+                foundTasks.toString().trim()));
         }
     }
 }

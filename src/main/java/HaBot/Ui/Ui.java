@@ -1,14 +1,17 @@
-package HaBot.Ui;
+package habot.ui;
 
-import HaBot.Exception.HaBotException;
+import habot.exception.HaBotException;
 
+/**
+ * Handles UI operations
+ */
 public class Ui {
     // Define the name of the bot
-    private final String NAME = "HaBot";
-    private final String SEPARATOR = "-".repeat(50);
+    private final String name = "HaBot";
+    private final String separator = "-".repeat(50);
 
     // Scanner for reading user input
-    private final java.util.Scanner SCANNER = new java.util.Scanner(System.in);
+    private final java.util.Scanner scanner = new java.util.Scanner(System.in);
 
     /**
      * Reads a line of input from the user.
@@ -16,7 +19,7 @@ public class Ui {
      */
     public String readInput() {
         System.out.print("> ");
-        return SCANNER.nextLine();
+        return scanner.nextLine();
     }
 
     /**
@@ -24,10 +27,10 @@ public class Ui {
      * @param message The message to display.
      */
     public void send(String message) {
-        System.out.println(SEPARATOR);
+        System.out.println(separator);
         System.out.println("<|°_°|>");
         System.out.println(message);
-        System.out.println(SEPARATOR);
+        System.out.println(separator);
     }
 
     /**
@@ -40,7 +43,7 @@ public class Ui {
                  |     | |____|__ |_____] |____|   |__  \s
                 """;
         System.out.println(logo);
-        send("Hello! I'm " + NAME + "! (* v *)ノシ\nWhat can I do for you?");
+        send("Hello! I'm " + name + "! (* v *)ノシ\nWhat can I do for you?");
     }
 
     /**

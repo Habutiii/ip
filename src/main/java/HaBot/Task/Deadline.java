@@ -1,7 +1,6 @@
-package HaBot.Task;
+package habot.task;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task with a deadline.

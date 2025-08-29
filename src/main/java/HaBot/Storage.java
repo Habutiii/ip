@@ -1,10 +1,14 @@
-package HaBot;
-
-import HaBot.Exception.HaBotException;
+package habot;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import habot.exception.HaBotException;
+
+
+/**
+ * Manages the storage of tasks to and from a file.
+ */
 public class Storage {
     private final java.io.File file;
 
@@ -25,6 +29,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the storage file.
+     * @return
+     * @throws HaBotException
+     */
     public ArrayList<String> load() throws HaBotException {
         ArrayList<String> lines = new ArrayList<>();
         // Check if the file exists before attempting to load
@@ -46,6 +55,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the given list of task strings to the storage file.
+     * @param lines
+     * @throws HaBotException
+     */
     public void save(List<String> lines) throws HaBotException {
         // Save the tasks to plain text format
         try (java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.FileWriter(file))) {

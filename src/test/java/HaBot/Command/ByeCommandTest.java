@@ -1,22 +1,24 @@
-package HaBot.Command;
+package habot.command;
 
-import HaBot.Storage;
-import HaBot.TaskList;
-import HaBot.Ui.FakeUi;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.nio.file.Path;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import java.nio.file.Path;
-
-import static org.junit.jupiter.api.Assertions.*;
+import habot.Storage;
+import habot.TaskList;
+import habot.ui.FakeUi;
 
 @DisplayName("ByeCommand")
 class ByeCommandTest {
 
     @Test
     @DisplayName("sends goodbye and signals exit")
-    void bye_command_goodbye(@TempDir Path tmp) {
+    void byeCommandGoodbye(@TempDir Path tmp) {
         TaskList tl = new TaskList();
         FakeUi ui = new FakeUi();
         Storage storage = new Storage(tmp.resolve("tasks.txt").toString()); // not used
@@ -27,5 +29,3 @@ class ByeCommandTest {
         assertTrue(cmd.toExit());
     }
 }
-
-

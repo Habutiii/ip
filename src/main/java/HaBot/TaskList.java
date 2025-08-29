@@ -1,10 +1,10 @@
-package HaBot;
-
-import HaBot.Exception.HaBotException;
-import HaBot.Task.Task;
+package habot;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import habot.exception.HaBotException;
+import habot.task.Task;
 
 /**
  * Manages a list of HaBot.Task.Task objects, providing methods to add, remove, retrieve, list, and mark tasks.
@@ -112,7 +112,7 @@ public class TaskList {
      * @return A string listing all tasks, each on a new line.
      * @throws HaBotException If there are no tasks stored yet.
      */
-    public String list() throws HaBotException{
+    public String list() throws HaBotException {
         if (tasks.isEmpty()) {
             throw new HaBotException("No task stored yet.");
         }
