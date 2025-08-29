@@ -50,7 +50,7 @@ public class Parser {
         case EVENT -> new EventCommand(parseArguments(command));
         case BYE -> new ByeCommand();
         // If the command is not recognized, throw an exception
-        default -> throw new HaBotException("Sorry, What are you trying to say? (｡•́︿•̀｡)???\n"
+        default -> throw new HaBotException("Sorry, What are you trying to say? ( ˶°ㅁ°) !???\n"
                 + "I don't understand that command.");
         };
     }
