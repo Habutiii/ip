@@ -12,8 +12,8 @@ public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
-    protected static final DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    protected static final DateTimeFormatter printFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+    protected static final DateTimeFormatter DATE_FORMATTER_PARSE = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    protected static final DateTimeFormatter DATE_FORMATTER_PRINT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
     /**
      * Constructs an HaBot.Task.Event task with a description, start time, and end time.
@@ -37,8 +37,8 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         this(description,
-                LocalDateTime.parse(from, parseFormatter),
-                LocalDateTime.parse(to, parseFormatter));
+                LocalDateTime.parse(from, DATE_FORMATTER_PARSE),
+                LocalDateTime.parse(to, DATE_FORMATTER_PARSE));
     }
 
     /**
@@ -49,8 +49,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (From: " + from.format(printFormatter)
-                + " To: " + to.format(printFormatter) + ")";
+                + " (From: " + from.format(DATE_FORMATTER_PRINT)
+                + " To: " + to.format(DATE_FORMATTER_PRINT) + ")";
     }
 
     @Override
@@ -58,8 +58,8 @@ public class Event extends Task {
         String escapedDescription = description.replace("|", "\\|");
         return "E | " + getMarkStatusIcon()
                 + " | " + escapedDescription
-                + " | " + from.format(parseFormatter)
-                + " | " + to.format(parseFormatter);
+                + " | " + from.format(DATE_FORMATTER_PARSE)
+                + " | " + to.format(DATE_FORMATTER_PARSE);
     }
 
     /**
@@ -76,8 +76,8 @@ public class Event extends Task {
         }
         boolean isDone = parts[1].equals("X");
         String description = parts[2].replace("\\|", "|");
-        LocalDateTime from = LocalDateTime.parse(parts[3], parseFormatter);
-        LocalDateTime to = LocalDateTime.parse(parts[4], parseFormatter);
+        LocalDateTime from = LocalDateTime.parse(parts[3], DATE_FORMATTER_PARSE);
+        LocalDateTime to = LocalDateTime.parse(parts[4], DATE_FORMATTER_PARSE);
         Event event = new Event(description, from, to);
         if (isDone) {
             event.markAsDone();
