@@ -12,8 +12,6 @@ public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
-    protected static final DateTimeFormatter DATE_FORMATTER_PARSE = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    protected static final DateTimeFormatter DATE_FORMATTER_PRINT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
     /**
      * Constructs an HaBot.Task.Event task with a description, start time, and end time.

@@ -12,12 +12,6 @@ public class Deadline extends Task {
     protected LocalDateTime by;
 
     /**
-     * Formatter for parsing and printing date/time.
-     */
-    protected static final DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    protected static final DateTimeFormatter printFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
-
-    /**
      * Constructs a HaBot.Task.Deadline task with a description and deadline date/time.
      * @param description The description of the task.
      * @param by The deadline date/time for the task in LocalDateTime format.
@@ -35,7 +29,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
 
-        this(description, LocalDateTime.parse(by, parseFormatter));
+        this(description, LocalDateTime.parse(by, DATE_FORMATTER_PARSE));
     }
 
     /**
@@ -48,7 +42,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString()
-                + " (By: " + by.format(printFormatter) + ")";
+                + " (By: " + by.format(DATE_FORMATTER_PRINT) + ")";
     }
 
     @Override
@@ -56,7 +50,7 @@ public class Deadline extends Task {
         String escapedDescription = description.replace("|", "\\|");
         return "D | " + getMarkStatusIcon()
                 + " | " + escapedDescription
-                + " | " + by.format(parseFormatter);
+                + " | " + by.format(DATE_FORMATTER_PARSE);
     }
 
     /**
@@ -75,7 +69,7 @@ public class Deadline extends Task {
         }
         boolean isDone = parts[1].equals("X");
         String description = parts[2].replace("\\|", "|");
-        LocalDateTime by = LocalDateTime.parse(parts[3], parseFormatter);
+        LocalDateTime by = LocalDateTime.parse(parts[3], DATE_FORMATTER_PARSE);
         Deadline deadline = new Deadline(description, by);
         if (isDone) {
             deadline.markAsDone();
