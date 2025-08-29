@@ -5,10 +5,6 @@ import HaBot.Exception.HaBotException;
 
 public class Parser {
 
-    private static final String unknownCommandMessage = "Sorry, What are you trying to say? (｡•́︿•̀｡)???\n"
-            + "I don't understand that command.";
-
-
     /**
      * Parses the input string without flag and extracts the arguments after the command.
      *
@@ -42,7 +38,8 @@ public class Parser {
         case EVENT -> new EventCommand(parseArguments(command));
         case BYE -> new ByeCommand();
         // If the command is not recognized, throw an exception
-        default -> throw new HaBotException(unknownCommandMessage);
+        default -> throw new HaBotException("Sorry, What are you trying to say? (｡•́︿•̀｡)???\n"
+                + "I don't understand that command.");
         };
     }
 }
