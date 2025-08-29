@@ -1,7 +1,6 @@
 import java.io.IOException;
 
 import habot.HaBot;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,7 +25,7 @@ public class Main extends Application {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
 
-            fxmlLoader.<MainWindow>getController().setBot(habot);  // inject the HaBot instance
+            fxmlLoader.<MainWindow>getController().setBot(habot); // inject the HaBot instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

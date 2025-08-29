@@ -21,6 +21,8 @@ public class MarkCommand extends Command {
      * @param isDone   True to mark the task as done, false to unmark it.
      */
     public MarkCommand(String indexStr, Boolean isDone) {
+        super(isDone ? CommandType.MARK : CommandType.UNMARK);
+
         try {
             this.index = Integer.parseInt(indexStr.trim()) - 1; // Convert to 0-based index
             this.isDone = isDone;
@@ -44,6 +46,7 @@ public class MarkCommand extends Command {
         Task markedTask = taskList.mark(index, isDone);
         String markMessage = "OK! Done done done! ᕙ(`▽´)ᕗ";
         String unmarkMessage = "Awww, still need do (º﹃º)ᕗ";
-        ui.send((isDone ? markMessage : unmarkMessage) + "\n  " + markedTask);
+        output = (isDone ? markMessage : unmarkMessage) + "\n  " + markedTask;
+        ui.send(output);
     }
 }

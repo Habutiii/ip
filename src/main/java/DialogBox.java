@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.Collections;
 
+import habot.command.CommandType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -50,9 +51,29 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getBotDialog(String text, Image img) {
+    public static DialogBox getBotDialog(String text, Image img, CommandType commandType) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.changeDialogStyle(commandType);
         return db;
+    }
+
+    private void changeDialogStyle(CommandType commandType) {
+        switch(commandType) {
+        case TODO:
+        case DEADLINE:
+        case EVENT:
+            dialog.getStyleClass().add("add-label");
+            break;
+        case MARK:
+        case UNMARK:
+            dialog.getStyleClass().add("marked-label");
+            break;
+        case DELETE:
+            dialog.getStyleClass().add("delete-label");
+            break;
+        default:
+            // Do nothing
+        }
     }
 }

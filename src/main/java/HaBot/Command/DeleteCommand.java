@@ -18,6 +18,7 @@ public class DeleteCommand extends Command {
      * @param indexStr The index of the task to delete, as a string.
      */
     public DeleteCommand(String indexStr) {
+        super(CommandType.DELETE);
         try {
             this.index = Integer.parseInt(indexStr.trim()) - 1; // Convert to 0-based index
         } catch (NumberFormatException e) {
@@ -37,9 +38,10 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws HaBotException {
         Task removedTask = taskList.remove(index);
-        ui.send("OK! Removed task! (`▽´)/ o()xxxx[{::::::::::::::::::> \n  "
+        output = "OK! Removed task! (`▽´)/ o()xxxx[{::::::::::::::::::> \n  "
                 + removedTask + "\n"
-                + ui.taskLeftHint(taskList.size()));
+                + ui.taskLeftHint(taskList.size());
+        ui.send(output);
         // Save the updated task list to storage
         storage.save(taskList.toStoreFormat());
     }

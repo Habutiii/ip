@@ -1,16 +1,17 @@
 .root {
     main-color: rgb(237, 255, 242);       /* Create a looked-up color called "main-color" within root. */
     -fx-background-color: main-color;
+    -fx-font-family: "Segoe UI Emoji"; /* Windows */
 }
 
 .text-field {
     -fx-background-color: #d9ffe2;
-    -fx-font: 20px "Arial";
+    -fx-font: 20px;
 }
 
 .button {
     -fx-background-color: mediumspringgreen;
-    -fx-font: italic bold 16px "Arial";
+    -fx-font: italic bold 16px;
 }
 
 .button:hover {

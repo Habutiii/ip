@@ -1,6 +1,7 @@
 package habot;
 
 import habot.command.Command;
+import habot.command.CommandType;
 import habot.exception.HaBotException;
 import habot.ui.Ui;
 
@@ -11,6 +12,7 @@ public class HaBot {
     private final Ui ui;
     private final TaskList taskList;
     private final Storage storage;
+    private CommandType commandType = CommandType.UNKNOWN;
 
     /**
      * HaBot Constructor
@@ -56,6 +58,26 @@ public class HaBot {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "HaBot heard: " + input;
+        try {
+            Command command = Parser.parse(input); // Parse the user input into a command
+            command.execute(taskList, ui, storage); // Execute the command
+            commandType = command.getCommandType();
+            if (command.toExit()) {
+                System.exit(0);
+            }
+            return command.getOutput();
+        } catch (HaBotException e) {
+            return e.getMessage();
+        } catch (Exception e) {
+            return "An unexpected error occurred: " + e.getMessage();
+        }
+    }
+
+    /**
+     * Returns the type of the last executed command.
+     * @return The CommandType of the last executed command.
+     */
+    public CommandType getCommandType() {
+        return commandType;
     }
 }

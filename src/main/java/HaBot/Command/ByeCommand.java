@@ -10,6 +10,13 @@ import habot.ui.Ui;
 public class ByeCommand extends Command {
 
     /**
+     * Constructs a ByeCommand.
+     */
+    public ByeCommand() {
+        super(CommandType.BYE);
+    }
+
+    /**
      * Executes the command to exit the application.
      *
      * @param taskList The HaBot.TaskList to operate on.
@@ -17,7 +24,8 @@ public class ByeCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.send("Bye. Hope to see you again soon! (•̀ᴗ•́)و ✧");
+        output = "Bye. Hope to see you again soon! (•̀ᴗ•́)و ✧";
+        ui.send(output);
     }
 
     /**

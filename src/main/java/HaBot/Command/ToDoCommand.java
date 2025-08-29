@@ -18,6 +18,8 @@ public class ToDoCommand extends Command {
      * @param description The description of the HaBot.Task.ToDo task.
      */
     public ToDoCommand(String description) {
+        super(CommandType.TODO);
+
         this.description = description.trim();
         if (this.description.isEmpty()) {
             throw new HaBotException("The description of a ToDo cannot be empty.");
@@ -35,8 +37,9 @@ public class ToDoCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) throws HaBotException {
         ToDo task = new ToDo(description);
         taskList.add(task);
-        ui.send("Sure! New task \\( ﾟヮﾟ)/\n  " + task + "\n"
-                + ui.taskLeftHint(taskList.size()));
+        output = "Sure! New task \\( ﾟヮﾟ)/\n  " + task + "\n"
+                + ui.taskLeftHint(taskList.size());
+        ui.send(output);
 
         // Save the updated task list to storage
         storage.save(taskList.toStoreFormat());

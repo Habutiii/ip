@@ -1,7 +1,5 @@
 package habot.ui;
 
-import habot.exception.HaBotException;
-
 /**
  * Handles UI operations
  */
@@ -54,15 +52,6 @@ public class Ui {
         return "The number of tasks you have to do: ★ " + taskCount + " ★ ノ(゜-゜ノ)";
     }
 
-    /**
-     * Lists all stored tasks.
-     * @throws HaBotException If no tasks are stored.
-     */
-    public void listTasks(String taskListStr) throws HaBotException {
-        // Print the list of tasks
-        String hint = "Here are the tasks in your list (๑•̀ㅂ•́)ง✧\n";
-        send(hint + taskListStr);
-    }
 
     public void error(String message) {
         send("Error (ノ•`_´•)ノ︵┻━┻ " + message);
