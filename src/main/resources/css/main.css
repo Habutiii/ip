@@ -11,14 +11,14 @@
 }
 
 #sendButton {
-    -fx-background-color: #00cc00;
+    -fx-background-color: #009900;
     -fx-cursor: hand;
     -fx-background-radius: 20px; /* Match half of the button's width/height */
     -fx-border-radius: 20px; /* Match half of the button's width/height */
 }
 
-#sendButton :hover {
-    -fx-background-color: #00ff00;
+#sendButton:hover {
+    -fx-background-color: #00bb00;
 }
 
 #sendButton:pressed {
