@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -20,11 +21,13 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private ImageView sendIcon;
 
     private HaBot bot;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/Bot.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User_128.png"));
+    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/Bot_128.png"));
 
     @FXML
     public void initialize() {

@@ -35,6 +35,16 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        this.initialize();
+    }
+
+    /**
+     * Constructor for DialogBox.
+     * @param className
+     */
+    private void setDialogClass(String className) {
+        dialog.getStyleClass().add(className);
     }
 
     /**
@@ -48,11 +58,14 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.setDialogClass("user-label");
+        return db;
     }
 
     public static DialogBox getBotDialog(String text, Image img, CommandType commandType) {
         var db = new DialogBox(text, img);
+        db.setDialogClass("reply-label");
         db.flip();
         db.changeDialogStyle(commandType);
         return db;
@@ -75,5 +88,15 @@ public class DialogBox extends HBox {
         default:
             // Do nothing
         }
+    }
+
+    /**
+     * Initializes the dialog box.
+     * Binds the width of the dialog label to 80% of the width of the parent container.
+     */
+    @FXML
+    public void initialize() {
+        // Bind the width of the dialog label to the width of the parent container
+        dialog.maxWidthProperty().bind(this.widthProperty().multiply(0.8));
     }
 }
