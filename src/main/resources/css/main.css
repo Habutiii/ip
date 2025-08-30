@@ -1,6 +1,10 @@
 .root {
     main-bg-color: #101010;
     -fx-background-color: main-bg-color;
+    -fx-background-image: url("../images/background.png");
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
     -fx-font-family: "Segoe UI Emoji"; /* Windows */
 }
 
