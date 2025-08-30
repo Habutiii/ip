@@ -16,6 +16,7 @@ public class FindCommand extends Command {
      * @param keyword The keyword to search for in tasks.
      */
     public FindCommand(String keyword) {
+        super(CommandType.FIND);
         this.keyword = keyword;
     }
 
@@ -46,11 +47,13 @@ public class FindCommand extends Command {
         }
 
         if (count == 0) {
-            ui.send("No tasks found matching the keyword ( ╥ ‸ ╥ ) : " + keyword);
+            output = "No tasks found matching the keyword ( ╥ ‸ ╥ ) : " + keyword;
+            ui.send(output);
         } else {
-            ui.send(
-                String.format("Here are the matching tasks in your list ( ˶ˆᗜˆ˵ ) :\n%s",
-                foundTasks.toString().trim()));
+            output = String.format(
+                    "Here are the matching tasks in your list ( ˶ˆᗜˆ˵ ) :\n%s",
+                    foundTasks.toString().trim());
+            ui.send(output);
         }
     }
 }

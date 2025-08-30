@@ -1,0 +1,52 @@
+.root {
+    main-bg-color: #101010;
+    -fx-background-color: main-bg-color;
+    -fx-background-image: url("../images/background.png");
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-font-family: "Segoe UI Emoji"; /* Windows */
+}
+
+.text-field {
+    -fx-background-color: #303030;;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+}
+
+#sendButton {
+    -fx-background-color: #009900;
+    -fx-cursor: hand;
+    -fx-background-radius: 20px; /* Match half of the button's width/height */
+    -fx-border-radius: 20px; /* Match half of the button's width/height */
+}
+
+#sendButton:hover {
+    -fx-background-color: #00bb00;
+}
+
+#sendButton:pressed {
+    -fx-background-color:orange;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: main-bg-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #ff9cb4;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

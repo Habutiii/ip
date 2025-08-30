@@ -9,7 +9,16 @@ import habot.ui.Ui;
  * Represents a command that can be executed by the HaBot application.
  * This is an abstract class that serves as a base for specific command implementations.
  */
-public abstract class Command {
+public class Command {
+
+    protected String output = "Sorry, What are you trying to say? (｡•́︿•̀｡)???\n"
+            + "I don't understand that command.";
+
+    private final CommandType commandType;
+
+    public Command(CommandType commandType) {
+        this.commandType = commandType;
+    }
 
     /**
      * Executes the command with the given TaskList, Ui, and Storage.
@@ -33,6 +42,14 @@ public abstract class Command {
     public boolean toExit() {
 
         return false; // default implementation, can be overridden
+    }
+
+    public CommandType getCommandType() {
+        return commandType;
+    }
+
+    public String getOutput() {
+        return output;
     }
 }
 

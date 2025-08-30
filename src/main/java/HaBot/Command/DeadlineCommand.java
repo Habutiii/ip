@@ -12,8 +12,13 @@ import habot.ui.Ui;
 public class DeadlineCommand extends Command {
     private final String content;
 
-
+    /**
+     * Constructs a DeadlineCommand with the specified content.
+     *
+     * @param content String of the content after the command word "deadline"
+     */
     public DeadlineCommand(String content) {
+        super(CommandType.DEADLINE);
         this.content = content.trim();
     }
 
@@ -45,8 +50,9 @@ public class DeadlineCommand extends Command {
         try {
             Deadline task = new Deadline(description, by);
             taskList.add(task);
-            ui.send("Sure! New task \\( ﾟヮﾟ)/\n  " + task + "\n"
-                    + ui.taskLeftHint(taskList.size()));
+            output = "Sure! New task \\( ﾟヮﾟ)/\n  " + task + "\n"
+                    + ui.taskLeftHint(taskList.size());
+            ui.send(output);
         } catch (Exception e) {
             throw new HaBotException(e.getMessage() + "\n" + hint);
         }

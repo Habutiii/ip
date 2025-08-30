@@ -12,7 +12,13 @@ import habot.ui.Ui;
 public class EventCommand extends Command {
     private final String content;
 
+    /**
+     * Constructs an EventCommand with the specified content.
+     *
+     * @param content String of the content after the command word "event"
+     */
     public EventCommand(String content) {
+        super(CommandType.EVENT);
         this.content = content.trim();
     }
 
@@ -50,8 +56,9 @@ public class EventCommand extends Command {
         try {
             Event task = new Event(description, from, to);
             taskList.add(task);
-            ui.send("Sure! New task \\( ﾟヮﾟ)/\n  " + task + "\n"
-                    + ui.taskLeftHint(taskList.size()));
+            output = "Sure! New task \\( ﾟヮﾟ)/\n  " + task + "\n"
+                    + ui.taskLeftHint(taskList.size());
+            ui.send(output);
         } catch (Exception e) {
             throw new HaBotException(e.getMessage() + "\n" + hint);
         }
