@@ -21,7 +21,7 @@ class StorageTest {
         assertFalse(f.toFile().exists());
         Storage storage = new Storage(f.toString());
         assertTrue(f.toFile().exists());
-        assertTrue(storage.load().isEmpty());
+        assertTrue(storage.loadTasks().isEmpty());
     }
 
     @Test
@@ -33,7 +33,7 @@ class StorageTest {
                 "D|X|submit report|2019-12-02T18:00"
         );
         storage.save(lines);
-        List<String> loaded = storage.load();
+        List<String> loaded = storage.loadTasks();
         assertEquals(lines, loaded);
     }
 }

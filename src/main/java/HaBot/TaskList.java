@@ -27,6 +27,7 @@ public class TaskList {
     /**
      * Constructs a TaskList and loads tasks from the given list of strings.
      * Each string represents a task in a specific storage format.
+     *
      * @param lines The list of strings representing stored tasks.
      * @throws HaBotException If there is an error during loading.
      */
@@ -61,6 +62,7 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the list.
+     *
      * @return The size of the task list.
      */
     public int size() {
@@ -69,6 +71,7 @@ public class TaskList {
 
     /**
      * Validates that the given index is within the bounds of the task list.
+     *
      * @param index The index to validate.
      * @throws HaBotException If the index is out of bounds.
      */
@@ -80,6 +83,7 @@ public class TaskList {
 
     /**
      * Adds a task to the list.
+     *
      * @param task The task to add.
      */
     public void add(Task task) throws HaBotException {
@@ -88,6 +92,7 @@ public class TaskList {
 
     /**
      * Removes and returns the task at the specified index.
+     *
      * @param index The index of the task to remove (0-based).
      * @return The removed HaBot.Task.Task.
      * @throws HaBotException If the index is out of bounds.
@@ -101,6 +106,7 @@ public class TaskList {
 
     /**
      * Retrieves the task at the specified index.
+     *
      * @param index The index of the task to retrieve (0-based).
      * @return The HaBot.Task.Task at the given index.
      * @throws HaBotException If the index is out of bounds.
@@ -112,6 +118,7 @@ public class TaskList {
 
     /**
      * Returns a formatted string listing all tasks.
+     *
      * @return A string listing all tasks, each on a new line.
      * @throws HaBotException If there are no tasks stored yet.
      */
@@ -126,6 +133,7 @@ public class TaskList {
 
     /**
      * Marks or unmarks the task at the specified index as done or not done.
+     *
      * @param index The index of the task to mark (0-based).
      * @param isDone True to mark as done, false to unmark.
      * @throws HaBotException If the index is out of bounds.

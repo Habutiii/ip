@@ -39,6 +39,7 @@ public class MarkCommand extends Command {
      *
      * @param taskList The HaBot.TaskList to operate on.
      * @param ui       The UI to interact with the user.
+     * @param storage The Storage to save/load tasks (not used in this command).
      * @throws HaBotException If an error occurs during execution.
      */
     @Override
@@ -46,9 +47,10 @@ public class MarkCommand extends Command {
         Task markedTask = taskList.mark(index, isDone);
 
         assert taskList.get(index).getMarkStatusIcon().equals(isDone ? "X" : " ") : "Task mark status should match the command";
-
-        String markMessage = "OK! Done done done! ᕙ(`▽´)ᕗ";
-        String unmarkMessage = "Awww, still need do (º﹃º)ᕗ";
+        
+        final String markMessage = "OK! Done done done! ᕙ(`▽´)ᕗ";
+        final String unmarkMessage = "Awww, still need do (º﹃º)ᕗ";
+      
         output = (isDone ? markMessage : unmarkMessage) + "\n  " + markedTask;
         ui.send(output);
     }

@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    /** Injects the Duke instance */
+    /** Injects the HaBot instance */
     public void setBot(HaBot d) {
         bot = d;
     }
