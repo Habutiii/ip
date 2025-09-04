@@ -37,6 +37,7 @@ public class TaskList {
             try {
                 Task task = Task.fromStoreFormat(line);
                 this.tasks.add(task);
+
             } catch (HaBotException e) {
                 throw new HaBotException("Error loading task from file: " + e.getMessage());
             }
