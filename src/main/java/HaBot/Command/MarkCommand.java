@@ -44,8 +44,10 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws HaBotException {
         Task markedTask = taskList.mark(index, isDone);
-        String markMessage = "OK! Done done done! ᕙ(`▽´)ᕗ";
-        String unmarkMessage = "Awww, still need do (º﹃º)ᕗ";
+
+        final String markMessage = "OK! Done done done! ᕙ(`▽´)ᕗ";
+        final String unmarkMessage = "Awww, still need do (º﹃º)ᕗ";
+
         output = (isDone ? markMessage : unmarkMessage) + "\n  " + markedTask;
         ui.send(output);
     }
