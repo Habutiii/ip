@@ -49,7 +49,13 @@ public class DeadlineCommand extends Command {
 
         try {
             Deadline task = new Deadline(description, by);
+
+            int oldSize = taskList.size();
+
             taskList.add(task);
+
+            assert taskList.size() == oldSize + 1 : "Task list size should increase by 1 after adding a task";
+
             output = "Sure! New task \\( ﾟヮﾟ)/\n  " + task + "\n"
                     + ui.taskLeftHint(taskList.size());
             ui.send(output);

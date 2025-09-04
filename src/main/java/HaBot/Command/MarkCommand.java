@@ -44,6 +44,9 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws HaBotException {
         Task markedTask = taskList.mark(index, isDone);
+
+        assert taskList.get(index).getMarkStatusIcon().equals(isDone ? "X" : " ") : "Task mark status should match the command";
+
         String markMessage = "OK! Done done done! ᕙ(`▽´)ᕗ";
         String unmarkMessage = "Awww, still need do (º﹃º)ᕗ";
         output = (isDone ? markMessage : unmarkMessage) + "\n  " + markedTask;
