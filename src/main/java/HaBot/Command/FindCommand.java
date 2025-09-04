@@ -24,11 +24,10 @@ public class FindCommand extends Command {
      * Executes the find command by searching for tasks that contain the specified keyword.
      *
      * @param tasks   The TaskList containing all tasks.
-     * @param ui      The Ui instance for user interaction.
      * @param storage The Storage instance for saving/loading tasks (not used in this command).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Storage storage) {
 
         int count = 0;
         StringBuilder foundTasks = new StringBuilder();
@@ -48,12 +47,10 @@ public class FindCommand extends Command {
 
         if (count == 0) {
             output = "No tasks found matching the keyword ( ╥ ‸ ╥ ) : " + keyword;
-            ui.send(output);
         } else {
             output = String.format(
                     "Here are the matching tasks in your list ( ˶ˆᗜˆ˵ ) :\n%s",
                     foundTasks.toString().trim());
-            ui.send(output);
         }
     }
 }

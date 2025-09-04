@@ -15,16 +15,16 @@ public class AddTaskCommand extends Command {
         this.task = task;
     }
 
+
     /**
      * Executes the command to add a task to the task list.
      *
      * @param taskList The HaBot.TaskList to operate on.
-     * @param ui The UI to interact with the user.
      * @param storage The Storage to save/load tasks.
      * @throws HaBotException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws habot.exception.HaBotException {
+    public void execute(TaskList taskList, Storage storage) throws habot.exception.HaBotException {
         int oldSize = taskList.size();
 
         taskList.add(task);
@@ -32,8 +32,7 @@ public class AddTaskCommand extends Command {
         assert taskList.size() == oldSize + 1 : "Task list size should increase by 1 after adding a task";
 
         output = "Sure! New task \\( ﾟヮﾟ)/\n  " + task + "\n"
-                + ui.taskLeftHint(taskList.size());
-        ui.send(output);
+                + taskLeftHint(taskList.size());
 
         // Save the updated task list to storage
         storage.save(taskList.toStoreFormat());
@@ -53,19 +52,17 @@ public class AddTaskCommand extends Command {
      * Undoes the addition of the last task in the task list.
      *
      * @param taskList The HaBot.TaskList to operate on.
-     * @param ui The UI to interact with the user.
      * @param storage The Storage to save/load tasks.
      * @throws HaBotException If an error occurs during execution.
      */
     @Override
-    public void undo(TaskList taskList, Ui ui, Storage storage) throws HaBotException {
+    public void undo(TaskList taskList, Storage storage) throws HaBotException {
         int oldSize = taskList.size();
         Task removedTask = taskList.remove(taskList.size() - 1); // Remove the last added task
         assert taskList.size() == oldSize - 1 : "Task list size should decrease by 1 after deletion";
         output = "Undo! Removed task! (`▽´)/ o()xxxx[{::::::::::::::::::> \n  "
                 + removedTask + "\n"
-                + ui.taskLeftHint(taskList.size());
-        ui.send(output);
+                + taskLeftHint(taskList.size());
         // Save the updated task list to storage
         storage.save(taskList.toStoreFormat());
     }

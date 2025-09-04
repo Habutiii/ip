@@ -13,20 +13,19 @@ import habot.ui.Ui;
  * Main class for the HaBot chatbot application.
  */
 public class HaBot {
-    private final Ui ui;
+    // Stack to keep track of undoable commands
+    private final static Stack<Command> UNDOABLE_COMMAND_HISTORY = new Stack<>();
+
     private final TaskList taskList;
     private final Storage storage;
     private CommandType commandType = CommandType.UNKNOWN;
-
-    // Stack to keep track of undoable commands
-    private final static Stack<Command> UNDOABLE_COMMAND_HISTORY = new Stack<>();
+    private boolean isExiting = false; // Flag to control the exit
 
     /**
      * HaBot Constructor
      * @param filePath file path to store the task
      */
     public HaBot(String filePath) {
-        this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.taskList = new TaskList(storage.loadTasks());
     }
@@ -35,26 +34,11 @@ public class HaBot {
      * Runs the main loop of the HaBot.HaBot application.
      */
     public void run() {
+        Ui ui = new Ui();
         ui.greet(); // Print the greeting message
-        boolean toExit = false; // Flag to control the main loop
-        while (!toExit) {
-            try {
-                String input = ui.readInput();
-                Command command = Parser.parse(input, UNDOABLE_COMMAND_HISTORY); // Parse the user input into a command
-                command.execute(taskList, ui, storage); // Execute the command
-                toExit = command.toExit(); // Check if the command is a 'bye' command
-
-                if(command.isUndoable()) {
-                    UNDOABLE_COMMAND_HISTORY.push(command);
-                }
-
-            // Catch any intended HaBotExceptions thrown by handleCommand
-            } catch (HaBotException e) {
-                ui.error(e.getMessage());
-            // Catch any unexpected exceptions and display an error message
-            } catch (Exception e) {
-                ui.unexpectedError(e.getMessage());
-            }
+        while (!isExiting) {
+            String input = ui.readInput();
+            ui.send(getResponse(input));
         }
     }
 
@@ -71,11 +55,9 @@ public class HaBot {
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input, UNDOABLE_COMMAND_HISTORY); // Parse the user input into a command
-            command.execute(taskList, ui, storage); // Execute the command
+            command.execute(taskList, storage); // Execute the command
             commandType = command.getCommandType();
-            if (command.toExit()) {
-                System.exit(0);
-            }
+            isExiting = command.toExit(); // Check if the command is a 'bye' command
 
             if(command.isUndoable()) {
                 UNDOABLE_COMMAND_HISTORY.push(command);

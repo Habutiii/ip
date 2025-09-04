@@ -25,14 +25,12 @@ public class UndoCommand extends Command {
      * Executes the undo operation for the last command.
      *
      * @param taskList The TaskList to operate on.
-     * @param ui The Ui to interact with the user.
      * @param storage The Storage to save/load tasks.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        commandToUndo.undo(taskList, ui, storage);
+    public void execute(TaskList taskList, Storage storage) {
+        commandToUndo.undo(taskList,  storage);
         // Implementation for undoing the last action goes here
         output = commandToUndo.getOutput();
-        ui.send(output);
     }
 }

@@ -11,6 +11,7 @@ import habot.ui.Ui;
  */
 public class Command {
 
+
     protected String output = "Sorry, What are you trying to say? (｡•́︿•̀｡)???\n"
             + "I don't understand that command.";
 
@@ -21,15 +22,22 @@ public class Command {
     }
 
     /**
+     * Returns a hint string showing the number of tasks left to do.
+     * @return A formatted string with the number of tasks remaining.
+     */
+    protected String taskLeftHint(int taskCount) {
+        return "The number of tasks you have to do: ★ " + taskCount + " ★ ノ(゜-゜ノ)";
+    }
+
+    /**
      * Executes the command with the given TaskList, Ui, and Storage.
      * This method is intended to be overridden by subclasses to provide specific command functionality.
      *
      * @param taskList The TaskList to operate on.
-     * @param ui The Ui to interact with the user.
      * @param storage The Storage to save/load tasks.
      * @throws HaBotException If an error occurs during command execution.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws HaBotException {
+    public void execute(TaskList taskList, Storage storage) throws HaBotException {
         // does nothing by default
     }
 
@@ -66,10 +74,9 @@ public class Command {
      * This method is intended to be overridden by subclasses that support undo functionality.
      *
      * @param taskList The TaskList to operate on.
-     * @param ui The Ui to interact with the user.
      * @param storage The Storage to save/load tasks.
      */
-    public void undo(TaskList taskList, Ui ui, Storage storage)  {
+    public void undo(TaskList taskList, Storage storage)  {
         // does nothing by default
     }
 }
