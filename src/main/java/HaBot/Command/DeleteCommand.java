@@ -39,7 +39,7 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws HaBotException {
         int oldSize = taskList.size();
-        Task removedTask = taskList.remove(index);
+        Task removedTask = taskList.remove(taskIndex);
         assert taskList.size() == oldSize - 1 : "Task list size should decrease by 1 after deletion";
         output = "OK! Removed task! (`▽´)/ o()xxxx[{::::::::::::::::::> \n  "
                 + removedTask + "\n"
