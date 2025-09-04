@@ -12,7 +12,6 @@ import org.junit.jupiter.api.io.TempDir;
 import habot.Storage;
 import habot.TaskList;
 import habot.exception.HaBotException;
-import habot.ui.FakeUi;
 
 @DisplayName("ToDoCommand")
 class ToDoCommandTest {
@@ -21,15 +20,15 @@ class ToDoCommandTest {
     @DisplayName("adds task, saves, and announces")
     void todoCommandAddsAndAnnounces(@TempDir Path tmp) {
         TaskList tl = new TaskList();
-        FakeUi ui = new FakeUi();
         Storage storage = new Storage(tmp.resolve("tasks.txt").toString());
 
-        new ToDoCommand("buy milk").execute(tl, ui, storage);
+        ToDoCommand cmd = new ToDoCommand("buy milk");
+        cmd.execute(tl, storage);
 
         assertEquals(1, tl.size());
         assertEquals("Sure! New task \\( ﾟヮﾟ)/\n"
                 + "  [T][ ] buy milk\n"
-                + "The number of tasks you have to do: ★ 1 ★ ノ(゜-゜ノ)", ui.getLastMessage());
+                + "The number of tasks you have to do: ★ 1 ★ ノ(゜-゜ノ)", cmd.getOutput());
     }
 
     @Test
