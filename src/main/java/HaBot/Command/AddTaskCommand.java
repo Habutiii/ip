@@ -1,0 +1,41 @@
+package habot.command;
+
+import habot.Storage;
+import habot.TaskList;
+import habot.exception.HaBotException;
+import habot.task.Task;
+import habot.ui.Ui;
+
+public class AddTaskCommand extends Command {
+
+    private final Task task;
+
+    protected AddTaskCommand(CommandType commandType, Task task) {
+        super(commandType);
+        this.task = task;
+    }
+
+    /**
+     * Executes the command to add a task to the task list.
+     *
+     * @param taskList The HaBot.TaskList to operate on.
+     * @param ui The UI to interact with the user.
+     * @param storage The Storage to save/load tasks.
+     * @throws HaBotException If an error occurs during execution.
+     */
+    @Override
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws habot.exception.HaBotException {
+        int oldSize = taskList.size();
+
+        taskList.add(task);
+
+        assert taskList.size() == oldSize + 1 : "Task list size should increase by 1 after adding a task";
+
+        output = "Sure! New task \\( ﾟヮﾟ)/\n  " + task + "\n"
+                + ui.taskLeftHint(taskList.size());
+        ui.send(output);
+
+        // Save the updated task list to storage
+        storage.save(taskList.toStoreFormat());
+    }
+}
