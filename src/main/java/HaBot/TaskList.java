@@ -91,6 +91,18 @@ public class TaskList {
     }
 
     /**
+     * Inserts a task at the specified index.
+     *
+     * @param index The index at which to insert the task (0-based).
+     * @param task  The task to insert.
+     * @throws HaBotException If the index is out of bounds.
+     */
+    public void insert(int index, Task task) throws HaBotException {
+        validateIndex(index);
+        tasks.add(index, task);
+    }
+
+    /**
      * Removes and returns the task at the specified index.
      *
      * @param index The index of the task to remove (0-based).

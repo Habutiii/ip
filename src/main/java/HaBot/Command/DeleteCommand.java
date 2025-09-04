@@ -11,6 +11,7 @@ import habot.ui.Ui;
  */
 public class DeleteCommand extends Command {
     private final Integer taskIndex;
+    private Task removedTask = null;
 
     /**
      * Constructs a DeleteCommand with the specified task index string.
@@ -39,9 +40,39 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws HaBotException {
         int oldSize = taskList.size();
-        Task removedTask = taskList.remove(taskIndex);
+        removedTask = taskList.remove(taskIndex);
         assert taskList.size() == oldSize - 1 : "Task list size should decrease by 1 after deletion";
         output = "OK! Removed task! (`▽´)/ o()xxxx[{::::::::::::::::::> \n  "
+                + removedTask + "\n"
+                + ui.taskLeftHint(taskList.size());
+        ui.send(output);
+        // Save the updated task list to storage
+        storage.save(taskList.toStoreFormat());
+    }
+
+    /**
+     * Indicates whether this command is undoable.
+     * This command returns true, allowing it to be undone.
+     *
+     * @return true, indicating the command can be undone.
+     */
+    @Override
+    public boolean isUndoable() {
+        return true;
+    }
+
+    /**
+     * Undoes the delete command by restoring the removed task to the task list.
+     *
+     * @param taskList The HaBot.TaskList to operate on.
+     * @param ui The UI to interact with the user.
+     * @param storage The Storage to save/load tasks.
+     * @throws HaBotException If an error occurs during execution.
+     */
+    @Override
+    public void undo(TaskList taskList, Ui ui, Storage storage) throws HaBotException {
+        taskList.insert(taskIndex, removedTask);
+        output = "OK! Restored the deleted task! (´▽`ʃ♡\n"
                 + removedTask + "\n"
                 + ui.taskLeftHint(taskList.size());
         ui.send(output);

@@ -50,6 +50,28 @@ public class Command {
     public String getOutput() {
         return output;
     }
+
+    /**
+     * Indicates whether this command is undoable.
+     * All commands return false by default, unless overridden.
+     *
+     * @return true if the command can be undone, false otherwise.
+     */
+    public boolean isUndoable() {
+        return false;
+    }
+
+    /**
+     * Undoes the command, reverting any changes made during execution.
+     * This method is intended to be overridden by subclasses that support undo functionality.
+     *
+     * @param taskList The TaskList to operate on.
+     * @param ui The Ui to interact with the user.
+     * @param storage The Storage to save/load tasks.
+     */
+    public void undo(TaskList taskList, Ui ui, Storage storage)  {
+        // does nothing by default
+    }
 }
 
 

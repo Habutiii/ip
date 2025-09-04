@@ -54,4 +54,23 @@ public class MarkCommand extends Command {
         output = (isDone ? markMessage : unmarkMessage) + "\n  " + markedTask;
         ui.send(output);
     }
+
+    @Override
+    public boolean isUndoable() {
+        return true;
+    }
+
+    @Override
+    public void undo(TaskList taskList, Ui ui, Storage storage) throws HaBotException {
+        Task undoneTask = taskList.mark(index, !isDone);
+
+        assert taskList.get(index).getMarkStatusIcon().equals(!isDone ? "X" : " ")
+                : "Task mark status should be reverted after undo";
+
+        final String undoMarkMessage = "Undo mark! Awww, task is now not done. (º﹃º)ᕗ";
+        final String undoUnmarkMessage = "Undo unmark! OK! Task is now done. ᕙ(`▽´)ᕗ";
+
+        output = (isDone ? undoMarkMessage : undoUnmarkMessage) + "\n  " + undoneTask;
+        ui.send(output);
+    }
 }
