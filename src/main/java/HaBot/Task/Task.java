@@ -65,6 +65,7 @@ public class Task {
     /**
      * Converts the task to a plain text format for saving.
      * Escapes the '|' character in the description to avoid conflicts.
+     *
      * @return A string representation of the task.
      */
     public String toStoreFormat() {
@@ -73,6 +74,7 @@ public class Task {
 
     /**
      * Joins multiple parts into a single string for storage, escaping '|' characters.
+     *
      * @param parts The parts to join.
      * @return A single string with parts joined by " | ".
      */
@@ -87,6 +89,7 @@ public class Task {
 
     /**
      * Gets the description of the task.
+     *
      * @return The task description.
      */
     public String getDescription() {
@@ -96,6 +99,7 @@ public class Task {
     /**
      * Creates a Task object from a plain text format.
      * Unescapes the '|' character in the description.
+     *
      * @param text The plain text representation of the task.
      * @return A Task object.
      */

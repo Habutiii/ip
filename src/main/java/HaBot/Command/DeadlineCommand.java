@@ -31,7 +31,7 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws HaBotException {
-        String hint = "Please provide a valid description and deadline in the format: "
+        final String hint = "Please provide a valid description and deadline in the format: "
                 + "'deadline <description> /by <datetime>' (e.g., '2/12/2019 1800').";
 
         String[] parts = content.split(" /by ", 2);

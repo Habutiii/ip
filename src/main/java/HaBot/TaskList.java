@@ -25,6 +25,7 @@ public class TaskList {
     /**
      * Constructs a TaskList and loads tasks from the given list of strings.
      * Each string represents a task in a specific storage format.
+     *
      * @param lines The list of strings representing stored tasks.
      * @throws HaBotException If there is an error during loading.
      */
@@ -58,6 +59,7 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the list.
+     *
      * @return The size of the task list.
      */
     public int size() {
@@ -66,6 +68,7 @@ public class TaskList {
 
     /**
      * Validates that the given index is within the bounds of the task list.
+     *
      * @param index The index to validate.
      * @throws HaBotException If the index is out of bounds.
      */

@@ -31,7 +31,8 @@ public class Storage {
 
     /**
      * Loads tasks from the storage file.
-     * @return
+     *
+     * @return A list of task strings loaded from the file.
      * @throws HaBotException
      */
     public ArrayList<String> load() throws HaBotException {
@@ -57,6 +58,7 @@ public class Storage {
 
     /**
      * Saves the given list of task strings to the storage file.
+     *
      * @param lines
      * @throws HaBotException
      */
