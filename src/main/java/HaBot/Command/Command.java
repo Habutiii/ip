@@ -40,7 +40,6 @@ public class Command {
      * @return true if the application should exit, false otherwise.
      */
     public boolean toExit() {
-
         return false; // default implementation, can be overridden
     }
 

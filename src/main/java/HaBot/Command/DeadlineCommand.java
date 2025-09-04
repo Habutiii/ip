@@ -10,16 +10,16 @@ import habot.ui.Ui;
  * Command to add Deadline task
  */
 public class DeadlineCommand extends Command {
-    private final String content;
+    private final String taskDetails;
 
     /**
-     * Constructs a DeadlineCommand with the specified content.
+     * Constructs a DeadlineCommand with the specified task details.
      *
-     * @param content String of the content after the command word "deadline"
+     * @param taskDetails String of the content after the command word "deadline"
      */
-    public DeadlineCommand(String content) {
+    public DeadlineCommand(String taskDetails) {
         super(CommandType.DEADLINE);
-        this.content = content.trim();
+        this.taskDetails = taskDetails.trim();
     }
 
     /**
@@ -31,10 +31,10 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws HaBotException {
-        String hint = "Please provide a valid description and deadline in the format: "
+        final String hint = "Please provide a valid description and deadline in the format: "
                 + "'deadline <description> /by <datetime>' (e.g., '2/12/2019 1800').";
 
-        String[] parts = content.split(" /by ", 2);
+        String[] parts = taskDetails.split(" /by ", 2);
         if (parts.length != 2) {
             throw new HaBotException(hint);
         }
