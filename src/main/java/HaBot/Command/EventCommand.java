@@ -10,16 +10,16 @@ import habot.ui.Ui;
  * Command to add Event task
  */
 public class EventCommand extends Command {
-    private final String content;
+    private final String taskDetails;
 
     /**
-     * Constructs an EventCommand with the specified content.
+     * Constructs an EventCommand with the specified task details.
      *
-     * @param content String of the content after the command word "event"
+     * @param taskDetails String of the content after the command word "event"
      */
-    public EventCommand(String content) {
+    public EventCommand(String taskDetails) {
         super(CommandType.EVENT);
-        this.content = content.trim();
+        this.taskDetails = taskDetails.trim();
     }
 
     /**
@@ -34,7 +34,7 @@ public class EventCommand extends Command {
         String hint = "Please provide a valid description, start time, and end time in the format: "
                 + "'event <description> /from <datetime> /to <datetime>' (e.g., '2/12/2019 1800').";
 
-        String[] parts = content.split(" /from ", 2);
+        String[] parts = taskDetails.split(" /from ", 2);
         if (parts.length != 2) {
             throw new HaBotException(hint);
         }

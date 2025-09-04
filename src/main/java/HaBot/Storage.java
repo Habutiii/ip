@@ -10,7 +10,7 @@ import habot.exception.HaBotException;
  * Manages the storage of tasks to and from a file.
  */
 public class Storage {
-    private final java.io.File file;
+    private final java.io.File storageFile;
 
     /**
      * Constructs a HaBot.Storage object with the specified file path.
@@ -18,11 +18,11 @@ public class Storage {
      * @param filePath The path to the file where tasks will be stored.
      */
     public Storage(String filePath) {
-        this.file = new java.io.File(filePath);
-        if (!file.exists()) {
+        this.storageFile = new java.io.File(filePath);
+        if (!storageFile.exists()) {
             try {
                 // Create the file if it does not exist
-                file.createNewFile();
+                storageFile.createNewFile();
             } catch (java.io.IOException e) {
                 throw new RuntimeException("Failed to create storage file: " + e.getMessage());
             }
@@ -35,16 +35,16 @@ public class Storage {
      * @return A list of task strings loaded from the file.
      * @throws HaBotException
      */
-    public ArrayList<String> load() throws HaBotException {
+    public ArrayList<String> loadTasks() throws HaBotException {
         ArrayList<String> lines = new ArrayList<>();
         // Check if the file exists before attempting to load
-        if (!file.exists()) {
+        if (!storageFile.exists()) {
             // No saved tasks found. Starting with an empty task list.
             return lines;
         }
 
         // Load the tasks from plain text format
-        try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(file))) {
+        try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(storageFile))) {
             String line;
             // read all lines and store them in a String list
             while ((line = reader.readLine()) != null) {
@@ -64,7 +64,7 @@ public class Storage {
      */
     public void save(List<String> lines) throws HaBotException {
         // Save the tasks to plain text format
-        try (java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.FileWriter(file))) {
+        try (java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.FileWriter(storageFile))) {
             for (String line : lines) {
                 // Write each line to the file
                 writer.println(line);

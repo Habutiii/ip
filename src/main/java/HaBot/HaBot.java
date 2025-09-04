@@ -21,7 +21,7 @@ public class HaBot {
     public HaBot(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
-        this.taskList = new TaskList(storage.load());
+        this.taskList = new TaskList(storage.loadTasks());
     }
 
     /**

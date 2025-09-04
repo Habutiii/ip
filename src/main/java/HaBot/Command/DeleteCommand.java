@@ -10,17 +10,17 @@ import habot.ui.Ui;
  * Command to delete task
  */
 public class DeleteCommand extends Command {
-    private final Integer index;
+    private final Integer taskIndex;
 
     /**
-     * Constructs a DeleteCommand with the specified index string.
+     * Constructs a DeleteCommand with the specified task index string.
      *
-     * @param indexStr The index of the task to delete, as a string.
+     * @param taskIndexString The index of the task to delete, as a string.
      */
-    public DeleteCommand(String indexStr) {
+    public DeleteCommand(String taskIndexString) {
         super(CommandType.DELETE);
         try {
-            this.index = Integer.parseInt(indexStr.trim()) - 1; // Convert to 0-based index
+            this.taskIndex = Integer.parseInt(taskIndexString.trim()) - 1; // Convert to 0-based index
         } catch (NumberFormatException e) {
             throw new HaBotException(
                     "Invalid input format. Please use 'delete <task number>'."
@@ -37,8 +37,8 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws HaBotException {
-        Task removedTask = taskList.remove(index);
-        output = "OK! Removed task! (`▽´)/ o()xxxx[{::::::::::::::::::> \n  "
+        Task removedTask = taskList.remove(taskIndex);
+        output = "OK! Removed task! (`\u25bd\u00b4)/ o()xxxx[{::::::::::::::::::> \n  "
                 + removedTask + "\n"
                 + ui.taskLeftHint(taskList.size());
         ui.send(output);

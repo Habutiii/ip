@@ -80,6 +80,7 @@ public class TaskList {
 
     /**
      * Adds a task to the list.
+     *
      * @param task The task to add.
      */
     public void add(Task task) throws HaBotException {
@@ -88,6 +89,7 @@ public class TaskList {
 
     /**
      * Removes and returns the task at the specified index.
+     *
      * @param index The index of the task to remove (0-based).
      * @return The removed HaBot.Task.Task.
      * @throws HaBotException If the index is out of bounds.
@@ -101,6 +103,7 @@ public class TaskList {
 
     /**
      * Retrieves the task at the specified index.
+     *
      * @param index The index of the task to retrieve (0-based).
      * @return The HaBot.Task.Task at the given index.
      * @throws HaBotException If the index is out of bounds.
@@ -112,6 +115,7 @@ public class TaskList {
 
     /**
      * Returns a formatted string listing all tasks.
+     *
      * @return A string listing all tasks, each on a new line.
      * @throws HaBotException If there are no tasks stored yet.
      */
@@ -131,6 +135,7 @@ public class TaskList {
 
     /**
      * Marks or unmarks the task at the specified index as done or not done.
+     *
      * @param index The index of the task to mark (0-based).
      * @param isDone True to mark as done, false to unmark.
      * @throws HaBotException If the index is out of bounds.
