@@ -11,7 +11,6 @@ public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
-
     /**
      * Constructs an HaBot.Task.Event task with a description, start time, and end time.
      *
@@ -41,7 +40,7 @@ public class Event extends Task {
     /**
      * Returns a string representation of the event, including its type, description, and time range.
      *
-     * @return
+     * @return A string representation of the event.
      */
     @Override
     public String toString() {

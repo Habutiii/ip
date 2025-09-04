@@ -41,6 +41,7 @@ public class DialogBox extends HBox {
 
     /**
      * Constructor for DialogBox.
+     *
      * @param className
      */
     private void setDialogClass(String className) {
@@ -57,12 +58,27 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a dialog box for the user.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img The image to be displayed in the dialog box.
+     * @return A DialogBox representing the user's dialog.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.setDialogClass("user-label");
         return db;
     }
 
+    /**
+     * Creates a dialog box for the bot.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img The image to be displayed in the dialog box.
+     * @param commandType The type of command that generated the bot's response.
+     * @return A DialogBox representing the bot's dialog.
+     */
     public static DialogBox getBotDialog(String text, Image img, CommandType commandType) {
         var db = new DialogBox(text, img);
         db.setDialogClass("reply-label");
@@ -71,6 +87,11 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Changes the style of the dialog box based on the command type.
+     *
+     * @param commandType The type of command that generated the bot's response.
+     */
     private void changeDialogStyle(CommandType commandType) {
         switch(commandType) {
         case TODO:

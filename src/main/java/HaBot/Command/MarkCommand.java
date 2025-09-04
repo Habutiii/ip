@@ -39,6 +39,7 @@ public class MarkCommand extends Command {
      *
      * @param taskList The HaBot.TaskList to operate on.
      * @param ui       The UI to interact with the user.
+     * @param storage The Storage to save/load tasks (not used in this command).
      * @throws HaBotException If an error occurs during execution.
      */
     @Override

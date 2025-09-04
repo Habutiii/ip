@@ -59,7 +59,7 @@ public class Storage {
     /**
      * Saves the given list of task strings to the storage file.
      *
-     * @param lines
+     * @param lines The list of task strings to save.
      * @throws HaBotException
      */
     public void save(List<String> lines) throws HaBotException {
