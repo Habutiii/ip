@@ -2,6 +2,8 @@ package habot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import habot.exception.HaBotException;
 import habot.task.Task;
@@ -124,14 +126,9 @@ public class TaskList {
         if (tasks.isEmpty()) {
             throw new HaBotException("No task stored yet.");
         }
-        StringBuilder out = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            out.append(i + 1).append(".").append(tasks.get(i));
-            if (i < tasks.size() - 1) {
-                out.append("\n");
-            }
-        }
-        return out.toString();
+        return IntStream.range(0, tasks.size())
+                .mapToObj(i -> (i + 1) + "." + tasks.get(i))
+                .collect(Collectors.joining("\n"));
     }
 
     /**
