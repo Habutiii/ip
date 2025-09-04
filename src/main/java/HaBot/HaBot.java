@@ -1,8 +1,12 @@
 package habot;
 
+import java.util.ArrayList;
+import java.util.Stack;
+
 import habot.command.Command;
 import habot.command.CommandType;
 import habot.exception.HaBotException;
+import habot.task.Task;
 import habot.ui.Ui;
 
 /**
@@ -13,6 +17,9 @@ public class HaBot {
     private final TaskList taskList;
     private final Storage storage;
     private CommandType commandType = CommandType.UNKNOWN;
+
+    // Stack to keep track of undoable commands
+    private final static Stack<Command> UNDOABLE_COMMAND_HISTORY = new Stack<>();
 
     /**
      * HaBot Constructor
@@ -33,9 +40,13 @@ public class HaBot {
         while (!toExit) {
             try {
                 String input = ui.readInput();
-                Command command = Parser.parse(input); // Parse the user input into a command
+                Command command = Parser.parse(input, UNDOABLE_COMMAND_HISTORY); // Parse the user input into a command
                 command.execute(taskList, ui, storage); // Execute the command
                 toExit = command.toExit(); // Check if the command is a 'bye' command
+
+                if(command.isUndoable()) {
+                    UNDOABLE_COMMAND_HISTORY.push(command);
+                }
 
             // Catch any intended HaBotExceptions thrown by handleCommand
             } catch (HaBotException e) {
@@ -59,12 +70,17 @@ public class HaBot {
      */
     public String getResponse(String input) {
         try {
-            Command command = Parser.parse(input); // Parse the user input into a command
+            Command command = Parser.parse(input, UNDOABLE_COMMAND_HISTORY); // Parse the user input into a command
             command.execute(taskList, ui, storage); // Execute the command
             commandType = command.getCommandType();
             if (command.toExit()) {
                 System.exit(0);
             }
+
+            if(command.isUndoable()) {
+                UNDOABLE_COMMAND_HISTORY.push(command);
+            }
+
             return command.getOutput();
         } catch (HaBotException e) {
             return e.getMessage();

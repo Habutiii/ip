@@ -4,13 +4,16 @@ import habot.Storage;
 import habot.TaskList;
 import habot.exception.HaBotException;
 import habot.task.Deadline;
+import habot.task.Task;
 import habot.ui.Ui;
 
 /**
  * Command to add Deadline task
  */
-public class DeadlineCommand extends Command {
-    private final String taskDetails;
+public class DeadlineCommand extends AddTaskCommand {
+
+    private final static String HINT = "Please provide a valid description and deadline in the format: "
+            + "'deadline <description> /by <datetime>' (e.g., '2/12/2019 1800').";
 
     /**
      * Constructs a DeadlineCommand with the specified task details.
@@ -18,52 +21,30 @@ public class DeadlineCommand extends Command {
      * @param taskDetails String of the content after the command word "deadline"
      */
     public DeadlineCommand(String taskDetails) {
-        super(CommandType.DEADLINE);
-        this.taskDetails = taskDetails.trim();
+        super(CommandType.DEADLINE, resolveTask(taskDetails));
     }
 
-    /**
-     * Executes the command to add a Deadline task to the task list.
-     *
-     * @param taskList The HaBot.TaskList to operate on.
-     * @param ui The UI to interact with the user.
-     * @throws HaBotException If an error occurs during execution.
-     */
-    @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws HaBotException {
-        final String hint = "Please provide a valid description and deadline in the format: "
-                + "'deadline <description> /by <datetime>' (e.g., '2/12/2019 1800').";
+
+    private static Deadline resolveTask(String taskDetails) {
+        taskDetails = taskDetails.trim();
 
         String[] parts = taskDetails.split(" /by ", 2);
         if (parts.length != 2) {
-            throw new HaBotException(hint);
+            throw new HaBotException(HINT);
         }
 
         String description = parts[0].trim();
 
         if (description.isEmpty()) {
-            throw new HaBotException(hint);
+            throw new HaBotException(HINT);
         }
 
         String by = parts[1].trim();
 
         try {
-            Deadline task = new Deadline(description, by);
-
-            int oldSize = taskList.size();
-
-            taskList.add(task);
-
-            assert taskList.size() == oldSize + 1 : "Task list size should increase by 1 after adding a task";
-
-            output = "Sure! New task \\( ﾟヮﾟ)/\n  " + task + "\n"
-                    + ui.taskLeftHint(taskList.size());
-            ui.send(output);
+            return new Deadline(description, by);
         } catch (Exception e) {
-            throw new HaBotException(e.getMessage() + "\n" + hint);
+            throw new HaBotException(e.getMessage() + "\n" + HINT);
         }
-
-        // Save the updated task list to storage
-        storage.save(taskList.toStoreFormat());
     }
 }
