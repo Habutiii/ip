@@ -24,19 +24,11 @@ HaBot is a **desktop chatbot application** designed to help you manage your task
 1. Ensure you have Java 17 or above installed on your computer.
 2. Download the latest `HaBot.jar` file from the [releases page](https://github.com/your-repo/releases).
 3. Place the file in your desired home folder.
-
-### Graphical User Interface (GUI)
-
-1. Double-click the `HaBot.jar` file to launch the application.
-2. Use the GUI to interact with HaBot by typing commands into the input box and pressing Enter.
-
-### Command Line Interface (CLI)
-
-1. Open a terminal, navigate to the folder containing the `HaBot.jar` file, and run the command:
-   ```
+4. Double-click the `HaBot.jar` file or run the following to launch the application.
+    ```
    java -jar HaBot.jar
    ```
-2. Start typing commands into the command box and press Enter to execute them.
+5. Use the GUI to interact with HaBot by typing commands into the input box and pressing Enter.
 
 ## Features
 
