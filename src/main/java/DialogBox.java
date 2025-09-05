@@ -106,6 +106,12 @@ public class DialogBox extends HBox {
         case DELETE:
             dialog.getStyleClass().add("delete-label");
             break;
+        case UNDO:
+            dialog.getStyleClass().add("undo-label");
+            break;
+        case ERROR:
+            dialog.getStyleClass().add("error-label");
+            break;
         default:
             // Do nothing
         }

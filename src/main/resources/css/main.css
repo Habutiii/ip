@@ -15,14 +15,16 @@
 }
 
 #sendButton {
-    -fx-background-color: #009900;
+    -fx-background-color: #228822;
     -fx-cursor: hand;
-    -fx-background-radius: 20px; /* Match half of the button's width/height */
-    -fx-border-radius: 20px; /* Match half of the button's width/height */
+    -fx-background-radius: 5px; /* Match half of the button's width/height */
+    -fx-border-radius: 2px; /* Match half of the button's width/height */
+    -fx-border-color: #55ff55;
+    -fx-border-width: 2px;
 }
 
 #sendButton:hover {
-    -fx-background-color: #00bb00;
+    -fx-background-color: #009900;
 }
 
 #sendButton:pressed {

@@ -63,9 +63,10 @@ public class HaBot {
 
             return command.getOutput();
         } catch (HaBotException e) {
-            return e.getMessage();
+            commandType = CommandType.ERROR;
+            return "Error (ノ•`_´•)ノ︵┻━┻ \n" + e.getMessage();
         } catch (Exception e) {
-            return "An unexpected error occurred: " + e.getMessage();
+            return "An unexpected error occurred  (ノ•`o´•)ノ︵┻━┻ \n" + e.getMessage();
         }
     }
 
