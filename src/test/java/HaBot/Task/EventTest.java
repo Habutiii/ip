@@ -15,9 +15,9 @@ class EventTest {
     @DisplayName("toString includes formatted From/To and status toggles")
     void toStringFormat() {
         Event e = new Event("project meeting", "1/1/2020 0900", "1/1/2020 1030");
-        assertEquals("[E][ ] project meeting (From: Jan 1 2020 09:00 To: Jan 1 2020 10:30)", e.toString());
+        assertEquals("[E][ ] project meeting (From: 1 Jan 2020 09:00 To: 1 Jan 2020 10:30)", e.toString());
         e.markAsDone();
-        assertEquals("[E][X] project meeting (From: Jan 1 2020 09:00 To: Jan 1 2020 10:30)", e.toString());
+        assertEquals("[E][X] project meeting (From: 1 Jan 2020 09:00 To: 1 Jan 2020 10:30)", e.toString());
     }
 
     @Test

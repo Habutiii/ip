@@ -15,9 +15,9 @@ class DeadlineTest {
     @DisplayName("toString includes formatted By and status toggles")
     void toStringFormat() {
         Deadline d = new Deadline("submit report", "2/12/2019 1800");
-        assertEquals("[D][ ] submit report (By: Dec 2 2019 18:00)", d.toString());
+        assertEquals("[D][ ] submit report (By: 2 Dec 2019 18:00)", d.toString());
         d.markAsDone();
-        assertEquals("[D][X] submit report (By: Dec 2 2019 18:00)", d.toString());
+        assertEquals("[D][X] submit report (By: 2 Dec 2019 18:00)", d.toString());
     }
 
     @Test

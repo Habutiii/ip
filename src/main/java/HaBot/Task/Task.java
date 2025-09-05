@@ -12,7 +12,7 @@ import habot.exception.HaBotInvalidFormatException;
 public class Task {
     // Date formatters for parsing and printing dates.
     protected static final DateTimeFormatter DATE_FORMATTER_PARSE = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    protected static final DateTimeFormatter DATE_FORMATTER_PRINT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+    protected static final DateTimeFormatter DATE_FORMATTER_PRINT = DateTimeFormatter.ofPattern("d MMM yyyy HH:mm");
 
     //The description of the task.
     protected String description;

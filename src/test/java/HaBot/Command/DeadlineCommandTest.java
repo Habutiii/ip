@@ -45,7 +45,7 @@ class DeadlineCommandTest {
         assertTrue(t.toString().contains("(By:"));
         assertTrue(cmd.getOutput().contains("The number of tasks you have to do: ★ 1 ★"));
 
-        assertEquals("[D][ ] submit report (By: Dec 2 2019 18:00)", t.toString());
+        assertEquals("[D][ ] submit report (By: 2 Dec 2019 18:00)", t.toString());
     }
 
     @Test
