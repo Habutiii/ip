@@ -5,7 +5,6 @@ import java.util.Stack;
 import habot.Storage;
 import habot.TaskList;
 import habot.exception.HaBotException;
-import habot.ui.Ui;
 
 /**
  * Command to undo the last action
@@ -13,6 +12,12 @@ import habot.ui.Ui;
 public class UndoCommand extends Command {
     private final Command commandToUndo;
 
+    /**
+     * Constructs an UndoCommand that will undo the last command in the history.
+     *
+     * @param commandHistory The stack of commands to retrieve the last command from.
+     * @throws HaBotException If there are no commands to undo.
+     */
     public UndoCommand(Stack<Command> commandHistory) {
         super(CommandType.UNDO);
         if (commandHistory.isEmpty()) {
@@ -29,8 +34,7 @@ public class UndoCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Storage storage) {
-        commandToUndo.undo(taskList,  storage);
-        // Implementation for undoing the last action goes here
+        commandToUndo.undo(taskList, storage);
         output = commandToUndo.getOutput();
     }
 }

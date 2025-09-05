@@ -1,10 +1,7 @@
 package habot.command;
 
-import habot.Storage;
-import habot.TaskList;
 import habot.exception.HaBotException;
 import habot.task.ToDo;
-import habot.ui.Ui;
 
 /**
  * Command to add a ToDo Task

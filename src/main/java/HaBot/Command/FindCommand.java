@@ -2,7 +2,6 @@ package habot.command;
 
 import habot.Storage;
 import habot.TaskList;
-import habot.ui.Ui;
 
 /**
  * Command to find tasks with matching string in description

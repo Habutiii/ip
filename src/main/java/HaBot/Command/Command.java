@@ -3,14 +3,12 @@ package habot.command;
 import habot.Storage;
 import habot.TaskList;
 import habot.exception.HaBotException;
-import habot.ui.Ui;
 
 /**
  * Represents a command that can be executed by the HaBot application.
  * This is an abstract class that serves as a base for specific command implementations.
  */
 public class Command {
-
 
     protected String output = "Sorry, What are you trying to say? (｡•́︿•̀｡)???\n"
             + "I don't understand that command.";
@@ -76,7 +74,7 @@ public class Command {
      * @param taskList The TaskList to operate on.
      * @param storage The Storage to save/load tasks.
      */
-    public void undo(TaskList taskList, Storage storage)  {
+    public void undo(TaskList taskList, Storage storage) {
         // does nothing by default
     }
 }

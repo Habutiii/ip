@@ -4,7 +4,6 @@ import habot.Storage;
 import habot.TaskList;
 import habot.exception.HaBotException;
 import habot.task.Task;
-import habot.ui.Ui;
 
 /**
  * Command to make a task as done or not done
@@ -45,11 +44,10 @@ public class MarkCommand extends Command {
     public void execute(TaskList taskList, Storage storage) throws HaBotException {
         Task markedTask = taskList.mark(index, isDone);
 
-        assert taskList.get(index).getMarkStatusIcon().equals(isDone ? "X" : " ") : "Task mark status should match the command";
-        
+        assert taskList.get(index).getMarkStatusIcon().equals(isDone ? "X" : " ")
+                : "Task mark status should match the command";
         final String markMessage = "OK! Done done done! ᕙ(`▽´)ᕗ";
         final String unmarkMessage = "Awww, still need do (º﹃º)ᕗ";
-      
         output = (isDone ? markMessage : unmarkMessage) + "\n  " + markedTask;
     }
 
@@ -58,6 +56,13 @@ public class MarkCommand extends Command {
         return true;
     }
 
+    /**
+     * Undoes the mark/unmark action by reverting the task's done status.
+     *
+     * @param taskList The HaBot.TaskList to operate on.
+     * @param storage The Storage to save/load tasks (not used in this command).
+     * @throws HaBotException If an error occurs during execution.
+     */
     @Override
     public void undo(TaskList taskList, Storage storage) throws HaBotException {
         Task undoneTask = taskList.mark(index, !isDone);

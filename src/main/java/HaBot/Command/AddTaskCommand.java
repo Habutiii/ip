@@ -4,8 +4,10 @@ import habot.Storage;
 import habot.TaskList;
 import habot.exception.HaBotException;
 import habot.task.Task;
-import habot.ui.Ui;
 
+/**
+ * Command to add a task to the task list.
+ */
 public class AddTaskCommand extends Command {
 
     private final Task task;
@@ -14,7 +16,6 @@ public class AddTaskCommand extends Command {
         super(commandType);
         this.task = task;
     }
-
 
     /**
      * Executes the command to add a task to the task list.

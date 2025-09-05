@@ -3,7 +3,6 @@ package habot.command;
 import habot.Storage;
 import habot.TaskList;
 import habot.exception.HaBotException;
-import habot.ui.Ui;
 
 /**
  * Command to list all tasks

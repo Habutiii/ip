@@ -1,12 +1,10 @@
 package habot;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 import habot.command.Command;
 import habot.command.CommandType;
 import habot.exception.HaBotException;
-import habot.task.Task;
 import habot.ui.Ui;
 
 /**
@@ -14,7 +12,7 @@ import habot.ui.Ui;
  */
 public class HaBot {
     // Stack to keep track of undoable commands
-    private final static Stack<Command> UNDOABLE_COMMAND_HISTORY = new Stack<>();
+    private static final Stack<Command> UNDOABLE_COMMAND_HISTORY = new Stack<>();
 
     private final TaskList taskList;
     private final Storage storage;
@@ -59,7 +57,7 @@ public class HaBot {
             commandType = command.getCommandType();
             isExiting = command.toExit(); // Check if the command is a 'bye' command
 
-            if(command.isUndoable()) {
+            if (command.isUndoable()) {
                 UNDOABLE_COMMAND_HISTORY.push(command);
             }
 

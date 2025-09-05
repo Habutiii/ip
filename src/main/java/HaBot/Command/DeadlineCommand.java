@@ -1,18 +1,14 @@
 package habot.command;
 
-import habot.Storage;
-import habot.TaskList;
 import habot.exception.HaBotException;
 import habot.task.Deadline;
-import habot.task.Task;
-import habot.ui.Ui;
 
 /**
  * Command to add Deadline task
  */
 public class DeadlineCommand extends AddTaskCommand {
 
-    private final static String HINT = "Please provide a valid description and deadline in the format: "
+    private static final String HINT = "Please provide a valid description and deadline in the format: "
             + "'deadline <description> /by <datetime>' (e.g., '2/12/2019 1800').";
 
     /**
