@@ -1,5 +1,7 @@
 package habot.task;
 
+import habot.exception.HaBotInvalidFormatException;
+
 /**
  * Represents a to-do task that has no functional difference from the HaBot.Task.Task Class.
  */
@@ -39,11 +41,11 @@ public class ToDo extends Task {
      *
      * @param parts The parts of the stored string split by " | ".
      * @return A ToDo object represented by the given string.
-     * @throws IllegalArgumentException If the input format is invalid.
+     * @throws HaBotInvalidFormatException If the format is invalid.
      */
-    public static ToDo fromStoreFormat(String... parts) {
+    public static ToDo fromStoreFormat(String... parts) throws HaBotInvalidFormatException {
         if (parts.length < 3) {
-            throw new IllegalArgumentException("Invalid ToDo format: " + String.join(" | ", parts));
+            throw new HaBotInvalidFormatException("ToDo", String.join(" | ", parts));
         }
         boolean isDone = !parts[1].equals(" ");
         String description = parts[2].replace("\\|", "|");

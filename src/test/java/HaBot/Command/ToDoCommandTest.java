@@ -35,6 +35,6 @@ class ToDoCommandTest {
     @DisplayName("rejects empty description")
     void todoCommandRejectsEmpty() {
         HaBotException ex = assertThrows(HaBotException.class, () -> new ToDoCommand(" "));
-        assertEquals("The description of a ToDo cannot be empty.", ex.getMessage());
+        assertEquals("Error (ノ•`_´•)ノ︵┻━┻ \nThe description of a ToDo cannot be empty.", ex.getMessage());
     }
 }

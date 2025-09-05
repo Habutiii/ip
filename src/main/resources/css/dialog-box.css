@@ -40,13 +40,13 @@
 }
 
 .delete-label {
-    -fx-border-color:  #ffaaaa;
+    -fx-border-color: #ffaaaa;
 }
 
 .undo-label {
-    -fx-border-color:  #999999;
+    -fx-border-color: #999999;
 }
 
 .error-label {
-    -fx-border-color:  #ff0000;
+    -fx-border-color: #ff0000;
 }

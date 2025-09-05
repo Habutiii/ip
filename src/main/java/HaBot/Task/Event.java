@@ -2,6 +2,8 @@ package habot.task;
 
 import java.time.LocalDateTime;
 
+import habot.exception.HaBotInvalidFormatException;
+
 /**
  * Represents an event task with a start and end time.
  * Extends the HaBot.Task.Task class and adds 'from' and 'to' fields.
@@ -69,11 +71,11 @@ public class Event extends Task {
      *
      * @param parts The parts of the stored string split by " | ".
      * @return The reconstructed Event object.
-     * @throws IllegalArgumentException If the input format is invalid.
+     * @throws HaBotInvalidFormatException If the input format is invalid.
      */
-    public static Event fromStoreFormat(String... parts) {
+    public static Event fromStoreFormat(String... parts) throws HaBotInvalidFormatException {
         if (parts.length < 5) {
-            throw new IllegalArgumentException("Invalid Event format: " + String.join(" | ", parts));
+            throw new HaBotInvalidFormatException("Event: ", String.join(" | ", parts));
         }
         boolean isDone = !parts[1].equals(" ");
         String description = parts[2].replace("\\|", "|");

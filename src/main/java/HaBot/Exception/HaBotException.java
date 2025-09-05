@@ -5,6 +5,6 @@ package habot.exception;
  */
 public class HaBotException extends RuntimeException {
     public HaBotException(String message) {
-        super(message);
+        super("Error (ノ•`_´•)ノ︵┻━┻ \n" + message);
     }
 }

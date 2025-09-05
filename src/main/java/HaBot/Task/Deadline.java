@@ -2,6 +2,8 @@ package habot.task;
 
 import java.time.LocalDateTime;
 
+import habot.exception.HaBotInvalidFormatException;
+
 /**
  * Represents a task with a deadline.
  * Extends the HaBot.Task.Task class and adds a deadline date/time.
@@ -61,11 +63,11 @@ public class Deadline extends Task {
      *
      * @param parts The parts of the stored string split by " | ".
      * @return A Deadline task constructed from the string.
-     * @throws IllegalArgumentException If the input string is not in the correct format.
+     * @throws HaBotInvalidFormatException If the input format is invalid.
      */
     public static Deadline fromStoreFormat(String... parts) {
         if (parts.length < 4) {
-            throw new IllegalArgumentException("Invalid Deadline format: " + String.join(" | ", parts));
+            throw new HaBotInvalidFormatException("Deadline", String.join(" | ", parts));
         }
         boolean isDone = !parts[1].equals(" ");
         String description = parts[2].replace("\\|", "|");

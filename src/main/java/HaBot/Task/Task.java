@@ -3,6 +3,7 @@ package habot.task;
 import java.time.format.DateTimeFormatter;
 
 import habot.exception.HaBotException;
+import habot.exception.HaBotInvalidFormatException;
 
 
 /**
@@ -102,11 +103,13 @@ public class Task {
      *
      * @param text The plain text representation of the task.
      * @return A Task object.
+     * @throws HaBotInvalidFormatException If the input format is invalid.
      */
-    public static Task fromStoreFormat(String text) throws HaBotException {
+    public static Task fromStoreFormat(String text) throws HaBotInvalidFormatException {
         String[] parts = text.split(" \\| ", -1); // Split into all parts
         if (parts.length < 2) {
-            throw new HaBotException("Invalid task format: " + text);
+            throw new HaBotInvalidFormatException("task", text);
+
         }
         String type = parts[0];
 
@@ -114,7 +117,7 @@ public class Task {
         case "T" -> ToDo.fromStoreFormat(parts);
         case "D" -> Deadline.fromStoreFormat(parts);
         case "E" -> Event.fromStoreFormat(parts);
-        default -> throw new HaBotException("Unknown task type: " + type);
+        default -> throw new HaBotInvalidFormatException("task", text);
         };
     }
 }

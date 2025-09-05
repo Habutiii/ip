@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import habot.exception.HaBotInvalidFormatException;
+
 
 @DisplayName("Task : factory parsing and error handling")
 class TaskTest {
@@ -14,13 +16,13 @@ class TaskTest {
     @Test
     @DisplayName("Task.fromStoreFormat: invalid and unknown types")
     void taskFromStoreFormat_errors() {
-        assertThrows(IllegalArgumentException.class, () -> ToDo.fromStoreFormat(
+        assertThrows(HaBotInvalidFormatException.class, () -> ToDo.fromStoreFormat(
                 "T | X"),
                 "Too few fields should throw");
-        assertThrows(IllegalArgumentException.class, () -> Deadline.fromStoreFormat(
+        assertThrows(HaBotInvalidFormatException.class, () -> Deadline.fromStoreFormat(
                 "D |   | desc"),
                 "Too few fields should throw");
-        assertThrows(IllegalArgumentException.class, () -> Event.fromStoreFormat(
+        assertThrows(HaBotInvalidFormatException.class, () -> Event.fromStoreFormat(
                 "E |   | desc | 1/1/2020 0900"),
                 "Too few fields should throw");
 
@@ -29,7 +31,7 @@ class TaskTest {
         Exception ex = assertThrows(
                 habot.exception.HaBotException.class, () -> Task.fromStoreFormat(
                         "X |   | oops"));
-        assertTrue(ex.getMessage().contains("Unknown task type"));
+        assertTrue(ex.getMessage().contains("Invalid task format"));
     }
 
     @Test

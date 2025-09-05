@@ -13,7 +13,7 @@ import habot.command.ListCommand;
 import habot.command.MarkCommand;
 import habot.command.ToDoCommand;
 import habot.command.UndoCommand;
-import habot.exception.HaBotException;
+import habot.exception.HaBotCommandNotFoundException;
 
 /**
  * Parse command input from the user and call the respective function.
@@ -39,7 +39,8 @@ public class Parser {
      * @return The HaBot.Command.CommandType corresponding to the command.
      * @throws IllegalArgumentException If the command is invalid.
      */
-    public static Command parse(String command, Stack<Command> undoableCommandHistory) {
+    public static Command parse(String command, Stack<Command> undoableCommandHistory)
+            throws HaBotCommandNotFoundException {
         CommandType commandType = CommandType.fromInput(command);
 
         return switch (commandType) {
@@ -54,8 +55,7 @@ public class Parser {
         case UNDO -> new UndoCommand(undoableCommandHistory);
         case BYE -> new ByeCommand();
         // If the command is not recognized, throw an exception
-        default -> throw new HaBotException("Sorry, What are you trying to say? ( ˶°ㅁ°) !???\n"
-                + "I don't understand that command.");
+        default -> throw new HaBotCommandNotFoundException();
         };
     }
 }
