@@ -11,7 +11,6 @@ public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
-
     /**
      * Constructs an HaBot.Task.Event task with a description, start time, and end time.
      *
@@ -41,7 +40,7 @@ public class Event extends Task {
     /**
      * Returns a string representation of the event, including its type, description, and time range.
      *
-     * @return
+     * @return A string representation of the event.
      */
     @Override
     public String toString() {
@@ -50,28 +49,33 @@ public class Event extends Task {
                 + " To: " + to.format(DATE_FORMATTER_PRINT) + ")";
     }
 
+    /**
+     * Converts the event to its stored string format.
+     *
+     * @return The string representation of the event for storage.
+     */
     @Override
     public String toStoreFormat() {
-        String escapedDescription = description.replace("|", "\\|");
-        return "E | " + getMarkStatusIcon()
-                + " | " + escapedDescription
-                + " | " + from.format(DATE_FORMATTER_PARSE)
-                + " | " + to.format(DATE_FORMATTER_PARSE);
+        return super.partsToStoreFormat(
+                "E",
+                getMarkStatusIcon(),
+                description,
+                from.format(DATE_FORMATTER_PARSE),
+                to.format(DATE_FORMATTER_PARSE));
     }
 
     /**
      * Creates an Event from its stored string representation.
      *
-     * @param text The stored string representation of the event.
+     * @param parts The parts of the stored string split by " | ".
      * @return The reconstructed Event object.
      * @throws IllegalArgumentException If the input format is invalid.
      */
-    public static Event fromStoreFormat(String text) {
-        String[] parts = text.split(" \\| ", -1);
+    public static Event fromStoreFormat(String... parts) {
         if (parts.length < 5) {
-            throw new IllegalArgumentException("Invalid Event format: " + text);
+            throw new IllegalArgumentException("Invalid Event format: " + String.join(" | ", parts));
         }
-        boolean isDone = parts[1].equals("X");
+        boolean isDone = !parts[1].equals(" ");
         String description = parts[2].replace("\\|", "|");
         LocalDateTime from = LocalDateTime.parse(parts[3], DATE_FORMATTER_PARSE);
         LocalDateTime to = LocalDateTime.parse(parts[4], DATE_FORMATTER_PARSE);

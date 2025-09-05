@@ -26,7 +26,6 @@ public class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
-
         this.description = description;
         this.isDone = false;
     }
@@ -37,7 +36,6 @@ public class Task {
      * @return "X" if done, otherwise a space.
      */
     public String getMarkStatusIcon() {
-
         return (isDone ? "X" : " "); // mark done task with X
     }
 
@@ -47,7 +45,6 @@ public class Task {
      * @return String representation of the task.
      */
     public String toString() {
-
         return "[" + this.getMarkStatusIcon() + "] " + this.description;
     }
 
@@ -55,7 +52,6 @@ public class Task {
      * Marks the task as done.
      */
     public void markAsDone() {
-
         this.isDone = true;
     }
 
@@ -63,13 +59,13 @@ public class Task {
      * Marks the task as not done.
      */
     public void markAsNotDone() {
-
         this.isDone = false;
     }
 
     /**
      * Converts the task to a plain text format for saving.
      * Escapes the '|' character in the description to avoid conflicts.
+     *
      * @return A string representation of the task.
      */
     public String toStoreFormat() {
@@ -77,7 +73,23 @@ public class Task {
     }
 
     /**
+     * Joins multiple parts into a single string for storage, escaping '|' characters.
+     *
+     * @param parts The parts to join.
+     * @return A single string with parts joined by " | ".
+     */
+    protected String partsToStoreFormat(String... parts) {
+        // escape the '|' character in all parts
+        for (int i = 0; i < parts.length; i++) {
+            parts[i] = parts[i].replace("|", "\\|");
+        }
+
+        return String.join(" | ", parts);
+    }
+
+    /**
      * Gets the description of the task.
+     *
      * @return The task description.
      */
     public String getDescription() {
@@ -87,20 +99,21 @@ public class Task {
     /**
      * Creates a Task object from a plain text format.
      * Unescapes the '|' character in the description.
+     *
      * @param text The plain text representation of the task.
      * @return A Task object.
      */
     public static Task fromStoreFormat(String text) throws HaBotException {
-        String[] parts = text.split(" \\| ", 2); // Split into all parts
+        String[] parts = text.split(" \\| ", -1); // Split into all parts
         if (parts.length < 2) {
             throw new HaBotException("Invalid task format: " + text);
         }
         String type = parts[0];
-        String[] restParts = new String[parts.length - 1];
+
         return switch (type) {
-        case "T" -> ToDo.fromStoreFormat(text);
-        case "D" -> Deadline.fromStoreFormat(text);
-        case "E" -> Event.fromStoreFormat(text);
+        case "T" -> ToDo.fromStoreFormat(parts);
+        case "D" -> Deadline.fromStoreFormat(parts);
+        case "E" -> Event.fromStoreFormat(parts);
         default -> throw new HaBotException("Unknown task type: " + type);
         };
     }

@@ -43,21 +43,4 @@ public class Ui {
         System.out.println(logo);
         send("Hello! I'm " + name + "! (* v *)ノシ\nWhat can I do for you?");
     }
-
-    /**
-     * Returns a hint string showing the number of tasks left to do.
-     * @return A formatted string with the number of tasks remaining.
-     */
-    public String taskLeftHint(int taskCount) {
-        return "The number of tasks you have to do: ★ " + taskCount + " ★ ノ(゜-゜ノ)";
-    }
-
-
-    public void error(String message) {
-        send("Error (ノ•`_´•)ノ︵┻━┻ " + message);
-    }
-
-    public void unexpectedError(String message) {
-        send("Unexpected Error (ノ•`o´•)ノ︵┻━┻ " + message);
-    }
 }

@@ -19,11 +19,14 @@ public class ListCommand extends Command {
 
     /**
      * Executes the list command, which lists all tasks.
+     *
+     * @param taskList The TaskList to operate on.
+     * @param storage The Storage to save/load tasks (not used in this command).
+     * @throws HaBotException If an error occurs during execution.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws HaBotException {
+    public void execute(TaskList taskList, Storage storage) throws HaBotException {
         // Print the list of tasks
         String hint = "Here are the tasks in your list (๑•̀ㅂ•́)ง✧\n";
         output = hint + taskList.list();
-        ui.send(output);
     }
 }

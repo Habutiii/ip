@@ -13,7 +13,6 @@ import habot.Storage;
 import habot.TaskList;
 import habot.exception.HaBotException;
 import habot.task.ToDo;
-import habot.ui.FakeUi;
 
 @DisplayName("MarkCommand")
 class MarkCommandTest {
@@ -23,7 +22,6 @@ class MarkCommandTest {
     void markCommandTogglesAndValidates(@TempDir Path tmp) {
         TaskList tl = new TaskList();
         tl.add(new ToDo("x"));
-        FakeUi ui = new FakeUi();
         Storage storage = new Storage(tmp.resolve("tasks.txt").toString());
 
         // Invalid index format - mark
@@ -36,18 +34,20 @@ class MarkCommandTest {
 
         // Out of range
         HaBotException e2 = assertThrows(HaBotException.class, () -> new MarkCommand(
-                "2", true).execute(tl, ui, storage));
+                "2", true).execute(tl, storage));
         assertTrue(e2.getMessage().contains("Invalid task index."));
 
         // Mark success
-        new MarkCommand("1", true).execute(tl, ui, storage);
-        assertTrue(ui.getLastMessage().contains("OK! Done done done! ᕙ(`▽´)ᕗ"));
-        assertTrue(ui.getLastMessage().contains("[T][X] x"));
+        MarkCommand cmd = new MarkCommand("1", true);
+        cmd.execute(tl, storage);
+        assertTrue(cmd.getOutput().contains("OK! Done done done! ᕙ(`▽´)ᕗ"));
+        assertTrue(cmd.getOutput().contains("[T][X] x"));
 
         // Unmark success
-        new MarkCommand("1", false).execute(tl, ui, storage);
-        assertTrue(ui.getLastMessage().contains("Awww, still need do (º﹃º)ᕗ"));
-        assertTrue(ui.getLastMessage().contains("[T][ ] x"));
+        cmd = new MarkCommand("1", false);
+        cmd.execute(tl, storage);
+        assertTrue(cmd.getOutput().contains("Awww, still need do (º﹃º)ᕗ"));
+        assertTrue(cmd.getOutput().contains("[T][ ] x"));
     }
 }
 

@@ -11,7 +11,6 @@ import org.junit.jupiter.api.io.TempDir;
 import habot.Storage;
 import habot.TaskList;
 import habot.task.ToDo;
-import habot.ui.FakeUi;
 
 
 @DisplayName("FindCommand")
@@ -21,18 +20,19 @@ public class FindCommandTest {
     @DisplayName("returns 'no tasks found' for empty and non-matching lists")
     void findCommandNoMatches(@TempDir Path tmp) {
         TaskList tl = new TaskList();
-        FakeUi ui = new FakeUi();
         Storage storage = new Storage(tmp.resolve("tasks.txt").toString());
 
         // Empty list
-        new FindCommand("milk").execute(tl, ui, storage);
-        assertEquals("No tasks found matching the keyword ( ╥ ‸ ╥ ) : milk", ui.getLastMessage());
+        FindCommand cmd = new FindCommand("milk");
+        cmd.execute(tl, storage);
+        assertEquals("No tasks found matching the keyword ( ╥ ‸ ╥ ) : milk", cmd.getOutput());
 
         // Non-matching list
         tl.add(new ToDo("bread"));
         tl.add(new ToDo("butter"));
-        new FindCommand("milk").execute(tl, ui, storage);
-        assertEquals("No tasks found matching the keyword ( ╥ ‸ ╥ ) : milk", ui.getLastMessage());
+        cmd = new FindCommand("milk");
+        cmd.execute(tl, storage);
+        assertEquals("No tasks found matching the keyword ( ╥ ‸ ╥ ) : milk", cmd.getOutput());
     }
 
     @Test
@@ -44,13 +44,13 @@ public class FindCommandTest {
         tl.add(new ToDo("ALPHA two")); // index 3
         tl.add(new ToDo("gamma")); // index 4
 
-        FakeUi ui = new FakeUi();
         Storage storage = new Storage(tmp.resolve("tasks.txt").toString());
 
-        new FindCommand("AlPhA").execute(tl, ui, storage);
+        FindCommand cmd = new FindCommand("AlPhA");
+        cmd.execute(tl, storage);
         String expected = "Here are the matching tasks in your list ( ˶ˆᗜˆ˵ ) :\n"
                 + "1.[T][ ] alpha\n"
                 + "3.[T][ ] ALPHA two";
-        assertEquals(expected, ui.getLastMessage());
+        assertEquals(expected, cmd.getOutput());
     }
 }

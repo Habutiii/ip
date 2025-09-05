@@ -1,5 +1,7 @@
 package habot;
 
+import java.util.Stack;
+
 import habot.command.ByeCommand;
 import habot.command.Command;
 import habot.command.CommandType;
@@ -10,6 +12,7 @@ import habot.command.FindCommand;
 import habot.command.ListCommand;
 import habot.command.MarkCommand;
 import habot.command.ToDoCommand;
+import habot.command.UndoCommand;
 import habot.exception.HaBotException;
 
 /**
@@ -36,7 +39,7 @@ public class Parser {
      * @return The HaBot.Command.CommandType corresponding to the command.
      * @throws IllegalArgumentException If the command is invalid.
      */
-    public static Command parse(String command) {
+    public static Command parse(String command, Stack<Command> undoableCommandHistory) {
         CommandType commandType = CommandType.fromInput(command);
 
         return switch (commandType) {
@@ -48,6 +51,7 @@ public class Parser {
         case TODO -> new ToDoCommand(parseArguments(command));
         case DEADLINE -> new DeadlineCommand(parseArguments(command));
         case EVENT -> new EventCommand(parseArguments(command));
+        case UNDO -> new UndoCommand(undoableCommandHistory);
         case BYE -> new ByeCommand();
         // If the command is not recognized, throw an exception
         default -> throw new HaBotException("Sorry, What are you trying to say? ( ˶°ㅁ°) !???\n"

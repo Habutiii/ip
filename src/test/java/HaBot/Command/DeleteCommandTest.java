@@ -14,7 +14,6 @@ import habot.Storage;
 import habot.TaskList;
 import habot.exception.HaBotException;
 import habot.task.ToDo;
-import habot.ui.FakeUi;
 
 
 @DisplayName("DeleteCommand")
@@ -26,7 +25,6 @@ class DeleteCommandTest {
         TaskList tl = new TaskList();
         tl.add(new ToDo("first"));
         tl.add(new ToDo("second"));
-        FakeUi ui = new FakeUi();
         Storage storage = new Storage(tmp.resolve("tasks.txt").toString());
 
         // Invalid index format
@@ -34,15 +32,17 @@ class DeleteCommandTest {
         assertTrue(e.getMessage().contains("Invalid input format. Please use 'delete <task number>'"));
 
         // Out of range
-        HaBotException e2 = assertThrows(HaBotException.class, () -> new DeleteCommand("3").execute(tl, ui, storage));
+        HaBotException e2 = assertThrows(HaBotException.class, () -> new DeleteCommand("3").execute(tl, storage));
         assertTrue(e2.getMessage().contains("Invalid task index."));
 
         // Success
-        new DeleteCommand("1").execute(tl, ui, storage);
+        DeleteCommand cmd = new DeleteCommand("1");
+        cmd.execute(tl, storage);
+        String output = cmd.getOutput();
         assertEquals(1, tl.size());
-        assertTrue(ui.getLastMessage().contains("OK! Removed task!"));
-        assertTrue(ui.getLastMessage().contains("The number of tasks you have to do: ★ 1 ★"));
-        assertTrue(ui.getLastMessage().contains("first"));
+        assertTrue(output.contains("OK! Removed task!"));
+        assertTrue(output.contains("The number of tasks you have to do: ★ 1 ★"));
+        assertTrue(output.contains("first"));
     }
 }
 

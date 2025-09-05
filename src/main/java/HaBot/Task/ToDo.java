@@ -11,7 +11,6 @@ public class ToDo extends Task {
      * @param description The description of the to-do task.
      */
     public ToDo(String description) {
-
         super(description);
     }
 
@@ -25,25 +24,28 @@ public class ToDo extends Task {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Converts the to-do task to a plain text format for saving.
+     *
+     * @return A string representation of the to-do task for storage.
+     */
     @Override
     public String toStoreFormat() {
-        String escapedDescription = description.replace("|", "\\|");
-        return "T | " + getMarkStatusIcon() + " | " + escapedDescription;
+        return super.partsToStoreFormat("T", getMarkStatusIcon(), description);
     }
 
     /**
      * Creates a ToDo task from its stored string format.
      *
-     * @param text The stored string representation of the ToDo task.
+     * @param parts The parts of the stored string split by " | ".
      * @return A ToDo object represented by the given string.
      * @throws IllegalArgumentException If the input format is invalid.
      */
-    public static ToDo fromStoreFormat(String text) {
-        String[] parts = text.split(" \\| ", -1);
+    public static ToDo fromStoreFormat(String... parts) {
         if (parts.length < 3) {
-            throw new IllegalArgumentException("Invalid ToDo format: " + text);
+            throw new IllegalArgumentException("Invalid ToDo format: " + String.join(" | ", parts));
         }
-        boolean isDone = parts[1].equals("X");
+        boolean isDone = !parts[1].equals(" ");
         String description = parts[2].replace("\\|", "|");
         ToDo todo = new ToDo(description);
         if (isDone) {

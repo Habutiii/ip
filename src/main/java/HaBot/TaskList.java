@@ -2,6 +2,8 @@ package habot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import habot.exception.HaBotException;
 import habot.task.Task;
@@ -25,6 +27,7 @@ public class TaskList {
     /**
      * Constructs a TaskList and loads tasks from the given list of strings.
      * Each string represents a task in a specific storage format.
+     *
      * @param lines The list of strings representing stored tasks.
      * @throws HaBotException If there is an error during loading.
      */
@@ -37,6 +40,7 @@ public class TaskList {
             try {
                 Task task = Task.fromStoreFormat(line);
                 this.tasks.add(task);
+
             } catch (HaBotException e) {
                 throw new HaBotException("Error loading task from file: " + e.getMessage());
             }
@@ -58,6 +62,7 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the list.
+     *
      * @return The size of the task list.
      */
     public int size() {
@@ -66,6 +71,7 @@ public class TaskList {
 
     /**
      * Validates that the given index is within the bounds of the task list.
+     *
      * @param index The index to validate.
      * @throws HaBotException If the index is out of bounds.
      */
@@ -77,6 +83,7 @@ public class TaskList {
 
     /**
      * Adds a task to the list.
+     *
      * @param task The task to add.
      */
     public void add(Task task) throws HaBotException {
@@ -84,7 +91,20 @@ public class TaskList {
     }
 
     /**
+     * Inserts a task at the specified index.
+     *
+     * @param index The index at which to insert the task (0-based).
+     * @param task  The task to insert.
+     * @throws HaBotException If the index is out of bounds.
+     */
+    public void insert(int index, Task task) throws HaBotException {
+        validateIndex(index);
+        tasks.add(index, task);
+    }
+
+    /**
      * Removes and returns the task at the specified index.
+     *
      * @param index The index of the task to remove (0-based).
      * @return The removed HaBot.Task.Task.
      * @throws HaBotException If the index is out of bounds.
@@ -98,6 +118,7 @@ public class TaskList {
 
     /**
      * Retrieves the task at the specified index.
+     *
      * @param index The index of the task to retrieve (0-based).
      * @return The HaBot.Task.Task at the given index.
      * @throws HaBotException If the index is out of bounds.
@@ -109,6 +130,7 @@ public class TaskList {
 
     /**
      * Returns a formatted string listing all tasks.
+     *
      * @return A string listing all tasks, each on a new line.
      * @throws HaBotException If there are no tasks stored yet.
      */
@@ -116,18 +138,14 @@ public class TaskList {
         if (tasks.isEmpty()) {
             throw new HaBotException("No task stored yet.");
         }
-        StringBuilder out = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            out.append(i + 1).append(".").append(tasks.get(i));
-            if (i < tasks.size() - 1) {
-                out.append("\n");
-            }
-        }
-        return out.toString();
+        return IntStream.range(0, tasks.size())
+                .mapToObj(i -> (i + 1) + "." + tasks.get(i))
+                .collect(Collectors.joining("\n"));
     }
 
     /**
      * Marks or unmarks the task at the specified index as done or not done.
+     *
      * @param index The index of the task to mark (0-based).
      * @param isDone True to mark as done, false to unmark.
      * @throws HaBotException If the index is out of bounds.

@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for HaBot using FXML.
  */
 public class Main extends Application {
 
@@ -22,7 +22,7 @@ public class Main extends Application {
             stage.setTitle("HaBot");
 
             // Set window icon (make sure the path is correct)
-            stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/bot_128.png")));
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/Bot_128.png")));
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();

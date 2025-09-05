@@ -23,9 +23,8 @@ public class ByeCommand extends Command {
      * @param ui The UI to interact with the user.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Storage storage) {
         output = "Bye. Hope to see you again soon! (•̀ᴗ•́)و ✧";
-        ui.send(output);
     }
 
     /**

@@ -44,12 +44,14 @@ public class Deadline extends Task {
                 + " (By: " + by.format(DATE_FORMATTER_PRINT) + ")";
     }
 
+    /**
+     * Converts the Deadline task to a plain text format for saving.
+     *
+     * @return A string representation of the HaBot.Task.Deadline task for storage.
+     */
     @Override
     public String toStoreFormat() {
-        String escapedDescription = description.replace("|", "\\|");
-        return "D | " + getMarkStatusIcon()
-                + " | " + escapedDescription
-                + " | " + by.format(DATE_FORMATTER_PARSE);
+        return super.partsToStoreFormat("D", getMarkStatusIcon(), description, by.format(DATE_FORMATTER_PARSE));
     }
 
     /**
@@ -57,16 +59,15 @@ public class Deadline extends Task {
      * The expected format is: D | status | description | by
      * where status is "X" if the task is done, and " " if not done.
      *
-     * @param text The stored string representation of the Deadline task.
+     * @param parts The parts of the stored string split by " | ".
      * @return A Deadline task constructed from the string.
      * @throws IllegalArgumentException If the input string is not in the correct format.
      */
-    public static Deadline fromStoreFormat(String text) {
-        String[] parts = text.split(" \\| ", -1);
+    public static Deadline fromStoreFormat(String... parts) {
         if (parts.length < 4) {
-            throw new IllegalArgumentException("Invalid Deadline format: " + text);
+            throw new IllegalArgumentException("Invalid Deadline format: " + String.join(" | ", parts));
         }
-        boolean isDone = parts[1].equals("X");
+        boolean isDone = !parts[1].equals(" ");
         String description = parts[2].replace("\\|", "|");
         LocalDateTime by = LocalDateTime.parse(parts[3], DATE_FORMATTER_PARSE);
         Deadline deadline = new Deadline(description, by);
