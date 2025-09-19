@@ -77,4 +77,8 @@ public class HaBot {
     public CommandType getCommandType() {
         return commandType;
     }
+
+    public boolean isExiting() {
+        return isExiting;
+    }
 }

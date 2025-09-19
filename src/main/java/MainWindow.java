@@ -60,10 +60,27 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = bot.getResponse(input);
         CommandType commandType = bot.getCommandType();
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBotDialog(response, botImage, commandType)
-        );
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
+        DialogBox botDialog = DialogBox.getBotDialog(response, botImage, commandType);
+        dialogContainer.getChildren().addAll(userDialog, botDialog);
         userInput.clear();
+
+        if (bot.isExiting()) {
+            int sleepWaitTime = 3000;
+            // disable user input and button when exiting
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
+            // Create a new thread for sleeping and exiting
+            new Thread(() -> {
+                try {
+                    Thread.sleep(sleepWaitTime); // Sleep for 5 seconds in the background
+                } catch (Exception e) {
+                    // Do nothing
+                }
+
+                // Exit the application after sleeping
+                System.exit(0); // Exit on the UI thread
+            }).start(); // Start the background thread
+        }
     }
 }
