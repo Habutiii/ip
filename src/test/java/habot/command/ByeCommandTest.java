@@ -24,6 +24,6 @@ class ByeCommandTest {
         ByeCommand cmd = new ByeCommand();
         cmd.execute(tl, storage);
         assertEquals("Bye. Hope to see you again soon! (•̀ᴗ•́)و ✧", cmd.getOutput());
-        assertTrue(cmd.toExit());
+        assertTrue(cmd.isExisting());
     }
 }

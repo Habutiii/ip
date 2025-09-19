@@ -45,7 +45,7 @@ public class Command {
      *
      * @return true if the application should exit, false otherwise.
      */
-    public boolean toExit() {
+    public boolean isExisting() {
         return false; // default implementation, can be overridden
     }
 
@@ -78,5 +78,4 @@ public class Command {
         // does nothing by default
     }
 }
-
 

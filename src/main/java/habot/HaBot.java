@@ -55,7 +55,7 @@ public class HaBot {
             Command command = Parser.parse(input, UNDOABLE_COMMAND_HISTORY); // Parse the user input into a command
             command.execute(taskList, storage); // Execute the command
             commandType = command.getCommandType();
-            isExiting = command.toExit(); // Check if the command is a 'bye' command
+            isExiting = command.isExisting(); // Check if the command is a 'bye' command
 
             if (command.isUndoable()) {
                 UNDOABLE_COMMAND_HISTORY.push(command);

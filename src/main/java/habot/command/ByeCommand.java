@@ -31,7 +31,7 @@ public class ByeCommand extends Command {
      * @return true, indicating that the application should exit.
      */
     @Override
-    public boolean toExit() {
+    public boolean isExisting() {
         return true; // This command indicates that the application should exit
     }
 }
