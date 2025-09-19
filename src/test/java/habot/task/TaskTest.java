@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import habot.exception.HaBotException;
 import habot.exception.HaBotInvalidFormatException;
 
 
@@ -29,7 +30,7 @@ class TaskTest {
         Task t = Task.fromStoreFormat("T |   | alpha");
         assertEquals("[T][ ] alpha", t.toString());
         Exception ex = assertThrows(
-                habot.exception.HaBotException.class, () -> Task.fromStoreFormat(
+                HaBotException.class, () -> Task.fromStoreFormat(
                         "X |   | oops"));
         assertTrue(ex.getMessage().contains("Invalid task format"));
     }

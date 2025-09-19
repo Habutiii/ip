@@ -25,7 +25,7 @@ public class AddTaskCommand extends Command {
      * @throws HaBotException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage) throws habot.exception.HaBotException {
+    public void execute(TaskList taskList, Storage storage) throws HaBotException {
         int oldSize = taskList.size();
 
         taskList.add(task);
