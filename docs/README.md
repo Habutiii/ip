@@ -16,6 +16,7 @@ HaBot is a **desktop chatbot application** designed to help you manage your task
    - [Listing All Tasks](#listing-all-tasks)
    - [Marking Tasks as Done](#marking-tasks-as-done)
    - [Deleting Tasks](#deleting-tasks)
+   - [Undo last mutable task](#undoing-the-last-mutation-action)
    - [Exiting the Program](#exiting-the-program)
 3. [Command Summary](#command-summary)
 
@@ -133,8 +134,18 @@ Remove a task from your task list.
   delete 2
   ```
 
+### 7. Undoing the Last Mutation Action
 
-### 7. Exiting the Program
+Revert the most recent mutable action you performed.
+This includes commands like add, delete, mark, unmark, and add events.
+
+- **Format:**
+  ```
+  undo
+  ```
+
+
+### 8. Exiting the Program
 
 Exit HaBot.
 

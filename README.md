@@ -22,6 +22,7 @@ And yes, it’s still **FREE**!
 ---
 
 ## 🚀 Improvements Made
+- Added **`undo` command** to undo the last mutable task (`add`, `delete`, `mark`, `unmark` and adding of events) done.
 - Added **`find` command** to search tasks by keyword (case-insensitive).
 - Improved **output formatting** for easier reading.
 - Enhanced **unit tests** with JUnit 5 for better reliability.
